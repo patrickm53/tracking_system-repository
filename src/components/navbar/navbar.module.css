@@ -26,34 +26,22 @@
   color: rgb(26, 180, 26);
 }
 
+.image {
+  border-radius: 50%;
+}
+
+.middle {
+  display: flex;
+}
+
+.middle > button {
+  margin-right: 20px;
+}
+
 .right {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-}
-
-.right > div > img {
-  object-fit: cover;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.logout {
-  cursor: pointer;
-  margin-left: 1rem;
-  padding: 0.4rem 1rem;
-  border: none;
-  color: #fff;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 17px;
-  background-color: #10c142;
-}
-
-.create {
-  color: #444;
-  font-size: 18px;
-  font-weight: 300;
 }
 
 .login {
@@ -67,29 +55,20 @@
   cursor: pointer;
 }
 
-.dropdown {
-  position: absolute;
-  background-color: #efefef;
-  padding: 1rem;
+.search {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
-  top: 2.5rem;
-  right: -3rem;
-  border-radius: 8px;
 }
 
-.dropdown > :nth-child(2) {
-  margin-top: 1rem;
+.search > input {
+  width: 60%;
+  border: 1px solid #a9a9a9;
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin-right: 8px;
 }
 
-.dropdown > * {
-  cursor: pointer;
-}
-
-.closeIcon {
-  position: absolute;
-  top: 0.3rem;
-  right: 0.3rem;
+.search > .icons {
+  font-weight: bold;
+  font-size: 24px;
 }
