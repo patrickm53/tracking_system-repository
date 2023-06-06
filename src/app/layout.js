@@ -1,3 +1,4 @@
+import connectDB from "@/lib/db";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
@@ -11,6 +12,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  connectDB();
   return (
     <html lang="en">
       <body className={inter.className}>
