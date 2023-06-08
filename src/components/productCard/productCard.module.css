@@ -82,18 +82,20 @@
   font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
   color: #fff;
   margin: 0;
+  height: 36px;
+  overflow: hidden;
 }
 
 .wrapper > .bookDetail > .authorDetail > h3 {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 11px;
   color: #afafaf;
-  margin-top: -7px;
+  margin-top: -10px;
 }
 
 .rateLike {

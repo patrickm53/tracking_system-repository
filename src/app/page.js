@@ -5,7 +5,6 @@ import classes from "./page.module.css";
 import { books } from "../lib/data";
 
 const Home = () => {
-  console.log(books.length);
   return (
     <div className={classes.container}>
       <Slider />
