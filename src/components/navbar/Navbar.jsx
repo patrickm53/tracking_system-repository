@@ -6,9 +6,11 @@ import classes from "./navbar.module.css";
 import person from "../../../public/person.jpg";
 import logo from "../../../public/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
-  const loggenIn = true;
+  const { data: session } = useSession();
+  const loggenIn = false;
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -45,7 +47,7 @@ const Navbar = () => {
               <AiOutlineSearch className={classes.icons} />
             </div>
           </div>
-          {loggenIn ? (
+          {session?.user ? (
             <button className={classes.navbarProfile}>
               <Link href="/profile">
                 <Image
@@ -60,7 +62,14 @@ const Navbar = () => {
           ) : (
             <ul className={classes.right}>
               <>
-                <button className={classes.login}>Log in</button>
+                <button
+                  onClick={() => {
+                    signIn();
+                  }}
+                  className={classes.login}
+                >
+                  Log in
+                </button>
                 <Link href="/register">Register</Link>
               </>
             </ul>

@@ -1,8 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "../../../../models/User";
+import User from "@/models/User";
 import { signJwtToken } from "@/lib/jwt";
 import bcrypt from "bcrypt";
+import connect from "@/lib/db";
 
 const handler = NextAuth({
   providers: [
@@ -14,6 +15,8 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         const { email, password } = credentials;
+
+        await connect();
 
         const user = await User.findOne({ email });
 
