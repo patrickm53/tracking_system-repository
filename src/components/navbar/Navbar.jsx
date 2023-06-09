@@ -49,7 +49,7 @@ const Navbar = () => {
           </div>
           {session?.user ? (
             <button className={classes.navbarProfile}>
-              <Link href="/profile">
+              <Link href={`/profile/${session.user._id}`}>
                 <Image
                   alt="profilResmi"
                   src={person}
