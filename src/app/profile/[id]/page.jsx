@@ -1,14 +1,14 @@
 "use client";
-import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { profile } from "@/lib/profile";
+import classes from "./profile.module.css";
+import Image from "next/image";
 
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
-
-  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -39,8 +39,31 @@ const Profile = (ctx) => {
   };
 
   return (
-    <div>
-      <div>user: {user?.email}</div>
+    <div className={classes.container}>
+      <div className={classes.imageContainer}>
+        <Image
+          className={classes.backgroundImage}
+          alt="background"
+          src={profile[0].backgroundImage}
+          heigh={100}
+        />
+      </div>
+      <div className={classes.wrapper}>
+        <div className={classes.personProfile}>
+          <div className={classes.profileImageContainer}>
+            <Image
+              className={classes.profileImage}
+              alt="profilePerson"
+              src={profile[0].profileImage}
+              width={150}
+              height={150}
+            />
+          </div>
+          <h2>{profile[0].name}</h2>
+          <h3>@{profile[0].username}</h3>
+        </div>
+        <div className={classes.post}></div>
+      </div>
       <Link href="/">
         <button onClick={handleSignOut}>logout</button>
       </Link>

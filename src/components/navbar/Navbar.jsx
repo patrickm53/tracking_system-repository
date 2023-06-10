@@ -6,7 +6,7 @@ import classes from "./navbar.module.css";
 import person from "../../../public/person.jpg";
 import logo from "../../../public/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const { data: session } = useSession();

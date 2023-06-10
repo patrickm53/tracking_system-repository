@@ -1,0 +1,48 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #efefef;
+}
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.backgroundImage {
+  width: 95%;
+  height: 250px;
+  object-fit: cover;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.wrapper {
+  width: 90%;
+  display: flex;
+}
+
+.personProfile {
+  padding: 10px;
+  width: 280px;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: -75px;
+  box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+}
+
+.personProfile > .profileImageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.personProfile > .profileImageContainer > .profileImage {
+  border-radius: 50%;
+}
