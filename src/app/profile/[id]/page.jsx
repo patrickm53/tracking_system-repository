@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { profile } from "@/lib/profile";
 import classes from "./profile.module.css";
 import Image from "next/image";
+import { AiFillBook } from "react-icons/ai";
+import { GrLocation } from "react-icons/gr";
 
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
@@ -59,8 +61,16 @@ const Profile = (ctx) => {
               height={150}
             />
           </div>
-          <h2>{profile[0].name}</h2>
+          <h2>
+            {profile[0].name}
+            <AiFillBook />
+          </h2>
           <h3>@{profile[0].username}</h3>
+          <p>Okul gezer yer</p>
+          <a>@Twitter</a>
+          <div className={classes.location}>
+            <GrLocation className={classes.locationIcon} /> Türkiye
+          </div>
         </div>
         <div className={classes.post}></div>
       </div>

@@ -22,7 +22,7 @@
 }
 
 .wrapper {
-  width: 90%;
+  width: 80%;
   display: flex;
 }
 
@@ -45,4 +45,38 @@
 
 .personProfile > .profileImageContainer > .profileImage {
   border-radius: 50%;
+}
+
+.personProfile > h2 {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-left: 25px;
+  gap: 10px;
+}
+
+.personProfile > h3 {
+  margin-left: 25px;
+  color: grey;
+}
+
+.personProfile > p {
+  margin-left: 25px;
+  margin-top: 25px;
+  font-weight: 500;
+}
+
+.personProfile > a {
+  margin-left: 25px;
+  color: rgb(78, 190, 255);
+  cursor: pointer;
+}
+
+.personProfile > .location {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  margin-top: 10px;
 }
