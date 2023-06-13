@@ -45,6 +45,7 @@
 
 .personProfile > .profileImageContainer > .profileImage {
   border-radius: 50%;
+  opacity: 0.8;
 }
 
 .personProfile > h2 {
@@ -64,13 +65,48 @@
 
 .personProfile > p {
   margin-left: 25px;
-  margin-top: 25px;
+  margin-top: 15px;
   font-weight: 500;
 }
 
 .personProfile > a {
   margin-left: 25px;
-  color: rgb(78, 190, 255);
+  color: rgb(49, 176, 249);
+  cursor: pointer;
+}
+
+.personProfile > .information {
+  margin-left: 25px;
+  margin-top: 15px;
+}
+
+.personProfile > .information > .info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 24px;
+  margin-bottom: 4px;
+  color: grey;
+  font-weight: 600;
+}
+
+.personProfile > .information > .link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 24px;
+  margin-bottom: 4px;
+  color: grey;
+  font-weight: 600;
+}
+
+.personProfile > .information > .info > span {
+  font-size: 14px;
+}
+
+.personProfile > .information > .link > a {
+  font-size: 14px;
+  color: rgb(49, 176, 249);
   cursor: pointer;
 }
 
@@ -78,5 +114,11 @@
   display: flex;
   align-items: center;
   margin-left: 25px;
-  margin-top: 10px;
+  color: grey;
+  font-size: 24px;
+  gap: 4px;
+}
+
+.personProfile > .location > span {
+  font-size: 16px;
 }

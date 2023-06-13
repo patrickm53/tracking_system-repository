@@ -7,7 +7,10 @@ import { profile } from "@/lib/profile";
 import classes from "./profile.module.css";
 import Image from "next/image";
 import { AiFillBook } from "react-icons/ai";
-import { GrLocation } from "react-icons/gr";
+import { FaBirthdayCake } from "react-icons/fa";
+import { BiCurrentLocation } from "react-icons/bi";
+import { TbNetwork } from "react-icons/tb";
+import { BsFillPostcardFill } from "react-icons/bs";
 
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
@@ -28,8 +31,6 @@ const Profile = (ctx) => {
       setUser(user);
     }
     fetchUser();
-
-    console.log(user);
   }, []);
 
   const handleSignOut = async (event) => {
@@ -68,8 +69,21 @@ const Profile = (ctx) => {
           <h3>@{profile[0].username}</h3>
           <p>Okul gezer yer</p>
           <a>@Twitter</a>
-          <div className={classes.location}>
-            <GrLocation className={classes.locationIcon} /> Türkiye
+          <div className={classes.information}>
+            <div className={classes.info}>
+              <BiCurrentLocation /> <span>Türkiye</span>
+            </div>
+            <div className={classes.link}>
+              <TbNetwork />
+              <a>seyityahya.com</a>
+            </div>
+            <div className={classes.info}>
+              <FaBirthdayCake /> <span>mart 1999</span>
+            </div>
+            <div className={classes.link}>
+              <BsFillPostcardFill />
+              <a>28 post - 150 comment</a>
+            </div>
           </div>
         </div>
         <div className={classes.post}></div>
