@@ -1,16 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { AiFillBook } from "react-icons/ai";
+import { FaBirthdayCake } from "react-icons/fa";
+import { BiCurrentLocation } from "react-icons/bi";
+import { TbNetwork } from "react-icons/tb";
+import { BsFillPostcardFill } from "react-icons/bs";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { profile } from "@/lib/profile";
 import classes from "./profile.module.css";
 import Image from "next/image";
-import { AiFillBook } from "react-icons/ai";
-import { FaBirthdayCake } from "react-icons/fa";
-import { BiCurrentLocation } from "react-icons/bi";
-import { TbNetwork } from "react-icons/tb";
-import { BsFillPostcardFill } from "react-icons/bs";
+import { books } from "../../../lib/data";
+import ProfilePost from "@/components/profilePost/ProfilePost";
 
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
@@ -44,12 +46,18 @@ const Profile = (ctx) => {
   return (
     <div className={classes.container}>
       <div className={classes.imageContainer}>
-        <Image
-          className={classes.backgroundImage}
-          alt="background"
-          src={profile[0].backgroundImage}
-          heigh={100}
-        />
+        <div className={classes.profileNavbar}>
+          <Image
+            className={classes.backgroundImage}
+            alt="background"
+            src={profile[0].backgroundImage}
+            heigh={100}
+          />
+          <div className={classes.navbar}>
+            <p>deneme</p>
+            <p>follows</p>
+          </div>
+        </div>
       </div>
       <div className={classes.wrapper}>
         <div className={classes.personProfile}>
@@ -85,12 +93,19 @@ const Profile = (ctx) => {
               <a>28 post - 150 comment</a>
             </div>
           </div>
+          <Link href="/">
+            <button onClick={handleSignOut}>logout</button>
+          </Link>
         </div>
-        <div className={classes.post}></div>
+        <div className={classes.post}>
+          {books?.length > 0 ? (
+            books.map((book) => <ProfilePost key={book._id} book={book} />)
+          ) : (
+            <div>kitap yok</div>
+          )}
+        </div>
+        <div className={classes.right}></div>
       </div>
-      <Link href="/">
-        <button onClick={handleSignOut}>logout</button>
-      </Link>
     </div>
   );
 };
