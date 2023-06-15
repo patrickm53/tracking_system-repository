@@ -54,8 +54,13 @@ const Profile = (ctx) => {
             heigh={100}
           />
           <div className={classes.navbar}>
-            <p>deneme</p>
-            <p>follows</p>
+            <div className={classes.navbarLeft}>
+              <button>Yayınlar</button>
+              <button>Yorumlar</button>
+            </div>
+            <div className={classes.navbarRight}>
+              <button>Takip Et</button>
+            </div>
           </div>
         </div>
       </div>
