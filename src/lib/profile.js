@@ -1,5 +1,5 @@
 import person from "../../public/person.jpg";
-import background from "../../public/background.jpg";
+import background from "../../public/background2.jpg";
 
 export const profile = [
   {
