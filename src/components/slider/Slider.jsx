@@ -6,7 +6,7 @@ import slider from "../../../public/slider.png";
 const Slider = () => {
   return (
     <div className={classes.container}>
-      <Image alt="slider" src={slider} width="100%" />
+      <Image alt="slider" src={slider} className={classes.image} width="100%" />
     </div>
   );
 };

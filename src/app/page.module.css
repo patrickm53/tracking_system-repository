@@ -14,7 +14,21 @@
 .product {
   width: 80%;
   margin-top: 3rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+}
+
+@media screen and (max-width: 1500px) {
+  .product {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 998px) {
+  .product {
+    justify-content: center;
+  }
 }

@@ -109,7 +109,74 @@ const Profile = (ctx) => {
             <div>kitap yok</div>
           )}
         </div>
-        <div className={classes.right}></div>
+        <div className={classes.right}>
+          <h2>Takip Önerisi</h2>
+          <div className={classes.followPerson}>
+            <span>
+              <Image
+                className={classes.followImage}
+                alt="takipöneri"
+                src={profile[0].profileImage}
+                width="45"
+                height="45"
+              />
+              <div className={classes.followName}>
+                <a>Deniz Taş</a>
+                <h3>@deniz8255</h3>
+              </div>
+            </span>
+            <button>Takip Et</button>
+          </div>
+          <div className={classes.followPerson}>
+            <span>
+              <Image
+                className={classes.followImage}
+                alt="takipöneri"
+                src={profile[0].profileImage}
+                width="45"
+                height="45"
+              />
+              <div className={classes.followName}>
+                <a>Deniz Taş</a>
+                <h3>@deniz8255</h3>
+              </div>
+            </span>
+            <button>Takip Et</button>
+          </div>
+          <div className={classes.followPerson}>
+            <span>
+              <Image
+                className={classes.followImage}
+                alt="takipöneri"
+                src={profile[0].profileImage}
+                width="45"
+                height="45"
+              />
+              <div className={classes.followName}>
+                <a>Deniz Taş</a>
+                <h3>@deniz8255</h3>
+              </div>
+            </span>
+            <button>Takip Et</button>
+          </div>
+          <div className={classes.followPerson}>
+            <span>
+              <Image
+                className={classes.followImage}
+                alt="takipöneri"
+                src={profile[0].profileImage}
+                width="45"
+                height="45"
+              />
+              <div className={classes.followName}>
+                <a>Deniz Taş</a>
+                <h3>@deniz8255</h3>
+              </div>
+            </span>
+            <button>Takip Et</button>
+          </div>
+          <a>daha fazla</a>
+        </div>
       </div>
     </div>
   );

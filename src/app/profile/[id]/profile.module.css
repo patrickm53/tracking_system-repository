@@ -155,13 +155,59 @@
   width: 50%;
   background-color: aliceblue;
   margin-left: 20px;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .right {
+  position: relative;
   width: 280px;
-  background-color: aqua;
+  height: 50vh;
   margin-left: 25px;
+  margin-top: 50px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+}
+
+.right > .followPerson {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   margin-top: 25px;
-  height: 200px;
+}
+
+.right > .followPerson > span {
+  display: flex;
+}
+
+.followImage {
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.followName > a {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.followName > h3 {
+  color: grey;
+  font-size: 12px;
+}
+
+.followPerson > button {
+  background-color: grey;
+  color: #fff;
+  border-radius: 20px;
+  height: 30px;
+  padding: 0 10px;
+}
+
+.right > a {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 5px;
+  color: rgb(49, 176, 249);
+  cursor: pointer;
 }
