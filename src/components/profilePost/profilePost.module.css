@@ -1,6 +1,50 @@
 .container {
   width: 100%;
   padding: 10px 0;
+  margin-bottom: 25px;
+}
+
+.profilPerson {
+  border-radius: 50%;
+}
+
+.person {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.person > .personLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 5px;
+}
+
+.person > .personLeft > span > h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: -5px;
+}
+
+.person > .personLeft > span > h3 {
+  font-size: 12px;
+  color: grey;
+  font-weight: 300;
+  margin-top: -5px;
+}
+
+.person > .personRight {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 22px;
+  color: grey;
+}
+
+.person > .personRight > p {
+  font-size: 14px;
 }
 
 .wrapper {
@@ -9,8 +53,17 @@
   box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   height: 30vh;
+  padding: 20px 50px;
+  display: flex;
 }
 
-.profilPerson {
-  border-radius: 50%;
+.profilePost > .postImageContainer {
+  height: 100%;
+  width: auto;
+}
+
+.profilePost > .postImageContainer > .bookImage {
+  padding: 3px;
+  height: 100%;
+  width: auto;
 }
