@@ -52,18 +52,79 @@
   background-color: #fff;
   box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  height: 30vh;
+  height: 300px;
   padding: 20px 50px;
   display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.postInformation {
+  width: 70%;
 }
 
 .profilePost > .postImageContainer {
   height: 100%;
-  width: auto;
 }
 
 .profilePost > .postImageContainer > .bookImage {
   padding: 3px;
   height: 100%;
   width: auto;
+}
+
+.postInformation {
+  width: 70%;
+  margin-left: 10px;
+  position: relative;
+}
+
+.postInformation > h1 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+.postInformation > h2 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #7e7d7d;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+.postInformation > p {
+  text-align: justify;
+  text-indent: 20px;
+  height: 66%;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.rateLike {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  gap: 30px;
+  bottom: -10px;
+}
+
+.rateLike > .rate {
+  display: flex;
+  align-items: center;
+}
+
+.rateLike > .rate > .icon {
+  color: grey;
+  margin-right: 3px;
+  font-size: 24px;
+}
+
+.rateLike > .rate > span {
+  color: grey;
+  font-weight: 500;
+  font-size: 14px;
 }

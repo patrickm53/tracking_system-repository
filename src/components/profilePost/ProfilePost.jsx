@@ -5,6 +5,7 @@ import classes from "./profilePost.module.css";
 import person from "../../../public/person.jpg";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import colors from "../../lib/color";
+import { AiOutlineLike, AiFillStar, AiOutlineComment } from "react-icons/ai";
 
 const ProfilePost = ({ key, book }) => {
   const [color, setColor] = useState("");
@@ -44,6 +45,25 @@ const ProfilePost = ({ key, book }) => {
               height="180"
               className={classes.bookImage}
             />
+          </div>
+        </div>
+        <div className={classes.postInformation}>
+          <h1>{book.kitap_ismi}</h1>
+          <h2>{book.yazar}</h2>
+          <p>{book.aciklama}</p>
+          <div className={classes.rateLike}>
+            <div className={classes.rate}>
+              <AiFillStar className={classes.icon} />
+              <span>{book.puan}</span>
+            </div>
+            <div className={classes.rate}>
+              <AiOutlineComment className={classes.icon} />
+              <span>12</span>
+            </div>
+            <div className={classes.rate}>
+              <AiOutlineLike className={classes.icon} />
+              <span>{book.begeni_sayisi}</span>
+            </div>
           </div>
         </div>
       </div>
