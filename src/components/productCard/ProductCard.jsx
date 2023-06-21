@@ -34,7 +34,7 @@ const ProductCard = ({ key, book }) => {
           <button className={classes.followers}>Takip Et</button>
         </div>
         <div style={{ backgroundColor }} className={classes.wrapper}>
-          <Link className={classes.imgContainer} href={`/book`}>
+          <Link className={classes.imgContainer} href={`/book/${book._id}`}>
             <Image
               className={classes.bookImage}
               src={book.resim}
