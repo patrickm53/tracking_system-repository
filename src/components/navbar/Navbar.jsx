@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import classes from "./navbar.module.css";
 import person from "../../../public/person.jpg";
 import logo from "../../../public/logo.png";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlinePlusCircle } from "react-icons/ai";
 import { signIn, useSession } from "next-auth/react";
 
 const Navbar = () => {
@@ -48,17 +48,24 @@ const Navbar = () => {
             </div>
           </div>
           {session?.user ? (
-            <button className={classes.navbarProfile}>
-              <Link href={`/profile/${session.user._id}`}>
-                <Image
-                  alt="profilResmi"
-                  src={person}
-                  width="45"
-                  height="45"
-                  className={classes.image}
-                />
-              </Link>
-            </button>
+            <div className={classes.profile}>
+              <button className={classes.create}>
+                <Link href={`/create-book`}>
+                  <AiOutlinePlusCircle className={classes.createIcon} />
+                </Link>
+              </button>
+              <button className={classes.navbarProfile}>
+                <Link href={`/profile/${session.user._id}`}>
+                  <Image
+                    alt="profilResmi"
+                    src={person}
+                    width="45"
+                    height="45"
+                    className={classes.image}
+                  />
+                </Link>
+              </button>
+            </div>
           ) : (
             <ul className={classes.right}>
               <>
