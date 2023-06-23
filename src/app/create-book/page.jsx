@@ -69,27 +69,27 @@ const CreateBook = () => {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Title..."
+            placeholder="Başlık..."
             onChange={(e) => setTitle(e.target.value)}
-          />
-          <textarea
-            placeholder="Description..."
-            onChange={(e) => setDescription(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Image..."
+            placeholder="Resim..."
             onChange={(e) => setCoverImage(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Rating..."
+            placeholder="Puanı..."
             onChange={(e) => setRating(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Author..."
+            placeholder="Kitap Yazarı..."
             onChange={(e) => setAuthor(e.target.value)}
+          />
+          <textarea
+            placeholder="Hikayen..."
+            onChange={(e) => setDescription(e.target.value)}
           />
           <button className={classes.createBlog}>Create</button>
         </form>
