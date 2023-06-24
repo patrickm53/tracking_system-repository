@@ -4,7 +4,17 @@ import React from "react";
 import classes from "./page.module.css";
 import { books } from "../lib/data";
 
-const Home = () => {
+export async function fetchBooks() {
+  const res = await fetch("http://localhost:3000/api/book", {
+    cache: "no-store",
+  });
+
+  return res.json();
+}
+
+const Home = async () => {
+  const books = await fetchBooks();
+  console.log(books);
   return (
     <div className={classes.container}>
       <Slider />

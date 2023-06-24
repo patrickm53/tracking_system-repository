@@ -26,10 +26,10 @@ const ProductCard = ({ key, book }) => {
             className={classes.personImg}
           />
           <Link href="/profil">
-            <h2 className={classes.uploader}>{book.yukleyen}</h2>
+            <h2 className={classes.uploader}>{book.user.name}</h2>
           </Link>
           <span>•</span>
-          <div className={classes.clock}>{book.saat}</div>
+          <div className={classes.clock}>3s</div>
           <span>•</span>
           <button className={classes.followers}>Takip Et</button>
         </div>
@@ -37,7 +37,7 @@ const ProductCard = ({ key, book }) => {
           <Link className={classes.imgContainer} href={`/book/${book._id}`}>
             <Image
               className={classes.bookImage}
-              src={book.resim}
+              src={book.coverImage}
               alt="book"
               height="220"
               width="155"
@@ -45,18 +45,18 @@ const ProductCard = ({ key, book }) => {
           </Link>
           <div className={classes.bookDetail}>
             <div className={classes.authorDetail}>
-              <h2>{book.kitap_ismi}</h2>
-              <h3>{book.yazar}</h3>
+              <h2>{book.title}</h2>
+              <h3>{book.author}</h3>
             </div>
-            <p>{book.aciklama}</p>
+            <p>{book.description}</p>
             <div className={classes.rateLike}>
               <div className={classes.rate}>
                 <AiFillStar className={classes.star} />
-                <span>{book.puan}</span>
+                <span>{book.rating}</span>
               </div>
               <div className={classes.like}>
                 <AiOutlineLike className={classes.likeIcon} />
-                <span>{book.begeni_sayisi}</span>
+                <span>100</span>
               </div>
             </div>
           </div>
