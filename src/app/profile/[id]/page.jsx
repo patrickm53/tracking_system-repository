@@ -19,9 +19,6 @@ const Profile = (ctx) => {
 
   const router = useRouter();
 
-  console.log(ctx.params.id);
-  console.log(user);
-
   useEffect(() => {
     async function fetchUser() {
       const res = await fetch(

@@ -14,7 +14,6 @@ export async function fetchBooks() {
 
 const Home = async () => {
   const books = await fetchBooks();
-  console.log(books);
   return (
     <div className={classes.container}>
       <Slider />
