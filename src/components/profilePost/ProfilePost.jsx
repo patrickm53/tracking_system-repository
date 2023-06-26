@@ -8,10 +8,26 @@ import colors from "../../lib/color";
 import { AiOutlineLike, AiFillStar, AiOutlineComment } from "react-icons/ai";
 
 const ProfilePost = ({ key, book }) => {
+  const [user, setUser] = useState("");
   const [color, setColor] = useState("");
   useEffect(() => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     setColor(randomColor);
+  }, []);
+
+  useEffect(() => {
+    async function fetchUser() {
+      const res = await fetch(
+        `http://localhost:3000/api/profile/${book.user}`,
+        {
+          cache: "no-store",
+        }
+      );
+      const user = await res.json();
+
+      setUser(user);
+    }
+    fetchUser();
   }, []);
 
   return (
@@ -26,12 +42,12 @@ const ProfilePost = ({ key, book }) => {
             className={classes.profilPerson}
           />
           <span>
-            <h2>Seyit Yahya</h2>
-            <h3>@seyityahya</h3>
+            <h2>{user.name}</h2>
+            <h3>@{user.username}</h3>
           </span>
         </div>
         <div className={classes.personRight}>
-          <p>{book.saat}</p>
+          <p>3s</p>
           <BiDotsVerticalRounded />
         </div>
       </div>
@@ -42,20 +58,21 @@ const ProfilePost = ({ key, book }) => {
             className={classes.postImageContainer}
           >
             <Image
-              src={book.resim}
+              src={book.coverImage}
+              width="300"
               height="180"
               className={classes.bookImage}
             />
           </div>
         </div>
         <div className={classes.postInformation}>
-          <h1>{book.kitap_ismi}</h1>
-          <h2>{book.yazar}</h2>
-          <p>{book.aciklama}</p>
+          <h1>{book.title}</h1>
+          <h2>{book.author}</h2>
+          <p>{book.description}</p>
           <div className={classes.rateLike}>
             <div className={classes.rate}>
               <AiFillStar className={classes.icon} />
-              <span>{book.puan}</span>
+              <span>{book.rating}</span>
             </div>
             <div className={classes.rate}>
               <AiOutlineComment className={classes.icon} />
@@ -63,7 +80,7 @@ const ProfilePost = ({ key, book }) => {
             </div>
             <div className={classes.rate}>
               <AiOutlineLike className={classes.icon} />
-              <span>{book.begeni_sayisi}</span>
+              <span>100</span>
             </div>
           </div>
         </div>

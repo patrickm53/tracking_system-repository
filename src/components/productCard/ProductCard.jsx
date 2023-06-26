@@ -25,7 +25,7 @@ const ProductCard = ({ key, book }) => {
             height="32"
             className={classes.personImg}
           />
-          <Link href="/profil">
+          <Link href={`/profile/${book.user._id}`}>
             <h2 className={classes.uploader}>{book.user.name}</h2>
           </Link>
           <span>•</span>

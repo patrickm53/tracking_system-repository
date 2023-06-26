@@ -17,6 +17,7 @@ import background from "../../../../public/background2.jpg";
 
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
+  const [books, setBooks] = useState("");
 
   const router = useRouter();
 
@@ -30,7 +31,16 @@ const Profile = (ctx) => {
 
       setUser(user);
     }
+    async function fetchBooks() {
+      const res = await fetch(
+        `http://localhost:3000/api/book/profile/${ctx.params.id}`,
+        { cache: "no-store" }
+      );
+      const book = await res.json();
+      setBooks(book);
+    }
     fetchUser();
+    fetchBooks();
   }, []);
 
   const handleSignOut = async (event) => {
