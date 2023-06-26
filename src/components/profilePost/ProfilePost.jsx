@@ -13,6 +13,7 @@ const ProfilePost = ({ key, book }) => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     setColor(randomColor);
   }, []);
+
   return (
     <div className={classes.container}>
       <div className={classes.person}>

@@ -8,11 +8,12 @@ import { BsFillPostcardFill } from "react-icons/bs";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { profile } from "@/lib/profile";
 import classes from "./profile.module.css";
 import Image from "next/image";
 import { books } from "../../../lib/data";
 import ProfilePost from "@/components/profilePost/ProfilePost";
+import person from "../../../../public/person.jpg";
+import background from "../../../../public/background2.jpg";
 
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
@@ -47,7 +48,7 @@ const Profile = (ctx) => {
           <Image
             className={classes.backgroundImage}
             alt="background"
-            src={profile[0].backgroundImage}
+            src={background}
             heigh={100}
           />
           <div className={classes.navbar}>
@@ -67,16 +68,16 @@ const Profile = (ctx) => {
             <Image
               className={classes.profileImage}
               alt="profilePerson"
-              src={profile[0].profileImage}
+              src={person}
               width={150}
               height={150}
             />
           </div>
           <h2>
-            {profile[0].name}
+            {user.name}
             <AiFillBook />
           </h2>
-          <h3>@{profile[0].username}</h3>
+          <h3>@{user.username}</h3>
           <p>Okul gezer yer</p>
           <a>@Twitter</a>
           <div className={classes.information}>
@@ -113,7 +114,7 @@ const Profile = (ctx) => {
               <Image
                 className={classes.followImage}
                 alt="takipöneri"
-                src={profile[0].profileImage}
+                src={person}
                 width="45"
                 height="45"
               />
@@ -129,7 +130,7 @@ const Profile = (ctx) => {
               <Image
                 className={classes.followImage}
                 alt="takipöneri"
-                src={profile[0].profileImage}
+                src={person}
                 width="45"
                 height="45"
               />
@@ -145,7 +146,7 @@ const Profile = (ctx) => {
               <Image
                 className={classes.followImage}
                 alt="takipöneri"
-                src={profile[0].profileImage}
+                src={person}
                 width="45"
                 height="45"
               />
@@ -161,7 +162,7 @@ const Profile = (ctx) => {
               <Image
                 className={classes.followImage}
                 alt="takipöneri"
-                src={profile[0].profileImage}
+                src={person}
                 width="45"
                 height="45"
               />
