@@ -58,6 +58,7 @@ const ProfilePost = ({ key, book }) => {
             className={classes.postImageContainer}
           >
             <Image
+              alt="coverImage"
               src={book.coverImage}
               width="300"
               height="180"

@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { AiFillBook } from "react-icons/ai";
 import { FaBirthdayCake } from "react-icons/fa";
 import { BiCurrentLocation } from "react-icons/bi";
@@ -18,8 +19,13 @@ import background from "../../../../public/background2.jpg";
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
   const [books, setBooks] = useState("");
+  const [equal, setEqual] = useState("");
+
+  const { data: session } = useSession(false);
 
   const router = useRouter();
+
+  console.log(session?.user?._id);
 
   useEffect(() => {
     async function fetchUser() {
@@ -67,7 +73,7 @@ const Profile = (ctx) => {
               <button>Yorumlar</button>
             </div>
             <div className={classes.navbarRight}>
-              <button>Takip Et</button>
+              {session?.user?._id !== user._id && <button>Takip Et</button>}
             </div>
           </div>
         </div>
