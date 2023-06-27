@@ -2,7 +2,6 @@ import ProductCard from "@/components/productCard/ProductCard";
 import Slider from "@/components/slider/Slider";
 import React from "react";
 import classes from "./page.module.css";
-import { books } from "../lib/data";
 
 export async function fetchBooks() {
   const res = await fetch("http://localhost:3000/api/book", {

@@ -11,7 +11,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import classes from "./profile.module.css";
 import Image from "next/image";
-import { books } from "../../../lib/data";
 import ProfilePost from "@/components/profilePost/ProfilePost";
 import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
@@ -19,7 +18,6 @@ import background from "../../../../public/background2.jpg";
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
   const [books, setBooks] = useState("");
-  const [equal, setEqual] = useState("");
 
   const { data: session } = useSession(false);
 
