@@ -1,5 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import classes from "./book.module.css";
@@ -23,7 +24,31 @@ const BookDetails = (ctx) => {
     session && fetchBook();
   }, [session]);
 
-  return <div>{bookDetails.title}</div>;
+  console.log(bookDetails);
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.wrapper}>
+        <div className={classes.imgContainer}>
+          <Image
+            alt="bookDetailImage"
+            src={bookDetails.coverImage}
+            className={classes.image}
+            width="250"
+            height="500"
+          />
+          <button>Diğer Okurlar</button>
+        </div>
+        <div className={classes.bookDetail}>
+          <h1>{bookDetails.title}</h1>
+          <h3>{bookDetails.author}</h3>
+          <div className={classes.bookDetailsProfil}>
+            {bookDetails.user.name}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default BookDetails;
