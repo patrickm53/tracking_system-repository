@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import classes from "./book.module.css";
+import person from "../../../../public/person.jpg";
+import { AiFillStar } from "react-icons/ai";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
@@ -38,12 +40,24 @@ const BookDetails = (ctx) => {
             height="500"
           />
           <button>Diğer Okurlar</button>
+          <button>Yorumunu Paylaş</button>
         </div>
         <div className={classes.bookDetail}>
           <h1>{bookDetails.title}</h1>
           <h3>{bookDetails.author}</h3>
           <div className={classes.bookDetailsProfil}>
-            {bookDetails.user.name}
+            <Image
+              alt="detailProfil"
+              src={person}
+              width="45"
+              height="45"
+              className={classes.detailsProfilImage}
+            />
+            {bookDetails?.user?.name}
+          </div>
+          <div className={classes.rate}>
+            <AiFillStar />
+            <span>{bookDetails.rating}</span>
           </div>
         </div>
       </div>
