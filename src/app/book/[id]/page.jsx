@@ -74,6 +74,9 @@ const BookDetails = (ctx) => {
             />
             <span>{bookDetails.rating}</span>
           </div>
+          <div className={classes.desc}>
+            <p>{bookDetails.description}</p>
+          </div>
         </div>
       </div>
     </div>

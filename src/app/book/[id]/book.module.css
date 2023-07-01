@@ -59,6 +59,7 @@
 .bookDetail > .bookDetailsProfil > div > .link {
   display: flex;
   align-items: center;
+  margin-right: 5px;
 }
 
 .bookDetail > .bookDetailsProfil > div > div {
@@ -85,4 +86,9 @@
 .bookDetail > .rate > span {
   font-family: Copernicus, "Libre Baskerville", Georgia, serif;
   font-size: 28px;
+}
+
+.bookDetail > .desc {
+  margin-top: 20px;
+  width: 80%;
 }
