@@ -38,8 +38,20 @@ const BookDetails = (ctx) => {
             width="250"
             height="500"
           />
-          <button>Diğer Okurlar</button>
-          <button>Yorumunu Paylaş</button>
+          <button className={classes.button1}>Diğer Okurlar</button>
+          <button className={classes.button2}>Yorum Paylaş</button>
+          <div className={classes.bookSayfa}>
+            <div>
+              <span>sayfa sayısı : </span>
+              <span>Dil : </span>
+              <span>Yayın Tarihi : </span>
+            </div>
+            <div className={classes.bilgi}>
+              <span>220</span>
+              <span>Türkçe</span>
+              <span>14.10.2023</span>
+            </div>
+          </div>
         </div>
         <div className={classes.bookDetail}>
           <h1>{bookDetails.title}</h1>
@@ -76,6 +88,12 @@ const BookDetails = (ctx) => {
           </div>
           <div className={classes.desc}>
             <p>{bookDetails.description}</p>
+          </div>
+          <div className={classes.tür}>
+            tür : <span>korku</span>
+            <span>gerilim</span>
+            <span>edebiyat</span>
+            <span>nobel</span>
           </div>
         </div>
       </div>
