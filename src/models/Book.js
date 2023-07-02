@@ -38,6 +38,20 @@ const BookSchema = new mongoose.Schema(
     endDate: {
       type: Date,
     },
+    genres: [
+      {
+        type: String,
+      },
+    ],
+    pages: {
+      type: String,
+    },
+    language: {
+      type: String,
+    },
+    years: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

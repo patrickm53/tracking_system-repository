@@ -12,6 +12,10 @@ const CreateBook = () => {
   const [rating, setRating] = useState();
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  const [genres, setGenres] = useState([]);
+  const [pages, setPages] = useState("");
+  const [language, setLanguage] = useState("");
+  const [years, setYears] = useState("");
 
   const { data: session, status } = useSession();
 
@@ -34,6 +38,7 @@ const CreateBook = () => {
     }
 
     try {
+      const processedGenres = genres.map((genre) => genre.toLowerCase());
       const res = await fetch(`http://localhost:3000/api/book`, {
         headers: {
           "Content-Type": "application/json",
@@ -46,6 +51,11 @@ const CreateBook = () => {
           rating,
           author,
           description,
+          // genres: genres.map((genre) => genre.trim()),
+          genres: processedGenres,
+          pages,
+          years,
+          language,
           user: session?.user?._id,
         }),
       });
@@ -86,6 +96,26 @@ const CreateBook = () => {
             type="text"
             placeholder="Kitap Yazarı..."
             onChange={(e) => setAuthor(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Sayfa Sayısı..."
+            onChange={(e) => setPages(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Kitabı Dili..."
+            onChange={(e) => setLanguage(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Kitap Çıkış Yılı..."
+            onChange={(e) => setYears(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Tür (virgül koymayı unutma)..."
+            onChange={(e) => setGenres(e.target.value.split(","))}
           />
           <textarea
             placeholder="Hikayen..."

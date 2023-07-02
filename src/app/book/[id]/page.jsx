@@ -10,6 +10,7 @@ import StarRatings from "react-star-ratings";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
+  const [similarBooks, setSimilarBooks] = useState([]);
 
   const { data: session } = useSession();
   const router = useRouter;
@@ -26,6 +27,34 @@ const BookDetails = (ctx) => {
     }
     session && fetchBook();
   }, [session]);
+
+  useEffect(() => {
+    const fetchSimilarBooks = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/api/book`);
+        if (!res.ok) {
+          throw new Error("Error occurred");
+        }
+        const books = await res.json();
+        const filteredBooks = books.filter(
+          (book) =>
+            book._id !== bookDetails?._id &&
+            book.genres.some((genre) => bookDetails?.genres.includes(genre))
+        );
+        const randomBooks = getNRandomElements(filteredBooks, 3);
+        setSimilarBooks(randomBooks);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSimilarBooks();
+  }, [bookDetails]);
+
+  const getNRandomElements = (arr, n) => {
+    const shuffled = arr.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, n);
+  };
 
   return (
     <div className={classes.container}>
@@ -47,9 +76,9 @@ const BookDetails = (ctx) => {
               <span>Yayın Tarihi : </span>
             </div>
             <div className={classes.bilgi}>
-              <span>220</span>
-              <span>Türkçe</span>
-              <span>14.10.2023</span>
+              <span>{bookDetails.pages}</span>
+              <span>{bookDetails.language}</span>
+              <span>{bookDetails.years}</span>
             </div>
           </div>
         </div>
@@ -90,10 +119,31 @@ const BookDetails = (ctx) => {
             <p>{bookDetails.description}</p>
           </div>
           <div className={classes.tür}>
-            tür : <span>korku</span>
-            <span>gerilim</span>
-            <span>edebiyat</span>
-            <span>nobel</span>
+            tür :
+            {bookDetails?.genres?.map((genre, index) => (
+              <span key={index}>{genre}</span>
+            ))}
+          </div>
+          <div className={classes.similar}>
+            <h2>Benzer Türde Kitaplar</h2>
+            <ul>
+              {similarBooks.map((book) => (
+                <li key={book._id}>
+                  <Link className={classes.link} href={`/book/${book._id}`}>
+                    <div className={classes.imgSimilarContainer}>
+                      <Image
+                        alt="book._id"
+                        src={book.coverImage}
+                        width="150"
+                        height="300"
+                        className={classes.image}
+                      />
+                    </div>
+                  </Link>
+                  <h2>{book.title}</h2>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

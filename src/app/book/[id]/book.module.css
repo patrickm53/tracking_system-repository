@@ -148,6 +148,8 @@
   margin-top: 10px;
   font-size: 14px;
   color: grey;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 50px;
 }
 
 .bookDetail > .tür > span {
@@ -155,4 +157,29 @@
   margin-right: 10px;
   border-bottom: 2px solid green;
   color: black;
+}
+
+.bookDetail > .similar > ul {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+}
+
+.bookDetail > .similar > ul > li {
+  width: 25%;
+}
+
+.bookDetail > .similar > ul > li > h2 {
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+}
+
+.bookDetail > .similar > ul > li > .link > .imgSimilarContainer {
+  height: 250px;
+}
+
+.bookDetail > .similar > ul > li > .link > .imgSimilarContainer > .image {
+  border-radius: 0 10px 10px 0;
 }
