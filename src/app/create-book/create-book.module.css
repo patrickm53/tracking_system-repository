@@ -20,10 +20,6 @@
 
 .wrapper > form {
   margin-top: 2rem;
-  width: 20%;
-  padding: 1.5rem;
-  border: 1px solid #666;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -31,8 +27,13 @@
   gap: 2rem;
 }
 
-.wrapper > form > input,
-.wrapper > form > textarea {
+.wrapper > form > .inputContainer {
+  width: 20%;
+  border: 1px solid #666;
+  border-radius: 8px;
+}
+
+.wrapper > form > .inputContainer > input {
   outline: none;
   border: none;
   border-bottom: 1px solid #666;
