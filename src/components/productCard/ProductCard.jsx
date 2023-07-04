@@ -48,7 +48,10 @@ const ProductCard = ({ key, book }) => {
               <h2>{book.title}</h2>
               <h3>{book.author}</h3>
             </div>
-            <p>{book.description}</p>
+            <div
+              className={classes.desc}
+              dangerouslySetInnerHTML={{ __html: book.description }}
+            />
             <div className={classes.rateLike}>
               <div className={classes.rate}>
                 <AiFillStar className={classes.star} />

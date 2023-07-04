@@ -19,36 +19,39 @@
 }
 
 .wrapper > form {
+  width: 100%;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 2rem;
 }
 
-.wrapper > form > .create {
+.wrapper > form > .formBox {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
-.wrapper > form > .create > .inputContainer {
+.wrapper > form > .formBox > .inputBox {
   width: 20%;
-  border: 1px solid #666;
-  border-radius: 8px;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
-.wrapper > form > .create > .yourStory {
-  width: 500px;
-}
-
-.wrapper > form > .create > .inputContainer > input {
+.wrapper > form > .formBox > .inputBox > input {
   outline: none;
   border: none;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #ccc;
   padding: 0.4rem;
   resize: none;
+}
+.wrapper > form > .formBox > .yourStory {
+  width: 400px;
+  margin-left: 20px;
 }
 
 .createBlog {

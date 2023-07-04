@@ -11,9 +11,12 @@ import StarRatings from "react-star-ratings";
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
   const [similarBooks, setSimilarBooks] = useState([]);
+  const [profileBooks, setProfileBooks] = useState([]);
 
   const { data: session } = useSession();
   const router = useRouter;
+
+  console.log(session);
 
   useEffect(() => {
     async function fetchBook() {
@@ -49,6 +52,30 @@ const BookDetails = (ctx) => {
     };
 
     fetchSimilarBooks();
+  }, [bookDetails]);
+
+  useEffect(() => {
+    const fetchProfileBooks = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/book/profile/${session.user._id}`,
+          { cache: "no-store" }
+        );
+        const books = await res.json();
+
+        const differentBooks = books.filter(
+          (book) => book._id !== bookDetails?._id
+        );
+
+        const filteredBooks = differentBooks.slice(0, 3);
+
+        setProfileBooks(filteredBooks);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProfileBooks();
   }, [bookDetails]);
 
   const getNRandomElements = (arr, n) => {
@@ -130,6 +157,27 @@ const BookDetails = (ctx) => {
             <h2>Benzer Türde Kitaplar</h2>
             <ul>
               {similarBooks.map((book) => (
+                <li key={book._id}>
+                  <Link className={classes.link} href={`/book/${book._id}`}>
+                    <div className={classes.imgSimilarContainer}>
+                      <Image
+                        alt="book._id"
+                        src={book.coverImage}
+                        width="150"
+                        height="300"
+                        className={classes.image}
+                      />
+                    </div>
+                  </Link>
+                  <h2>{book.title}</h2>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={classes.similar}>
+            <h2>Kullanıcının Diğer Kitapları</h2>
+            <ul>
+              {profileBooks.map((book) => (
                 <li key={book._id}>
                   <Link className={classes.link} href={`/book/${book._id}`}>
                     <div className={classes.imgSimilarContainer}>

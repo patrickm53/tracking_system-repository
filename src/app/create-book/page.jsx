@@ -85,52 +85,56 @@ const CreateBook = () => {
       <div className={classes.wrapper}>
         <h2>Create Post</h2>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Başlık..."
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Resim..."
-            onChange={(e) => setCoverImage(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Puanı..."
-            onChange={(e) => setRating(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Kitap Yazarı..."
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Sayfa Sayısı..."
-            onChange={(e) => setPages(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Kitabı Dili..."
-            onChange={(e) => setLanguage(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Kitap Çıkış Yılı..."
-            onChange={(e) => setYears(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Tür (virgül koymayı unutma)..."
-            onChange={(e) => setGenres(e.target.value.split(","))}
-          />
-          <ReactQuill
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="Hikayen..."
-            className={classes.yourStory}
-          />
+          <div className={classes.formBox}>
+            <div className={classes.inputBox}>
+              <input
+                type="text"
+                placeholder="Başlık..."
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Resim..."
+                onChange={(e) => setCoverImage(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Puanı..."
+                onChange={(e) => setRating(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Kitap Yazarı..."
+                onChange={(e) => setAuthor(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Sayfa Sayısı..."
+                onChange={(e) => setPages(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Kitabı Dili..."
+                onChange={(e) => setLanguage(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Kitap Çıkış Yılı..."
+                onChange={(e) => setYears(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Tür (virgül koymayı unutma)..."
+                onChange={(e) => setGenres(e.target.value.split(","))}
+              />
+            </div>
+            <ReactQuill
+              value={description}
+              onChange={handleDescriptionChange}
+              placeholder="Hikayen..."
+              className={classes.yourStory}
+            />
+          </div>
           <button className={classes.createBlog} onClick={handleSubmit}>
             Create
           </button>

@@ -77,7 +77,7 @@
   height: 100%;
 }
 
-.wrapper > .bookDetail > p {
+.wrapper > .bookDetail > .desc {
   color: #e6e6e6;
   font-size: 13px;
   padding: 5px 0;

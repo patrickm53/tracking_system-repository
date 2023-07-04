@@ -160,6 +160,18 @@
   color: black;
 }
 
+.bookDetail > .similar {
+  margin: 20px 0 20px 0;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #ccc;
+}
+
+.bookDetail > .similar > h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
 .bookDetail > .similar > ul {
   display: flex;
   justify-content: flex-start;
