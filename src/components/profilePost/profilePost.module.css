@@ -84,6 +84,8 @@
   font-style: normal;
   font-weight: 600;
   font-size: 26px;
+  max-height: 40px;
+  overflow: hidden;
 }
 
 .postInformation > h2 {
@@ -96,12 +98,14 @@
   margin-bottom: 5px;
 }
 
-.postInformation > p {
+.postInformation > .desc {
   text-align: justify;
-  text-indent: 20px;
   height: 66%;
-  font-size: 14px;
   overflow: hidden;
+}
+
+.postInformation > p {
+  color: rgb(90, 90, 90);
 }
 
 .rateLike {

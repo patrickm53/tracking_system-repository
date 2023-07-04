@@ -115,9 +115,11 @@ const BookDetails = (ctx) => {
             />
             <span>{bookDetails.rating}</span>
           </div>
-          <div className={classes.desc}>
-            <p>{bookDetails.description}</p>
-          </div>
+          <div
+            className={classes.desc}
+            dangerouslySetInnerHTML={{ __html: bookDetails.description }}
+          />
+
           <div className={classes.tür}>
             tür :
             {bookDetails?.genres?.map((genre, index) => (

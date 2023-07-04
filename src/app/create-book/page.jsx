@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import classes from "./create-book.module.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import ReactHtmlParser from "html-react-parser";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -23,6 +24,10 @@ const CreateBook = () => {
 
   const router = useRouter();
 
+  const handleDescriptionChange = (value) => {
+    setDescription(value);
+  };
+
   if (status === "loading") {
     return <p>Loading...</p>;
   }
@@ -34,7 +39,7 @@ const CreateBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!coverImage || !title || !rating || !author || !description) {
+    if (!coverImage || !title || !rating || !author) {
       toast.error("All fields are required");
       return;
     }
@@ -53,7 +58,6 @@ const CreateBook = () => {
           rating,
           author,
           description,
-          // genres: genres.map((genre) => genre.trim()),
           genres: processedGenres,
           pages,
           years,
@@ -74,59 +78,62 @@ const CreateBook = () => {
     }
   };
 
+  console.log(description);
+
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <h2>Create Post</h2>
         <form onSubmit={handleSubmit}>
-          <div className={classes.inputContainer}>
-            <input
-              type="text"
-              placeholder="Başlık..."
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Resim..."
-              onChange={(e) => setCoverImage(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Puanı..."
-              onChange={(e) => setRating(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Kitap Yazarı..."
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Sayfa Sayısı..."
-              onChange={(e) => setPages(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Kitabı Dili..."
-              onChange={(e) => setLanguage(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Kitap Çıkış Yılı..."
-              onChange={(e) => setYears(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Tür (virgül koymayı unutma)..."
-              onChange={(e) => setGenres(e.target.value.split(","))}
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Başlık..."
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Resim..."
+            onChange={(e) => setCoverImage(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Puanı..."
+            onChange={(e) => setRating(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Kitap Yazarı..."
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Sayfa Sayısı..."
+            onChange={(e) => setPages(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Kitabı Dili..."
+            onChange={(e) => setLanguage(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Kitap Çıkış Yılı..."
+            onChange={(e) => setYears(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Tür (virgül koymayı unutma)..."
+            onChange={(e) => setGenres(e.target.value.split(","))}
+          />
           <ReactQuill
             value={description}
-            onChange={setDescription}
+            onChange={handleDescriptionChange}
             placeholder="Hikayen..."
+            className={classes.yourStory}
           />
-          <button className={classes.createBlog}>Create</button>
+          <button className={classes.createBlog} onClick={handleSubmit}>
+            Create
+          </button>
         </form>
       </div>
       <ToastContainer />

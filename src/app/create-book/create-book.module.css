@@ -5,7 +5,7 @@
 }
 
 .wrapper {
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -27,13 +27,23 @@
   gap: 2rem;
 }
 
-.wrapper > form > .inputContainer {
+.wrapper > form > .create {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper > form > .create > .inputContainer {
   width: 20%;
   border: 1px solid #666;
   border-radius: 8px;
 }
 
-.wrapper > form > .inputContainer > input {
+.wrapper > form > .create > .yourStory {
+  width: 500px;
+}
+
+.wrapper > form > .create > .inputContainer > input {
   outline: none;
   border: none;
   border-bottom: 1px solid #666;

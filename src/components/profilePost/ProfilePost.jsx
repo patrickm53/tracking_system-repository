@@ -69,7 +69,10 @@ const ProfilePost = ({ key, book }) => {
         <div className={classes.postInformation}>
           <h1>{book.title}</h1>
           <h2>{book.author}</h2>
-          <p>{book.description}</p>
+          <div
+            className={classes.desc}
+            dangerouslySetInnerHTML={{ __html: book.description }}
+          />
           <div className={classes.rateLike}>
             <div className={classes.rate}>
               <AiFillStar className={classes.icon} />
