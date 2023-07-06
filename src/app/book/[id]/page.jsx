@@ -111,7 +111,19 @@ const BookDetails = (ctx) => {
         </div>
         <div className={classes.bookDetail}>
           <h1>{bookDetails.title}</h1>
-          <h3>{bookDetails.author}</h3>
+          <div className={classes.authorStar}>
+            <h3>{bookDetails.author}</h3>
+            <div className={classes.rate}>
+              <StarRatings
+                rating={bookDetails.rating}
+                starRatedColor="#f1c40f"
+                starEmptyColor="#ccc"
+                starDimension="18px"
+                starSpacing="1px"
+              />
+              <span>{bookDetails.rating}</span>
+            </div>
+          </div>
           <div className={classes.bookDetailsProfil}>
             <div>
               <Link
@@ -128,19 +140,9 @@ const BookDetails = (ctx) => {
                 {bookDetails?.user?.name}
               </Link>
               <div>
-                | paylaşım <span>{postCount}</span> | yorum <span>72</span>
+                - paylaşım <span>{postCount}</span> - yorum <span>72</span>
               </div>
             </div>
-          </div>
-          <div className={classes.rate}>
-            <StarRatings
-              rating={bookDetails.rating}
-              starRatedColor="#f1c40f"
-              starEmptyColor="#ccc"
-              starDimension="36px"
-              starSpacing="5px"
-            />
-            <span>{bookDetails.rating}</span>
           </div>
           <div
             className={classes.desc}
