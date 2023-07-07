@@ -191,6 +191,10 @@
   height: 40px;
   line-height: 20px;
   overflow: hidden;
+  font-weight: 600;
+  font-size: 16px;
+  color: #555;
+  font-family: Copernicus, "Libre Baskerville", Georgia, serif;
 }
 
 .bookDetail > .similar > ul > li > .link > .imgSimilarContainer {

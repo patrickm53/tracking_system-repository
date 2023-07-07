@@ -7,12 +7,16 @@ import classes from "./book.module.css";
 import person from "../../../../public/person.jpg";
 import Link from "next/link";
 import StarRatings from "react-star-ratings";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
   const [similarBooks, setSimilarBooks] = useState([]);
   const [profileBooks, setProfileBooks] = useState([]);
   const [postCount, setPostCount] = useState(0);
+  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState([]);
 
   const { data: session } = useSession();
   const router = useRouter;
@@ -205,8 +209,30 @@ const BookDetails = (ctx) => {
               </div>
             </>
           )}
+          <div className={classes.commentSection}>
+            <div className={classes.commentInput}>
+              <Image src={person} width="45" height="45" alt="" />
+              <input
+                value={commentText}
+                type="text"
+                placeholder="Yorumunu Yaz..."
+                onChange={(e) => setCommentText(e.target.value)}
+              />
+              <button>Paylaş</button>
+            </div>
+            <div className={classes.comments}>
+              {comments?.length > 0 ? (
+                <h2>deneme</h2>
+              ) : (
+                <h4 className={classes.noComments}>
+                  Yorum yok! İlk sen yapmak ister misin?
+                </h4>
+              )}
+            </div>
+          </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
