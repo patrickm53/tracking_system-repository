@@ -87,6 +87,13 @@ const BookDetails = (ctx) => {
     return shuffled.slice(0, n);
   };
 
+  const handleComment = async () => {
+    if (commentText?.length < 2) {
+      toast.error("Comment must be at least 2 characters long");
+      return;
+    }
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
@@ -218,11 +225,17 @@ const BookDetails = (ctx) => {
                 placeholder="Yorumunu Yaz..."
                 onChange={(e) => setCommentText(e.target.value)}
               />
-              <button>Paylaş</button>
+              <button onClick={handleComment}>Paylaş</button>
             </div>
             <div className={classes.comments}>
               {comments?.length > 0 ? (
-                <h2>deneme</h2>
+                comments.map((comment) => (
+                  <Comment
+                    key={comment._id}
+                    comment={comment}
+                    setComments={setComments}
+                  />
+                ))
               ) : (
                 <h4 className={classes.noComments}>
                   Yorum yok! İlk sen yapmak ister misin?
