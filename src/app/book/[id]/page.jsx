@@ -9,6 +9,7 @@ import Link from "next/link";
 import StarRatings from "react-star-ratings";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Comment from "@/components/comment/Comment";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
@@ -20,6 +21,19 @@ const BookDetails = (ctx) => {
 
   const { data: session } = useSession();
   const router = useRouter;
+
+  useEffect(() => {
+    async function fetchComments() {
+      const res = await fetch(
+        `http://localhost:3000/api/comment/${ctx.params.id}`,
+        { cache: "no-store" }
+      );
+      const comments = await res.json();
+
+      setComments(comments);
+    }
+    fetchComments();
+  }, []);
 
   useEffect(() => {
     async function fetchBook() {
@@ -91,6 +105,33 @@ const BookDetails = (ctx) => {
     if (commentText?.length < 2) {
       toast.error("Comment must be at least 2 characters long");
       return;
+    }
+
+    try {
+      const body = {
+        blogId: ctx.params.id,
+        authorId: session?.user?.id,
+        text: commentText,
+      };
+
+      const res = await fetch(`http://localhost:3000/api/comment`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+
+      const newComment = await res.json();
+
+      setComments((prev) => {
+        return [newComment, ...prev];
+      });
+
+      setCommentText("");
+    } catch (error) {
+      console.log(error);
     }
   };
 
