@@ -109,8 +109,8 @@ const BookDetails = (ctx) => {
 
     try {
       const body = {
-        blogId: ctx.params.id,
-        authorId: session?.user?.id,
+        bookId: ctx.params.id,
+        authorId: session?.user?._id,
         text: commentText,
       };
 

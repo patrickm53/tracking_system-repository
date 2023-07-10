@@ -1,0 +1,61 @@
+.container {
+  width: 100%;
+}
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.left > .commentProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+}
+
+.left > span {
+  width: 80%;
+  font-size: 14px;
+  color: #555;
+}
+
+.left > .commentProfile > img {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.left > .commentProfile > .userData {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.left > .commentProfile > .userData > h4 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+  opacity: 0.8;
+}
+.left > .commentProfile > .userData > span {
+  color: grey;
+  font-size: 13px;
+}
+
+.timeago {
+  font-size: 15px;
+  color: #555;
+}
+
+.trashIcon {
+  cursor: pointer;
+}

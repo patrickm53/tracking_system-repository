@@ -8,7 +8,7 @@ export async function GET(req, ctx) {
   const id = ctx.params.id;
 
   try {
-    const comments = await Comment.find({ blogId: id }).populate("authorId");
+    const comments = await Comment.find({ bookId: id }).populate("authorId");
 
     return new Response(JSON.stringify(comments), { status: 200 });
   } catch (error) {

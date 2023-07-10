@@ -31,12 +31,14 @@ const Comment = ({ comment, setComments }) => {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.left}>
-          <Image src={person} width="45" height="45" alt="" />
-          <div className={classes.userData}>
-            <h4>{comment?.authorId?.username}</h4>
-            <span className={classes.timeago}>
-              {format(comment?.createdAt)}
-            </span>
+          <div className={classes.commentProfile}>
+            <Image src={person} width="50" height="50" alt="" />
+            <div className={classes.userData}>
+              <h4>{comment?.authorId?.name}</h4>
+              <span className={classes.timeago}>
+                {format(comment?.createdAt)}
+              </span>
+            </div>
           </div>
           <span>{comment?.text}</span>
         </div>
