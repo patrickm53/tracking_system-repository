@@ -82,8 +82,9 @@ const CreateBook = () => {
 
   return (
     <div className={classes.container}>
+      <h2>Create Post</h2>
       <div className={classes.wrapper}>
-        <h2>Create Post</h2>
+        <div className={classes.search}> deneme</div>
         <form onSubmit={handleSubmit}>
           <div className={classes.formBox}>
             <div className={classes.inputBox}>
@@ -135,11 +136,11 @@ const CreateBook = () => {
               className={classes.yourStory}
             />
           </div>
-          <button className={classes.createBlog} onClick={handleSubmit}>
-            Create
-          </button>
         </form>
       </div>
+      <button className={classes.createBlog} onClick={handleSubmit}>
+        Create
+      </button>
       <ToastContainer />
     </div>
   );

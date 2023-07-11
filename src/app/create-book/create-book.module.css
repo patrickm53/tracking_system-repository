@@ -1,26 +1,36 @@
 .container {
-  margin-top: 5rem;
+  margin-top: 2rem;
   height: calc(100vh-60px);
   width: 100%;
-}
-
-.wrapper {
-  width: 90%;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.wrapper > h2 {
+.container > h2 {
   font-size: 32px;
   color: #222;
   letter-spacing: 1px;
 }
 
+.wrapper {
+  width: 90%;
+  display: flex;
+  height: 50vh;
+  margin-top: 50px;
+}
+
+.wrapper > .search {
+  width: 30%;
+  height: 100%;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+
 .wrapper > form {
-  width: 100%;
-  margin-top: 2rem;
+  width: 60%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,17 +39,19 @@
 
 .wrapper > form > .formBox {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
 }
 
 .wrapper > form > .formBox > .inputBox {
-  width: 20%;
+  width: 50%;
+  height: 100%;
   border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px;
+  justify-content: space-between;
 }
 
 .wrapper > form > .formBox > .inputBox > input {
@@ -50,7 +62,8 @@
   resize: none;
 }
 .wrapper > form > .formBox > .yourStory {
-  width: 400px;
+  height: 90%;
+  width: 50%;
   margin-left: 20px;
 }
 
