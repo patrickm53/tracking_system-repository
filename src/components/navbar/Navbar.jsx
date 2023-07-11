@@ -75,9 +75,9 @@ const Navbar = () => {
                   }}
                   className={classes.login}
                 >
-                  Log in
+                  Giriş Yap
                 </button>
-                <Link href="/register">Register</Link>
+                <Link href="/register">Kayıt Ol</Link>
               </>
             </ul>
           )}
