@@ -1,13 +1,13 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import classes from "./create-book.module.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import ReactHtmlParser from "html-react-parser";
+import { GrSearch } from "react-icons/gr";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -19,6 +19,8 @@ const CreateBook = () => {
   const [pages, setPages] = useState("");
   const [language, setLanguage] = useState("");
   const [years, setYears] = useState("");
+  const [search, setSearch] = useState("");
+  const [searchBook, setSearchBook] = useState([]);
 
   const { data: session, status } = useSession();
 
@@ -78,13 +80,45 @@ const CreateBook = () => {
     }
   };
 
-  console.log(description);
+  useEffect(() => {
+    async function searchControl() {
+      const res = await fetch(`http://localhost:3000/api/book`);
+      if (!res.ok) {
+        throw new Error("Error occurred");
+      }
+
+      const books = await res.json();
+
+      const searchResult = books.filter((book) =>
+        book.title.toLowerCase().includes(search)
+      );
+
+      const similarSearch = searchResult.slice(0, 3);
+
+      setSearchBook(similarSearch);
+    }
+
+    searchControl();
+  }, [search]);
+
+  console.log(searchBook);
 
   return (
     <div className={classes.container}>
       <h2>Create Post</h2>
       <div className={classes.wrapper}>
-        <div className={classes.search}> deneme</div>
+        <div className={classes.searchBox}>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <GrSearch />
+            </div>
+            <input
+              type="text"
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Kitabı Ara"
+            />
+          </div>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className={classes.formBox}>
             <div className={classes.inputBox}>
