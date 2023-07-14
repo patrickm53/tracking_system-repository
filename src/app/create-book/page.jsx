@@ -8,6 +8,8 @@ import classes from "./create-book.module.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { GrSearch } from "react-icons/gr";
+import Image from "next/image";
+import { AiFillStar } from "react-icons/ai";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -68,10 +70,6 @@ const CreateBook = () => {
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Error occured");
-      }
-
       const book = await res.json();
 
       router.push(`/book/${book?._id}`);
@@ -101,7 +99,16 @@ const CreateBook = () => {
     searchControl();
   }, [search]);
 
-  console.log(searchBook);
+  const handleBook = async (value) => {
+    setTitle(value.title);
+    setCoverImage(value.coverImage);
+    setRating(value.rating);
+    setAuthor(value.author);
+    setPages(value.pages);
+    setLanguage(value.language);
+    setYears(value.years);
+    setGenres(value.genres);
+  };
 
   return (
     <div className={classes.container}>
@@ -109,55 +116,89 @@ const CreateBook = () => {
       <div className={classes.wrapper}>
         <div className={classes.searchBox}>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <GrSearch />
-            </div>
             <input
               type="text"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Kitabı Ara"
             />
+            <div className={classes.searchIcon}>
+              <GrSearch />
+            </div>
           </div>
+          {searchBook.length > 0 && (
+            <div className={classes.searchBooks}>
+              {searchBook.map((book) => (
+                <div
+                  key={book._id}
+                  className={classes.book}
+                  onClick={(e) => handleBook(book)}
+                >
+                  <Image src={book.coverImage} width="60" height="80" />
+                  <div className={classes.searchBookDetail}>
+                    <h2>{book.title}</h2>
+                    <h3>{book.author}</h3>
+                    <span>
+                      <p>{book.pages} -</p>
+                      <p>{book.language} -</p>
+                      <p>{book.years}</p>
+                    </span>
+                  </div>
+                  <div className={classes.star}>
+                    <AiFillStar />
+                    <span>{book.rating}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <form onSubmit={handleSubmit}>
           <div className={classes.formBox}>
             <div className={classes.inputBox}>
               <input
+                value={title}
                 type="text"
                 placeholder="Başlık..."
                 onChange={(e) => setTitle(e.target.value)}
               />
               <input
+                value={coverImage}
                 type="text"
                 placeholder="Resim..."
                 onChange={(e) => setCoverImage(e.target.value)}
               />
               <input
+                value={rating}
                 type="text"
                 placeholder="Puanı..."
                 onChange={(e) => setRating(e.target.value)}
               />
               <input
+                value={author}
                 type="text"
                 placeholder="Kitap Yazarı..."
                 onChange={(e) => setAuthor(e.target.value)}
               />
               <input
+                value={pages}
                 type="text"
                 placeholder="Sayfa Sayısı..."
                 onChange={(e) => setPages(e.target.value)}
               />
               <input
+                value={language}
                 type="text"
                 placeholder="Kitabı Dili..."
                 onChange={(e) => setLanguage(e.target.value)}
               />
               <input
+                value={years}
                 type="text"
                 placeholder="Kitap Çıkış Yılı..."
                 onChange={(e) => setYears(e.target.value)}
               />
               <input
+                value={genres}
                 type="text"
                 placeholder="Tür (virgül koymayı unutma)..."
                 onChange={(e) => setGenres(e.target.value.split(","))}
