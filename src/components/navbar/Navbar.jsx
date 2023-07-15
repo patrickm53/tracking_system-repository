@@ -7,16 +7,11 @@ import person from "../../../public/person.jpg";
 import logo from "../../../public/logo.png";
 import { AiOutlineSearch, AiOutlinePlusCircle } from "react-icons/ai";
 import { signIn, useSession } from "next-auth/react";
+import Search from "../search/Search";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const loggenIn = false;
-
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   return (
     <>
@@ -37,15 +32,7 @@ const Navbar = () => {
             <button>
               <Link href="/rastgele">Rastgele</Link>
             </button>
-            <div className={classes.search}>
-              <input
-                type="text"
-                placeholder="Kitap Ara..."
-                value={searchTerm}
-                onChange={handleInputChange}
-              />
-              <AiOutlineSearch className={classes.icons} />
-            </div>
+            <Search />
           </div>
           {session?.user ? (
             <div className={classes.profile}>
