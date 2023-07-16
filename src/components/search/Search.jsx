@@ -36,7 +36,7 @@ const Search = () => {
   }, [search]);
 
   const handleArama = () => {
-    router.push(`/arama/${search}`);
+    router.push(`/arama?search=${search}`);
     setSearch("");
   };
 
