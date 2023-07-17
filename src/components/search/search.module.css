@@ -22,11 +22,27 @@
 }
 
 .searchBox {
-  width: 500px;
-  height: 300px;
   position: absolute;
   margin-top: 50px;
   background-color: white;
   padding: 10px;
+  padding-right: 20px;
   border-radius: 10px;
+}
+
+.searchBox > .searchBook {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.searchBox > .searchBook > span > h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.searchBox > .searchBook > span > h3 {
+  font-size: 14px;
+  color: grey;
+  margin-top: -5px;
 }
