@@ -27,7 +27,7 @@ const Navbar = () => {
               <Link href="/">Ana Sayfa</Link>
             </button>
             <button>
-              <Link href="/populer">Populer</Link>
+              <Link href="/kitaplar">Tüm Kitaplar</Link>
             </button>
             <button>
               <Link href="/rastgele">Rastgele</Link>

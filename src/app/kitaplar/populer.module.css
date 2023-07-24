@@ -2,6 +2,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.filter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .wrapper {
