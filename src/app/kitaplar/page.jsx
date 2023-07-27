@@ -3,44 +3,40 @@ import React, { useEffect, useState } from "react";
 import classes from "./populer.module.css";
 import ProductCard from "@/components/productCard/ProductCard";
 
-const Populer = async () => {
+const Populer = () => {
+  const [books, setBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]); // Filtrelenmiş verileri saklayacak state
   const [filterPageRange, setFilterPageRange] = useState(""); // Filtre için sayfa aralığı
   const [filterGenre, setFilterGenre] = useState(""); // Filtre için tür
 
   useEffect(() => {
-    const fetchFilterBooks = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/book", {
-          cache: "no-store",
-        });
+    async function fetchBooks() {
+      const res = await fetch(`http://localhost:3000/api/book`, {
+        cache: "no-store",
+      });
+      const book = await res.json();
 
-        const books = await res.json();
+      setBooks(book);
+    }
+    fetchBooks();
+  }, []);
 
-        // Sayfa aralığına göre filtreleme
-        const [minPageCount, maxPageCount] = filterPageRange
-          .split("-")
-          .map(Number);
-        const filteredByPageRange = books.filter(
-          (book) =>
-            book.pageCount >= minPageCount && book.pageCount <= maxPageCount
-        );
+  useEffect(() => {
+    // Sayfa aralığına göre filtreleme
+    const [minPageCount, maxPageCount] = filterPageRange.split("-").map(Number);
+    const filteredByPageRange = books.filter(
+      (book) => book.pageCount >= minPageCount && book.pageCount <= maxPageCount
+    );
 
-        // Türüne göre filtreleme
-        const filteredByGenre = books.filter(
-          (book) => book.genre === filterGenre
-        );
+    // Türüne göre filtreleme
+    const filteredByGenre = books.filter((book) => book.genre === filterGenre);
 
-        // İki filtreleme sonucunu birleştirme
-        const filteredData =
-          filterPageRange === "" ? filteredByGenre : filteredByPageRange;
-        setFilteredBooks(filteredData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchFilterBooks();
+    // İki filtreleme sonucunu birleştirme
+    const filteredData =
+      filterPageRange === "" ? filteredByGenre : filteredByPageRange;
+    setFilteredBooks(filteredData);
   }, [filterPageRange, filterGenre]);
+
   return (
     <div className={classes.container}>
       <div className={classes.filter}>
