@@ -24,18 +24,19 @@ const Populer = () => {
   useEffect(() => {
     // Sayfa aralığına göre filtreleme
     const [minPageCount, maxPageCount] = filterPageRange.split("-").map(Number);
+    console.log(minPageCount);
     const filteredByPageRange = books.filter(
-      (book) => book.pageCount >= minPageCount && book.pageCount <= maxPageCount
+      (book) => book.pages >= minPageCount && book.pages <= maxPageCount
     );
-
     // Türüne göre filtreleme
-    const filteredByGenre = books.filter((book) => book.genre === filterGenre);
+    // const filteredByGenre = books.filter((book) => book.genre === filterGenre);
 
     // İki filtreleme sonucunu birleştirme
-    const filteredData =
-      filterPageRange === "" ? filteredByGenre : filteredByPageRange;
-    setFilteredBooks(filteredData);
-  }, [filterPageRange, filterGenre]);
+    // const filteredData =
+    //   filterPageRange === "" ? filteredByGenre : filteredByPageRange;
+    console.log("sayfa aralığı: ", filteredByPageRange);
+    setFilteredBooks(filteredByPageRange);
+  }, [filterPageRange]);
 
   return (
     <div className={classes.container}>
@@ -46,9 +47,15 @@ const Populer = () => {
             value={filterPageRange}
             onChange={(e) => setFilterPageRange(e.target.value)}
           >
-            <option value="">Tümü</option>
+            <option value="0-10000">Tümü</option>
             <option value="100-150">100-150 Sayfa</option>
             <option value="150-200">150-200 Sayfa</option>
+            <option value="200-250">200-250 Sayfa</option>
+            <option value="250-300">250-300 Sayfa</option>
+            <option value="300-350">300-350 Sayfa</option>
+            <option value="350-400">350-400 Sayfa</option>
+            <option value="400-450">400-450 Sayfa</option>
+            <option value="450-500">450-500 Sayfa</option>
             {/* Diğer seçenekleri buraya ekleyebilirsiniz */}
           </select>
         </label>
