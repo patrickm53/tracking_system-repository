@@ -17,26 +17,39 @@ const Populer = () => {
       const book = await res.json();
 
       setBooks(book);
+      setFilteredBooks(book);
     }
     fetchBooks();
   }, []);
 
-  useEffect(() => {
-    // Sayfa aralığına göre filtreleme
+  // useEffect(() => {
+  //   // Sayfa aralığına göre filtreleme
+  //   const [minPageCount, maxPageCount] = filterPageRange.split("-").map(Number);
+  //   console.log(minPageCount);
+  //   const filteredByPageRange = books.filter(
+  //     (book) => book.pages >= minPageCount && book.pages <= maxPageCount
+  //   );
+  //   // Türüne göre filtreleme
+  //   // const filteredByGenre = books.filter((book) => book.genre === filterGenre);
+
+  //   // İki filtreleme sonucunu birleştirme
+  //   // const filteredData =
+  //   //   filterPageRange === "" ? filteredByGenre : filteredByPageRange;
+  //   console.log("sayfa aralığı: ", filteredByPageRange);
+  //   setFilteredBooks(filteredByPageRange);
+  // }, [filterPageRange]);
+
+  const handleFilter = (e) => {
+    e.preventDefault();
+
     const [minPageCount, maxPageCount] = filterPageRange.split("-").map(Number);
     console.log(minPageCount);
     const filteredByPageRange = books.filter(
       (book) => book.pages >= minPageCount && book.pages <= maxPageCount
     );
-    // Türüne göre filtreleme
-    // const filteredByGenre = books.filter((book) => book.genre === filterGenre);
 
-    // İki filtreleme sonucunu birleştirme
-    // const filteredData =
-    //   filterPageRange === "" ? filteredByGenre : filteredByPageRange;
-    console.log("sayfa aralığı: ", filteredByPageRange);
     setFilteredBooks(filteredByPageRange);
-  }, [filterPageRange]);
+  };
 
   return (
     <div className={classes.container}>
@@ -73,6 +86,7 @@ const Populer = () => {
             {/* Diğer türleri buraya ekleyebilirsiniz */}
           </select>
         </label>
+        <button onClick={handleFilter}>Ara</button>
       </div>
       <div className={classes.wrapper}>
         <div className={classes.product}>
