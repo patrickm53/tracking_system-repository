@@ -10,6 +10,14 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.filter > button {
+  background-color: green;
+  padding: 5px 20px 5px 20px;
+  border-radius: 50px;
 }
 
 .wrapper {
