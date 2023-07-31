@@ -61,14 +61,13 @@ const Populer = () => {
             onChange={(e) => setFilterPageRange(e.target.value)}
           >
             <option value="0-10000">Tümü</option>
-            <option value="100-150">100-150 Sayfa</option>
-            <option value="150-200">150-200 Sayfa</option>
-            <option value="200-250">200-250 Sayfa</option>
-            <option value="250-300">250-300 Sayfa</option>
-            <option value="300-350">300-350 Sayfa</option>
-            <option value="350-400">350-400 Sayfa</option>
-            <option value="400-450">400-450 Sayfa</option>
-            <option value="450-500">450-500 Sayfa</option>
+            <option value="0-100">0-100</option>
+            <option value="100-200">100-200</option>
+            <option value="200-300">200-300</option>
+            <option value="300-400">300-400</option>
+            <option value="400-500">400-500</option>
+            <option value="500-600">500-600</option>
+            <option value="600">600+</option>
             {/* Diğer seçenekleri buraya ekleyebilirsiniz */}
           </select>
         </label>

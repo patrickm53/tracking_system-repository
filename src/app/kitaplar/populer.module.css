@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
 .container {
   width: 100%;
   display: flex;
@@ -15,9 +17,30 @@
 }
 
 .filter > button {
-  background-color: green;
+  background-color: rgb(0, 119, 255);
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
   padding: 5px 20px 5px 20px;
   border-radius: 50px;
+}
+
+.filter > label {
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: grey;
+  gap: 5px;
+}
+
+.filter > label > select {
+  padding: 5px 15px 5px 15px;
+  border: 3px solid #ccc;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 5px;
 }
 
 .wrapper {
