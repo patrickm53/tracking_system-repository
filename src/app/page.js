@@ -1,5 +1,5 @@
 import ProductCard from "@/components/productCard/ProductCard";
-import Slider from "@/components/slider/Slider";
+import SimpleSlider from "@/components/slider/SimpleSlider";
 import React from "react";
 import classes from "./page.module.css";
 
@@ -15,7 +15,7 @@ const Home = async () => {
   const books = await fetchBooks();
   return (
     <div className={classes.container}>
-      <Slider />
+      <SimpleSlider />
       <div className={classes.wrapper}>
         <div className={classes.product}>
           {books?.length > 0 ? (
