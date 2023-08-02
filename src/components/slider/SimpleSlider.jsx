@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
+import { Container } from "postcss";
 import React from "react";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import Slider from "react-slick";
 import slider1 from "../../../public/slider1.png";
 import slider2 from "../../../public/slider2.png";
@@ -13,16 +15,25 @@ const SimpleSlider = () => {
   const settings = {
     arrows: false,
     dots: true, // Sayfalama noktalarını gösterir
+    speed: 1500,
     infinite: true, // Sonsuz döngü
     slidesToShow: 1, // Görünecek slayt sayısı
     slidesToScroll: 1, // Bir seferde kaydırılacak slayt sayısı
-    autoPlay: true,
-    autoplaySpeed: 1000,
+    autoplay: true, // Otomatik geçiş
+    autoplaySpeed: 4000,
   };
 
   return (
     <div className={classes.container}>
-      <Slider {...settings}>
+      <div className={classes.buttonContainer}>
+        <button onClick={() => slider?.current?.slickPrev()}>
+          <AiOutlineArrowLeft />
+        </button>
+        <button onClick={() => slider?.current?.slickNext()}>
+          <AiOutlineArrowRight />
+        </button>
+      </div>
+      <Slider ref={slider} {...settings}>
         <div>
           <Image src={slider1} width="1560" height="500" />
         </div>
