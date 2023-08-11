@@ -1,22 +1,11 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+| Home Page  | Home Page Bottom  |  
+| ------------- | ------------- |
+| ![ana-sayfa-book](https://github.com/seyityahya/book_tracking_system/assets/84639970/2642ef4b-7791-4961-a35a-ba232a0adb5c)| ![ana-sayfa-alt-kısım](https://github.com/seyityahya/book_tracking_system/assets/84639970/dc1ddae7-abfc-40d2-9399-df91af8943ec) | 
 
-## Getting Started
+| Profile  | Create Book Page  | All Books Page | 
+| ------------- | ------------- | ------------- |
+| ![profile](https://github.com/seyityahya/book_tracking_system/assets/84639970/6b14736b-6ee2-4787-8e47-e4fcadb2b6d9) | ![create-book](https://github.com/seyityahya/book_tracking_system/assets/84639970/3a5e3e1b-3379-4bce-ad91-9cb089ef4fb8) | ![tüm-kitaplar-page](https://github.com/seyityahya/book_tracking_system/assets/84639970/298e096b-2445-4431-9c31-0975ae444998) |
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
