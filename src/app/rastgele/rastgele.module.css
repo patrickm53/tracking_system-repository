@@ -10,5 +10,19 @@
 .setting {
   display: flex;
   gap: 30px;
-  padding: 20px;
+  margin-top: 30px;
+}
+
+.setting > .bookSearch {
+  padding: 5px 10px 5px 10px;
+  background-color: rgb(2, 177, 2);
+  border-radius: 25px;
+  color: #fff;
+}
+
+.setting > .bookChange {
+  padding: 10px 20px 10px 20px;
+  background-color: rgb(33, 33, 255);
+  border-radius: 25px;
+  color: #fff;
 }

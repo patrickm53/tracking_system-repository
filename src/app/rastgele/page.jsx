@@ -27,8 +27,8 @@ const Rastgele = () => {
     <div className={classes.container}>
       <Image src={randomBooks.coverImage} alt="" width={300} height={400} />
       <div className={classes.setting}>
-        <button>Kitabı Ara</button>
-        <button>değiştir</button>
+        <button className={classes.bookSearch}>Kitabı Ara</button>
+        <button className={classes.bookChange}>değiştir</button>
       </div>
     </div>
   );
