@@ -5,6 +5,7 @@ import classes from "./rastgele.module.css";
 
 const Rastgele = () => {
   const [randomBooks, setRandomBooks] = useState("");
+  const [buttonClicked, setButtonClicked] = useState(false);
   useEffect(() => {
     const fetchSimilarBooks = async () => {
       try {
@@ -20,15 +21,22 @@ const Rastgele = () => {
         console.log(error);
       }
     };
-
+    setButtonClicked(false);
     fetchSimilarBooks();
-  }, []);
+  }, [buttonClicked]);
+
+  const handleButtonClick = () => {
+    setButtonClicked(true);
+  };
+
   return (
     <div className={classes.container}>
       <Image src={randomBooks.coverImage} alt="" width={300} height={400} />
       <div className={classes.setting}>
         <button className={classes.bookSearch}>Kitabı Ara</button>
-        <button className={classes.bookChange}>değiştir</button>
+        <button onClick={handleButtonClick} className={classes.bookChange}>
+          değiştir
+        </button>
       </div>
     </div>
   );

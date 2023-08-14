@@ -20,3 +20,8 @@
   border-radius: 20px;
   font-size: 18px;
 }
+
+.image {
+  width: 100%;
+  height: auto;
+}

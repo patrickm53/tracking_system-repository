@@ -35,16 +35,36 @@ const SimpleSlider = () => {
       </div>
       <Slider ref={slider} {...settings}>
         <div>
-          <Image src={slider1} width="1560" height="500" />
+          <Image
+            className={classes.image}
+            src={slider1}
+            width="1560"
+            height="500"
+          />
         </div>
         <div>
-          <Image src={slider2} width="1560" height="500" />
+          <Image
+            className={classes.image}
+            src={slider2}
+            width="1560"
+            height="500"
+          />
         </div>
         <div>
-          <Image src={slider3} width="1560" height="500" />
+          <Image
+            className={classes.image}
+            src={slider3}
+            width="1560"
+            height="500"
+          />
         </div>
         <div>
-          <Image src={slider4} width="1560" height="500" />
+          <Image
+            className={classes.image}
+            src={slider4}
+            width="1560"
+            height="500"
+          />
         </div>
       </Slider>
     </div>
