@@ -8,12 +8,17 @@
   align-items: center;
 }
 
-.search > input {
+.search > form {
   width: 60%;
+  margin-right: 10px;
+}
+
+.search > form > input {
+  width: 100%;
   border: 1px solid #a9a9a9;
   border-radius: 20px;
   padding: 4px 10px;
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .search > .icons {

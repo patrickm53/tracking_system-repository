@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classes from "./rastgele.module.css";
 
@@ -13,10 +14,12 @@ const Rastgele = () => {
         if (!res.ok) {
           throw new Error("Error occurred");
         }
-        const books = await res.json();
-        const randomIndex = Math.floor(Math.random() * books.length);
-        const selectedBook = books[randomIndex];
-        setRandomBooks(selectedBook);
+        if (buttonClicked === false) {
+          const books = await res.json();
+          const randomIndex = Math.floor(Math.random() * books.length);
+          const selectedBook = books[randomIndex];
+          setRandomBooks(selectedBook);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -33,7 +36,9 @@ const Rastgele = () => {
     <div className={classes.container}>
       <Image src={randomBooks.coverImage} alt="" width={300} height={400} />
       <div className={classes.setting}>
-        <button className={classes.bookSearch}>Kitabı Ara</button>
+        <Link href={`/search?q=${randomBooks.title?.toLowerCase()}`}>
+          <button className={classes.bookSearch}>Kitabı Ara</button>
+        </Link>
         <button onClick={handleButtonClick} className={classes.bookChange}>
           değiştir
         </button>

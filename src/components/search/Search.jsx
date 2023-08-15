@@ -10,10 +10,6 @@ const Search = () => {
 
   const router = useRouter();
 
-  const handleInputChange = (event) => {
-    setSearch(event.target.value);
-  };
-
   useEffect(() => {
     async function searchControl() {
       const res = await fetch(`http://localhost:3000/api/book`);
@@ -35,28 +31,24 @@ const Search = () => {
     searchControl();
   }, [search]);
 
-  const handleArama = () => {
-    router.push(`/arama?search=${search}`);
+  const onSearch = (event) => {
+    event.preventDefault();
+    router.push(`/search?q=${search}`);
     setSearch("");
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleArama();
-    }
   };
 
   return (
     <div className={classes.container}>
       <div className={classes.search}>
-        <input
-          type="text"
-          value={search}
-          placeholder="Kitap Ara..."
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-        />
-        <AiOutlineSearch onClick={handleArama} className={classes.icons} />
+        <form onSubmit={onSearch}>
+          <input
+            type="text"
+            value={search}
+            placeholder="Kitap Ara..."
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </form>
+        <AiOutlineSearch className={classes.icons} />
       </div>
       {search.length > 0 && (
         <div className={classes.searchBox}>
