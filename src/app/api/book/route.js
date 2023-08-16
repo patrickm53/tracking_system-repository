@@ -7,6 +7,7 @@ export async function GET(req) {
 
   try {
     const books = await Book.find({}).populate("user");
+
     return new Response(JSON.stringify(books), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify(null), { status: 500 });

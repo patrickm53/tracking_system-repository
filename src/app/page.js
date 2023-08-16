@@ -4,7 +4,7 @@ import React from "react";
 import classes from "./page.module.css";
 
 export async function fetchBooks() {
-  const res = await fetch("http://localhost:3000/api/book", {
+  const res = await fetch("http://localhost:3000/api/book?page", {
     cache: "no-store",
   });
 
