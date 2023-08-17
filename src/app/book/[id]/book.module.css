@@ -23,7 +23,8 @@
   border-radius: 0 20px 20px 0;
 }
 
-.imgContainer > .button1 {
+.button1 {
+  width: 100%;
   margin-top: 10px;
   background-color: #3f8363;
   padding: 10px;
@@ -33,7 +34,8 @@
   font-weight: 500;
 }
 
-.imgContainer > .button2 {
+.button2 {
+  width: 100%;
   border: 1px solid #3f8363;
   padding: 10px;
   border-radius: 50px;
