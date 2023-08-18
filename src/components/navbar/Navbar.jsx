@@ -76,7 +76,7 @@ const Navbar = () => {
                 </Link>
               </button>
               <button>
-                <Link href={"/settings"}>
+                <Link href={`/settings/${session.user._id}`}>
                   <IoMdSettings className={classes.settingsIcon} />
                 </Link>
               </button>
