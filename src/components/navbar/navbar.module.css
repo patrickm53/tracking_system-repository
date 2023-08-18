@@ -13,7 +13,7 @@
 }
 
 .wrapper {
-  width: 85%;
+  width: 95%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -32,10 +32,51 @@
 
 .middle {
   display: flex;
+  gap: 5px;
 }
 
 .middle > button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 24px;
+  padding: 2px 5px 2px 5px;
+  border-radius: 20px;
+  color: grey;
+  position: relative;
+}
+
+.middle > button:after {
+  transition: all 0.5s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: ".";
+  color: transparent;
+  background: #aaa;
+  height: 2px;
+}
+
+.middle > button:before {
+  transition: all 0.5s;
+}
+
+.middle > button:hover {
+  color: #000;
+}
+
+.middle > button:hover:after {
+  width: 100%;
+}
+
+.middle > button > .navbarText {
   margin-right: 20px;
+  font-family: Graphik, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .right {
@@ -80,5 +121,9 @@
 }
 
 .createIcon {
-  font-size: 30px;
+  font-size: 25px;
+}
+
+.settingsIcon {
+  font-size: 25px;
 }
