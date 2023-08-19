@@ -9,8 +9,11 @@ export async function GET(req, ctx) {
 
   try {
     const comments = await Comment.find({ bookId: id }).populate("authorId");
+    const commentCount = comments.length;
 
-    return new Response(JSON.stringify(comments), { status: 200 });
+    return new Response(JSON.stringify({ comments, commentCount }), {
+      status: 200,
+    });
   } catch (error) {
     return new Response(JSON.stringify(null), { status: 500 });
   }

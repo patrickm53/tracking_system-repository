@@ -28,7 +28,9 @@ const BookDetails = (ctx) => {
         `http://localhost:3000/api/comment/${ctx.params.id}`,
         { cache: "no-store" }
       );
-      const comments = await res.json();
+      const data = await res.json();
+
+      const comments = data.comments;
 
       setComments(comments);
     }

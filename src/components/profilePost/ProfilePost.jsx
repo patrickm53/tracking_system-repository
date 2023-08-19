@@ -19,6 +19,21 @@ const ProfilePost = ({ key, book }) => {
   const [color, setColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
   const [bookLikes, setBookLikes] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+
+  useEffect(() => {
+    async function fetchComments() {
+      const res = await fetch(`http://localhost:3000/api/comment/${book._id}`, {
+        cache: "no-store",
+      });
+      const data = await res.json();
+
+      const comments = data.commentCount;
+
+      setCommentCount(comments);
+    }
+    fetchComments();
+  }, []);
 
   useEffect(() => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -121,7 +136,7 @@ const ProfilePost = ({ key, book }) => {
             </div>
             <div className={classes.rate}>
               <AiOutlineComment className={classes.icon} />
-              <span>12</span>
+              <span>{commentCount}</span>
             </div>
             <div className={classes.rate}>
               {isLiked ? (
