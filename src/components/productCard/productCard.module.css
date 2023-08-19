@@ -137,6 +137,7 @@
   align-items: center;
   margin-right: 15px;
   color: #fff;
+  gap: 5px;
 }
 
 .rateLike > .like > .likeIcon {

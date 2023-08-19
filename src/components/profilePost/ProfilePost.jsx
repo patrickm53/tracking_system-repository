@@ -5,15 +5,56 @@ import classes from "./profilePost.module.css";
 import person from "../../../public/person.jpg";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import colors from "../../lib/color";
-import { AiOutlineLike, AiFillStar, AiOutlineComment } from "react-icons/ai";
+import {
+  AiOutlineLike,
+  AiFillStar,
+  AiOutlineComment,
+  AiFillLike,
+} from "react-icons/ai";
+import { useSession } from "next-auth/react";
 
 const ProfilePost = ({ key, book }) => {
+  const { data: session } = useSession();
   const [user, setUser] = useState("");
   const [color, setColor] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
+  const [bookLikes, setBookLikes] = useState(0);
+
   useEffect(() => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     setColor(randomColor);
   }, []);
+
+  useEffect(() => {
+    session && book && setIsLiked(book.likes.includes(session?.user?._id));
+    session && book && setBookLikes(book.likes.length);
+  }, [book, session]);
+
+  const handleLike = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/book/${book._id}/like`,
+        {
+          headers: {
+            Authorization: `Bearer ${session?.user?.accessToken}`,
+          },
+          method: "PUT",
+        }
+      );
+
+      if (res.ok) {
+        if (isLiked) {
+          setIsLiked((prev) => !prev);
+          setBookLikes((prev) => prev - 1);
+        } else {
+          setIsLiked((prev) => !prev);
+          setBookLikes((prev) => prev + 1);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     async function fetchUser() {
@@ -83,8 +124,20 @@ const ProfilePost = ({ key, book }) => {
               <span>12</span>
             </div>
             <div className={classes.rate}>
-              <AiOutlineLike className={classes.icon} />
-              <span>100</span>
+              {isLiked ? (
+                <AiFillLike
+                  className={classes.icon}
+                  onClick={handleLike}
+                  size={20}
+                />
+              ) : (
+                <AiOutlineLike
+                  className={classes.icon}
+                  onClick={handleLike}
+                  size={20}
+                />
+              )}
+              <span>{bookLikes}</span>
             </div>
           </div>
         </div>

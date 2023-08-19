@@ -4,16 +4,52 @@ import classes from "./productCard.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import person from "../../../public/person.jpg";
-import { AiOutlineLike, AiFillStar } from "react-icons/ai";
+import { AiOutlineLike, AiFillStar, AiFillLike } from "react-icons/ai";
 import colors from "../../lib/color.js";
+import { useSession } from "next-auth/react";
 
 const ProductCard = ({ key, book }) => {
+  const { data: session } = useSession();
   const [backgroundColor, setBackgroundColor] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
+  const [bookLikes, setBookLikes] = useState(0);
 
   useEffect(() => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     setBackgroundColor(randomColor);
   }, []);
+
+  useEffect(() => {
+    session && book && setIsLiked(book.likes.includes(session?.user?._id));
+    session && book && setBookLikes(book.likes.length);
+  }, [book, session]);
+
+  const handleLike = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/book/${book._id}/like`,
+        {
+          headers: {
+            Authorization: `Bearer ${session?.user?.accessToken}`,
+          },
+          method: "PUT",
+        }
+      );
+
+      if (res.ok) {
+        if (isLiked) {
+          setIsLiked((prev) => !prev);
+          setBookLikes((prev) => prev - 1);
+        } else {
+          setIsLiked((prev) => !prev);
+          setBookLikes((prev) => prev + 1);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={classes.body}>
       <div className={classes.container}>
@@ -58,8 +94,20 @@ const ProductCard = ({ key, book }) => {
                 <span>{book.rating}</span>
               </div>
               <div className={classes.like}>
-                <AiOutlineLike className={classes.likeIcon} />
-                <span>100</span>
+                <span>{bookLikes}</span>
+                {isLiked ? (
+                  <AiFillLike
+                    className={classes.likeIcon}
+                    onClick={handleLike}
+                    size={20}
+                  />
+                ) : (
+                  <AiOutlineLike
+                    className={classes.likeIcon}
+                    onClick={handleLike}
+                    size={20}
+                  />
+                )}
               </div>
             </div>
           </div>

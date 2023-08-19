@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\api",
+    "\\src\\app\\api\\book",
+    "\\src\\app\\api\\book\\[id]",
+    "\\src\\app\\api\\book\\[id]\\like",
+    "\\src\\components\\settings-profile"
+  ],
+  "SelectedNode": "\\src\\app\\api\\book\\route.js",
+  "PreviewInSolutionExplorer": false
+}
