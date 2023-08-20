@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./populer.module.css";
 import ProductCard from "@/components/productCard/ProductCard";
+import { getBook } from "../api";
 
 const Populer = () => {
   const [books, setBooks] = useState([]);
@@ -17,10 +18,7 @@ const Populer = () => {
 
   useEffect(() => {
     async function fetchBooks() {
-      const res = await fetch(`http://localhost:3000/api/book`, {
-        cache: "no-store",
-      });
-      const book = await res.json();
+      const book = await getBook();
 
       setBooks(book);
       setFilteredBooks(book);

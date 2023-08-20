@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classes from "./rastgele.module.css";
+import { getBook } from "../api";
 
 const Rastgele = () => {
   const [randomBooks, setRandomBooks] = useState("");
@@ -10,12 +11,8 @@ const Rastgele = () => {
   useEffect(() => {
     const fetchSimilarBooks = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/book`);
-        if (!res.ok) {
-          throw new Error("Error occurred");
-        }
         if (buttonClicked === false) {
-          const books = await res.json();
+          const books = await getBook();
           const randomIndex = Math.floor(Math.random() * books.length);
           const selectedBook = books[randomIndex];
           setRandomBooks(selectedBook);

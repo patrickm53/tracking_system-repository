@@ -10,6 +10,13 @@ import StarRatings from "react-star-ratings";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Comment from "@/components/comment/Comment";
+import {
+  getBook,
+  fetchBookId,
+  fetchComment,
+  fetchProfileBook,
+  fetchCommentPost,
+} from "../../api";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
@@ -24,11 +31,7 @@ const BookDetails = (ctx) => {
 
   useEffect(() => {
     async function fetchComments() {
-      const res = await fetch(
-        `http://localhost:3000/api/comment/${ctx.params.id}`,
-        { cache: "no-store" }
-      );
-      const data = await res.json();
+      const data = await fetchComment(ctx.params.id);
 
       const comments = data.comments;
 
@@ -39,11 +42,7 @@ const BookDetails = (ctx) => {
 
   useEffect(() => {
     async function fetchBook() {
-      const res = await fetch(
-        `http://localhost:3000/api/book/${ctx.params.id}`,
-        { cache: "no-store" }
-      );
-      const book = await res.json();
+      const book = await fetchBookId(ctx.params.id);
 
       setBookDetails(book);
     }
@@ -53,11 +52,7 @@ const BookDetails = (ctx) => {
   useEffect(() => {
     const fetchSimilarBooks = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/book`);
-        if (!res.ok) {
-          throw new Error("Error occurred");
-        }
-        const books = await res.json();
+        const books = await getBook();
         const filteredBooks = books.filter(
           (book) =>
             book._id !== bookDetails?._id &&
@@ -76,11 +71,7 @@ const BookDetails = (ctx) => {
   useEffect(() => {
     const fetchProfileBooks = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/book/profile/${bookDetails.user._id}`,
-          { cache: "no-store" }
-        );
-        const books = await res.json();
+        const books = await fetchProfileBook(bookDetails.user._id);
 
         const differentBooks = books.filter(
           (book) => book._id !== bookDetails?._id
@@ -116,16 +107,9 @@ const BookDetails = (ctx) => {
         text: commentText,
       };
 
-      const res = await fetch(`http://localhost:3000/api/comment`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session?.user?.accessToken}`,
-        },
-        method: "POST",
-        body: JSON.stringify(body),
-      });
+      const token = session?.user?.accessToken;
 
-      const newComment = await res.json();
+      const newComment = await fetchCommentPost(token, body);
 
       setComments((prev) => {
         return [newComment, ...prev];

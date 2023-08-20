@@ -1,18 +1,20 @@
+"use client";
 import ProductCard from "@/components/productCard/ProductCard";
 import SimpleSlider from "@/components/slider/SimpleSlider";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./page.module.css";
+import { getBook } from "./api";
 
-export async function fetchBooks() {
-  const res = await fetch("http://localhost:3000/api/book", {
-    cache: "no-store",
-  });
+const Home = () => {
+  const [books, setBooks] = useState([]);
+  useEffect(() => {
+    async function fetchBooks() {
+      const book = await getBook();
 
-  return res.json();
-}
-
-const Home = async () => {
-  const books = await fetchBooks();
+      setBooks(book);
+    }
+    fetchBooks();
+  }, []);
   return (
     <div className={classes.container}>
       <SimpleSlider />

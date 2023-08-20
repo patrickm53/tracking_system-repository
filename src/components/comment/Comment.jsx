@@ -5,6 +5,7 @@ import person from "../../../public/person.jpg";
 import { BsTrash } from "react-icons/bs";
 import classes from "./comment.module.css";
 import Image from "next/image";
+import { fetchDeleteComment } from "@/app/api";
 
 const Comment = ({ comment, setComments }) => {
   const { data: session } = useSession();
@@ -12,12 +13,7 @@ const Comment = ({ comment, setComments }) => {
 
   const handleDeleteComment = async () => {
     try {
-      await fetch(`http://localhost:3000/api/comment/${comment?._id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        method: "DELETE",
-      });
+      await fetchDeleteComment(token, comment?._id);
 
       setComments((prev) => {
         return [...prev].filter((c) => c?._id !== comment?._id);

@@ -14,6 +14,7 @@ import Image from "next/image";
 import ProfilePost from "@/components/profilePost/ProfilePost";
 import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
+import { fetchProfileBook, fetchProfile } from "@/app/api";
 
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
@@ -27,20 +28,12 @@ const Profile = (ctx) => {
 
   useEffect(() => {
     async function fetchUser() {
-      const res = await fetch(
-        `http://localhost:3000/api/profile/${ctx.params.id}`,
-        { cache: "no-store" }
-      );
-      const user = await res.json();
+      const user = await fetchProfile(ctx.params.id);
 
       setUser(user);
     }
     async function fetchBooks() {
-      const res = await fetch(
-        `http://localhost:3000/api/book/profile/${ctx.params.id}`,
-        { cache: "no-store" }
-      );
-      const book = await res.json();
+      const book = await fetchProfileBook(ctx.params.id);
       setBooks(book);
     }
     fetchUser();

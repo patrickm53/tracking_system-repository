@@ -10,6 +10,7 @@ import "react-quill/dist/quill.snow.css";
 import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
+import { getBook, fetchBookPost } from "../api";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -50,27 +51,22 @@ const CreateBook = () => {
 
     try {
       const processedGenres = genres.map((genre) => genre.toLowerCase());
-      const res = await fetch(`http://localhost:3000/api/book`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session?.user?.accessToken}`,
-        },
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          coverImage,
-          rating,
-          author,
-          description,
-          genres: processedGenres,
-          pages,
-          years,
-          language,
-          user: session?.user?._id,
-        }),
-      });
+      const body = {
+        title,
+        coverImage,
+        rating,
+        author,
+        description,
+        genres: processedGenres,
+        pages,
+        years,
+        language,
+        user: session?.user?._id,
+      };
 
-      const book = await res.json();
+      const token = session?.user?.accessToken;
+
+      const book = await fetchBookPost(token, body);
 
       router.push(`/book/${book?._id}`);
     } catch (error) {
@@ -80,12 +76,7 @@ const CreateBook = () => {
 
   useEffect(() => {
     async function searchControl() {
-      const res = await fetch(`http://localhost:3000/api/book`);
-      if (!res.ok) {
-        throw new Error("Error occurred");
-      }
-
-      const books = await res.json();
+      const books = await getBook();
 
       const searchResult = books.filter((book) =>
         book.title.toLowerCase().includes(search)

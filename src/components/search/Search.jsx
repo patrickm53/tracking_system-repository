@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import classes from "./search.module.css";
 import { useRouter } from "next/navigation";
+import { getBook } from "@/app/api";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState([]);
@@ -12,12 +13,7 @@ const Search = () => {
 
   useEffect(() => {
     async function searchControl() {
-      const res = await fetch(`http://localhost:3000/api/book`);
-      if (!res.ok) {
-        throw new Error("Error occurred");
-      }
-
-      const books = await res.json();
+      const books = await getBook();
 
       const searchResult = books.filter((book) =>
         book.title.toLowerCase().includes(search)

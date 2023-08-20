@@ -12,6 +12,7 @@ import {
   AiFillLike,
 } from "react-icons/ai";
 import { useSession } from "next-auth/react";
+import { fetchComment } from "@/app/api";
 
 const ProfilePost = ({ key, book }) => {
   const { data: session } = useSession();
@@ -23,10 +24,7 @@ const ProfilePost = ({ key, book }) => {
 
   useEffect(() => {
     async function fetchComments() {
-      const res = await fetch(`http://localhost:3000/api/comment/${book._id}`, {
-        cache: "no-store",
-      });
-      const data = await res.json();
+      const data = await fetchComment(book._id);
 
       const comments = data.commentCount;
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/productCard/ProductCard";
 import classes from "./search.module.css";
+import { getBook } from "../api";
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState([]);
@@ -11,12 +12,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     async function searchControl() {
-      const res = await fetch(`http://localhost:3000/api/book`);
-      if (!res.ok) {
-        throw new Error("Error occurred");
-      }
-
-      const books = await res.json();
+      const books = await getBook();
 
       const searchResult = books.filter((book) =>
         book.title.toLowerCase().includes(searchQuery)
