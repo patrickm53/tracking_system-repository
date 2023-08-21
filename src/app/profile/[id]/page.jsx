@@ -19,6 +19,7 @@ import { fetchProfileBook, fetchProfile } from "@/app/api";
 const Profile = (ctx) => {
   const [user, setUser] = useState("");
   const [books, setBooks] = useState("");
+  const [navbarSelect, setNavbarSelect] = useState("yayınlar");
 
   const { data: session } = useSession(false);
 
@@ -48,6 +49,10 @@ const Profile = (ctx) => {
     router.push("/");
   };
 
+  const handleButtonClick = (buttonName) => {
+    setNavbarSelect(buttonName);
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.imageContainer}>
@@ -60,8 +65,24 @@ const Profile = (ctx) => {
           />
           <div className={classes.navbar}>
             <div className={classes.navbarLeft}>
-              <button>Yayınlar</button>
-              <button>Yorumlar</button>
+              <button
+                className={navbarSelect === "yayınlar" ? classes.active : ""}
+                onClick={() => handleButtonClick("yayınlar")}
+              >
+                Yayınlar
+              </button>
+              <button
+                className={navbarSelect === "yorumlar" ? classes.active : ""}
+                onClick={() => handleButtonClick("yorumlar")}
+              >
+                Yorumlar
+              </button>
+              <button
+                className={navbarSelect === "begeniler" ? classes.active : ""}
+                onClick={() => handleButtonClick("begeniler")}
+              >
+                Beğeniler
+              </button>
             </div>
             <div className={classes.navbarRight}>
               {session?.user?._id !== user._id && <button>Takip Et</button>}
@@ -108,12 +129,23 @@ const Profile = (ctx) => {
           </Link>
         </div>
         <div className={classes.post}>
-          {books?.length > 0 ? (
-            books.map((book) => <ProfilePost key={book._id} book={book} />)
+          {navbarSelect === "yayınlar" ? (
+            <div>
+              {books?.length > 0 ? (
+                books.map((book) => <ProfilePost key={book._id} book={book} />)
+              ) : (
+                <div>kitap yok</div>
+              )}
+            </div>
           ) : (
-            <div>kitap yok</div>
+            ""
           )}
+          {navbarSelect === "yorumlar" ? <div>yorumlar</div> : ""}
+          {navbarSelect === "begeniler" ? <div>beğeniler</div> : ""}
         </div>
+
+        {/* Takip önerisi kısmı */}
+
         <div className={classes.right}>
           <h2>Takip Önerisi</h2>
           <div className={classes.followPerson}>

@@ -35,6 +35,16 @@
   margin-right: 30px;
   font-weight: 700;
   font-size: 20px;
+  padding: 5px 10px 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbarLeft > button:hover {
+  background-color: #ccc;
+}
+
+.navbarLeft > .active {
+  border-bottom: 1px solid #000;
 }
 
 .profileNavbar > .navbar > .navbarRight > button {
