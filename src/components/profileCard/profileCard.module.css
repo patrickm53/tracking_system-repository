@@ -1,0 +1,62 @@
+.body {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.up {
+  display: flex;
+  gap: 20px;
+}
+
+.up > .imageContainer {
+  width: 100px;
+  height: 100px;
+}
+
+.imageContainer > .image {
+  border-radius: 100%;
+}
+
+.information > h2 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: -5px;
+}
+
+.information > h3 {
+  font-size: 14px;
+  color: grey;
+  font-weight: 300;
+  margin-top: -5px;
+}
+
+.information > p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.information > p > span {
+  color: green;
+}
+
+.follows {
+  padding: 5px 15px 5px 15px;
+  background-color: rgb(70, 70, 70);
+  border-radius: 4px;
+}
+
+.follows > button {
+  color: #fff;
+}

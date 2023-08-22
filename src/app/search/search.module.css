@@ -19,3 +19,21 @@
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
 }
+
+.inputContainer {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: -30px;
+}
+
+.inputContainer > input {
+  margin-left: 20px;
+  margin-right: 5px;
+  width: 15px;
+}
+
+.inputContainer > p {
+  margin-right: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}

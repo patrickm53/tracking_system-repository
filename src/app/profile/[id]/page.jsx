@@ -124,9 +124,6 @@ const Profile = (ctx) => {
               <a>28 post - 150 comment</a>
             </div>
           </div>
-          <Link href="/">
-            <button onClick={handleSignOut}>logout</button>
-          </Link>
         </div>
         <div className={classes.post}>
           {navbarSelect === "yayınlar" ? (

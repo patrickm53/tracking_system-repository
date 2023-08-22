@@ -48,9 +48,9 @@
 }
 
 .profileNavbar > .navbar > .navbarRight > button {
-  background-color: grey;
-  padding: 5px 10px;
-  border-radius: 50px;
+  background-color: rgb(70, 70, 70);
+  padding: 5px 15px;
+  border-radius: 4px;
   color: #fff;
 }
 
@@ -212,9 +212,9 @@
 }
 
 .followPerson > button {
-  background-color: grey;
+  background-color: rgb(70, 70, 70);
   color: #fff;
-  border-radius: 20px;
+  border-radius: 4px;
   height: 30px;
   padding: 0 10px;
 }

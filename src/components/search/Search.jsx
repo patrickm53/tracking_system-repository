@@ -40,7 +40,7 @@ const Search = () => {
           <input
             type="text"
             value={search}
-            placeholder="Kitap Ara..."
+            placeholder="Ara..."
             onChange={(event) => setSearch(event.target.value)}
           />
         </form>

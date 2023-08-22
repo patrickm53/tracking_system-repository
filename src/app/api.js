@@ -32,6 +32,12 @@ export async function fetchProfileBook(userId) {
   return data;
 }
 
+export async function fetchAllProfile() {
+  const response = await fetch("http://localhost:3000/api/profile");
+  const data = await response.json();
+  return data;
+}
+
 export async function fetchProfile(userId) {
   const response = await fetch(`http://localhost:3000/api/profile/${userId}`);
   const data = await response.json();
