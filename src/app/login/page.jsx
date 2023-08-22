@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
-        <h2>Log In</h2>
+        {/* <h2>Log In</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="email"
@@ -62,7 +62,47 @@ const Login = () => {
           <Link className={classes.loginNow} href="/register">
             Don&apos;t have an account? <br /> Register now.
           </Link>
-        </form>
+        </form> */}
+        <div className={classes.information}>
+          <h1>BookWave</h1>
+          <div className={classes.middle}>
+            <h2>
+              Giriş Yap <br /> ve insanların neler okuduğunu gör
+            </h2>
+            <h3>
+              okuduğun kitapları paylaş, yorumları oku, yorum yap, topluluklara
+              katıl.
+            </h3>
+          </div>
+          <div className={classes.bottom}>
+            <p>Okumadan geçen bir gün, yitirilmiş bir gündür.</p>
+            <span>Paul Sartre</span>
+          </div>
+        </div>
+        <div className={classes.signIn}>
+          <h2>Giriş Yap</h2>
+          <h3>
+            Hesabın yok mu ?{" "}
+            <Link className={classes.register} href={"/register"}>
+              Kayıt Ol
+            </Link>
+          </h3>
+          <form onSubmit={handleSubmit}>
+            <h4>Email Adresi</h4>
+            <input
+              type="email"
+              placeholder="Email..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <h4>Şifre</h4>
+            <input
+              type="password"
+              placeholder="Şifre..."
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button className={classes.submitButton}>Log in</button>
+          </form>
+        </div>
       </div>
       <ToastContainer />
     </div>

@@ -92,7 +92,9 @@ const Navbar = () => {
                 >
                   Giriş Yap
                 </button>
-                <Link href="/register">Kayıt Ol</Link>
+                <Link className={classes.register} href="/register">
+                  Kayıt Ol
+                </Link>
               </>
             </ul>
           )}
