@@ -1,9 +1,5 @@
-.body {
-  margin-top: 50px;
-}
-
 .container {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .person {
@@ -48,13 +44,7 @@
   height: 210px;
   box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  margin-right: 30px;
-}
-
-@media screen and (max-width = 998px) {
-  .wrapper {
-    margin-right: 0;
-  }
+  margin-right: 10px;
 }
 
 .wrapper > .imgContainer > .bookImage {
@@ -69,7 +59,7 @@
 }
 
 .wrapper > .bookDetail {
-  width: 210px;
+  max-width: 210px;
   position: absolute;
   left: 165px;
   top: 15px;
@@ -147,4 +137,26 @@
 
 .rateLike > .like > span {
   margin-left: 5px;
+}
+
+@media screen and (max-width: 400px) {
+  .wrapper {
+    width: 320px;
+  }
+  .wrapper > .imgContainer > .bookImage {
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .wrapper {
+    max-width: 300px;
+  }
+  .wrapper > .bookDetail {
+    max-width: 300px;
+    left: 10px;
+  }
+  .wrapper > .imgContainer > .bookImage {
+    display: none;
+  }
 }

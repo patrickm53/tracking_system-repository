@@ -105,7 +105,7 @@
   background-color: #f3f3f3;
   border-radius: 10px;
   margin-bottom: 20px;
-  color: grey;
+  font-weight: 500;
 }
 
 .signIn > form > button {
@@ -115,4 +115,10 @@
   padding: 15px;
   color: #fff;
   border-radius: 10px;
+}
+
+.signIn > form > h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: grey;
 }

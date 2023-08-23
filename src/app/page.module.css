@@ -16,18 +16,13 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
+  gap: 40px;
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1350px) {
   .product {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 998px) {
-  .product {
     justify-content: center;
+    flex-wrap: wrap;
   }
 }

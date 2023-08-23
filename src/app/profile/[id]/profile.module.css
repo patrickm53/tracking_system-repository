@@ -67,6 +67,8 @@
 }
 
 .personProfile {
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   width: 280px;
   height: 450px;
@@ -76,19 +78,18 @@
   box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
 }
 
-.personProfile > .profileImageContainer {
+.personProfile > .top > .profileImageContainer {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 10px;
 }
 
-.personProfile > .profileImageContainer > .profileImage {
+.personProfile > .top > .profileImageContainer > .profileImage {
   border-radius: 50%;
-  opacity: 0.8;
 }
 
-.personProfile > h2 {
+.personProfile > .top > h2 {
   display: flex;
   align-items: center;
   margin-top: 10px;
@@ -98,29 +99,29 @@
   gap: 10px;
 }
 
-.personProfile > h3 {
+.personProfile > .top > h3 {
   margin-left: 25px;
   color: grey;
 }
 
-.personProfile > p {
+.personProfile > .bottom > p {
   margin-left: 25px;
   margin-top: 15px;
   font-weight: 500;
 }
 
-.personProfile > a {
+.personProfile > .bottom > a {
   margin-left: 25px;
   color: rgb(49, 176, 249);
   cursor: pointer;
 }
 
-.personProfile > .information {
+.personProfile > .bottom > .information {
   margin-left: 25px;
   margin-top: 15px;
 }
 
-.personProfile > .information > .info {
+.personProfile > .bottom > .information > .info {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -129,7 +130,7 @@
   color: grey;
 }
 
-.personProfile > .information > .link {
+.personProfile > .bottom > .information > .link {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -138,27 +139,14 @@
   color: grey;
 }
 
-.personProfile > .information > .info > span {
+.personProfile > .bottom > .information > .info > span {
   font-size: 14px;
 }
 
-.personProfile > .information > .link > a {
+.personProfile > .bottom > .information > .link > a {
   font-size: 14px;
   color: rgb(49, 176, 249);
   cursor: pointer;
-}
-
-.personProfile > .location {
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  color: grey;
-  font-size: 24px;
-  gap: 4px;
-}
-
-.personProfile > .location > span {
-  font-size: 16px;
 }
 
 .post {
@@ -225,4 +213,77 @@
   margin-bottom: 5px;
   color: rgb(49, 176, 249);
   cursor: pointer;
+}
+
+@media screen and (max-width: 1350px) {
+  .right {
+    display: none;
+  }
+  .post {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 999px) {
+  .profileNavbar {
+    height: 200px;
+  }
+  .profileNavbar > .navbar {
+    padding-left: 250px;
+    padding-right: 10px;
+  }
+  .profileNavbar > .navbar > .navbarLeft > button {
+    margin-right: 5px;
+  }
+  .backgroundImage {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .profileNavbar > .navbar {
+    padding-left: 0;
+  }
+
+  .personProfile {
+    width: 100%;
+    height: 280px;
+    margin-top: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .post {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .personProfile {
+    height: 420px;
+    flex-direction: column;
+    width: 280px;
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  .profileNavbar > .navbar > .navbarLeft > button {
+    font-size: 16px;
+    padding: 0;
+    padding-right: 10px;
+  }
+
+  .profileNavbar > .navbar > .navbarRight > button {
+    padding: 5px 10px;
+  }
+  .profileNavbar {
+    height: 150px;
+  }
+  .backgroundImage {
+    height: 100px;
+  }
 }

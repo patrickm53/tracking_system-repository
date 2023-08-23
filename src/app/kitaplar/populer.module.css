@@ -16,6 +16,11 @@
   gap: 40px;
 }
 
+.filter > .filterState {
+  display: flex;
+  gap: 40px;
+}
+
 .filter > button {
   background-color: rgb(0, 119, 255);
   color: #fff;
@@ -25,7 +30,7 @@
   border-radius: 50px;
 }
 
-.filter > label {
+.filter > .filterState > label {
   display: flex;
   align-items: center;
   font-family: "Roboto", sans-serif;
@@ -35,7 +40,7 @@
   gap: 5px;
 }
 
-.filter > label > select {
+.filter > .filterState > label > select {
   padding: 5px 15px 5px 15px;
   border: 3px solid #ccc;
   font-size: 14px;
@@ -55,18 +60,22 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
+  gap: 40px;
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1350px) {
   .product {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
+  }
+  .filter {
+    flex-direction: column;
   }
 }
 
-@media screen and (max-width: 998px) {
-  .product {
-    justify-content: center;
+@media screen and (max-width: 500px) {
+  .filter > .filterState {
+    flex-direction: column;
   }
 }

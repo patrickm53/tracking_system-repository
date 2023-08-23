@@ -46,23 +46,6 @@ const Login = () => {
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
-        {/* <h2>Log In</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email..."
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password..."
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className={classes.submitButton}>Log in</button>
-          <Link className={classes.loginNow} href="/register">
-            Don&apos;t have an account? <br /> Register now.
-          </Link>
-        </form> */}
         <div className={classes.information}>
           <h1>BookWave</h1>
           <div className={classes.middle}>
@@ -100,6 +83,7 @@ const Login = () => {
               placeholder="Şifre..."
               onChange={(e) => setPassword(e.target.value)}
             />
+
             <button className={classes.submitButton}>Log in</button>
           </form>
         </div>

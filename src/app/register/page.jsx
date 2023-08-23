@@ -5,6 +5,8 @@ import { signIn } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
+import { person } from "../../../public/person.jpg";
+import Image from "next/image";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -53,32 +55,6 @@ const Register = () => {
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
-        {/* <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Username..."
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Name..."
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Email..."
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password..."
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className={classes.submitButton}>Register</button>
-          <button className={classes.registerNow} onClick={() => signIn()}>
-            Don't have an account? <br /> Register now.
-          </button>
-        </form> */}
         <div className={classes.information}>
           <h1>BookWave</h1>
           <div className={classes.middle}>

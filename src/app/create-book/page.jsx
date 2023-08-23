@@ -103,7 +103,7 @@ const CreateBook = () => {
 
   return (
     <div className={classes.container}>
-      <h2>Create Post</h2>
+      <h2>Yorumunu Paylaş</h2>
       <div className={classes.wrapper}>
         <div className={classes.searchBox}>
           <div className={classes.search}>
@@ -205,7 +205,7 @@ const CreateBook = () => {
         </form>
       </div>
       <button className={classes.createBlog} onClick={handleSubmit}>
-        Create
+        Paylaş
       </button>
       <ToastContainer />
     </div>

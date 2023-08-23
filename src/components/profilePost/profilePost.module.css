@@ -53,7 +53,7 @@
   box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   height: 300px;
-  padding: 20px 50px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -131,4 +131,28 @@
   color: grey;
   font-weight: 500;
   font-size: 14px;
+}
+
+@media screen and (max-width: 499px) {
+  .wrapper {
+    flex-direction: column;
+    height: 500px;
+  }
+
+  .postInformation {
+    width: 100%;
+    margin: 0;
+    height: 50%;
+  }
+  .postInformation > .desc {
+    height: 60%;
+  }
+  .profilePost > .postImageContainer {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+  }
+  .profilePost > .postImageContainer > .bookImage {
+    height: 100%;
+  }
 }

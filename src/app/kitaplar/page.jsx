@@ -100,66 +100,70 @@ const Populer = () => {
   return (
     <div className={classes.container}>
       <div className={classes.filter}>
-        <label>
-          Sayfa Aralığı:
-          <select
-            value={filterPageRange}
-            onChange={(e) => setFilterPageRange(e.target.value)}
-          >
-            <option value="">Tümü</option>
-            <option value="0-100">0-100</option>
-            <option value="100-200">100-200</option>
-            <option value="200-300">200-300</option>
-            <option value="300-400">300-400</option>
-            <option value="400-500">400-500</option>
-            <option value="500-600">500-600</option>
-            <option value="600-100000">600+</option>
-            {/* Diğer seçenekleri buraya ekleyebilirsiniz */}
-          </select>
-        </label>
+        <div className={classes.filterState}>
+          <label>
+            Sayfa Aralığı:
+            <select
+              value={filterPageRange}
+              onChange={(e) => setFilterPageRange(e.target.value)}
+            >
+              <option value="">Tümü</option>
+              <option value="0-100">0-100</option>
+              <option value="100-200">100-200</option>
+              <option value="200-300">200-300</option>
+              <option value="300-400">300-400</option>
+              <option value="400-500">400-500</option>
+              <option value="500-600">500-600</option>
+              <option value="600-100000">600+</option>
+              {/* Diğer seçenekleri buraya ekleyebilirsiniz */}
+            </select>
+          </label>
 
-        <label>
-          Dil:
-          <select
-            value={filterLanguage}
-            onChange={(e) => setFilterLanguage(e.target.value)}
-          >
-            <option value="">Tümü</option>
-            <option value="türkçe">Türkçe</option>
-            <option value="english">English</option>
-          </select>
-        </label>
+          <label>
+            Dil:
+            <select
+              value={filterLanguage}
+              onChange={(e) => setFilterLanguage(e.target.value)}
+            >
+              <option value="">Tümü</option>
+              <option value="türkçe">Türkçe</option>
+              <option value="english">English</option>
+            </select>
+          </label>
+        </div>
 
-        <label>
-          Yayın Tarihi:
-          <select
-            value={filterYears}
-            onChange={(e) => setFilterYears(e.target.value)}
-          >
-            <option value="">Tümü</option>
-            <option value="2020-2100">2020 sonrası</option>
-            <option value="2015-2020">2015-2020</option>
-            <option value="2010-2015">2010-2015</option>
-            <option value="2005-2010">2005-2010</option>
-            <option value="2000-2005">2000-2005</option>
-            <option value="0-2000">2000 öncesi</option>
-          </select>
-        </label>
+        <div className={classes.filterState}>
+          <label>
+            Yayın Tarihi:
+            <select
+              value={filterYears}
+              onChange={(e) => setFilterYears(e.target.value)}
+            >
+              <option value="">Tümü</option>
+              <option value="2020-2100">2020 sonrası</option>
+              <option value="2015-2020">2015-2020</option>
+              <option value="2010-2015">2010-2015</option>
+              <option value="2005-2010">2005-2010</option>
+              <option value="2000-2005">2000-2005</option>
+              <option value="0-2000">2000 öncesi</option>
+            </select>
+          </label>
 
-        <label>
-          Yıldız:
-          <select
-            value={filterStar}
-            onChange={(e) => setFilterStar(e.target.value)}
-          >
-            <option value="">Tümü</option>
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-          </select>
-        </label>
+          <label>
+            Yıldız:
+            <select
+              value={filterStar}
+              onChange={(e) => setFilterStar(e.target.value)}
+            >
+              <option value="">Tümü</option>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </label>
+        </div>
 
         <button onClick={handleFilter}>Ara</button>
       </div>

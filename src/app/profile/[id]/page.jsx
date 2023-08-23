@@ -77,12 +77,6 @@ const Profile = (ctx) => {
               >
                 Yorumlar
               </button>
-              <button
-                className={navbarSelect === "begeniler" ? classes.active : ""}
-                onClick={() => handleButtonClick("begeniler")}
-              >
-                Beğeniler
-              </button>
             </div>
             <div className={classes.navbarRight}>
               {session?.user?._id !== user._id && <button>Takip Et</button>}
@@ -92,36 +86,40 @@ const Profile = (ctx) => {
       </div>
       <div className={classes.wrapper}>
         <div className={classes.personProfile}>
-          <div className={classes.profileImageContainer}>
-            <Image
-              className={classes.profileImage}
-              alt="profilePerson"
-              src={person}
-              width={150}
-              height={150}
-            />
+          <div className={classes.top}>
+            <div className={classes.profileImageContainer}>
+              <Image
+                className={classes.profileImage}
+                alt="profilePerson"
+                src={person}
+                width={150}
+                height={150}
+              />
+            </div>
+            <h2>
+              {user.name}
+              <AiFillBook />
+            </h2>
+            <h3>@{user.username}</h3>
           </div>
-          <h2>
-            {user.name}
-            <AiFillBook />
-          </h2>
-          <h3>@{user.username}</h3>
-          <p>Okul gezer yer</p>
-          <a>@Twitter</a>
-          <div className={classes.information}>
-            <div className={classes.info}>
-              <BiCurrentLocation /> <span>Türkiye</span>
-            </div>
-            <div className={classes.link}>
-              <TbNetwork />
-              <a>seyityahya.com</a>
-            </div>
-            <div className={classes.info}>
-              <FaBirthdayCake /> <span>mart 1999</span>
-            </div>
-            <div className={classes.link}>
-              <BsFillPostcardFill />
-              <a>28 post - 150 comment</a>
+          <div className={classes.bottom}>
+            <p>Okur gezer yer</p>
+            <a>@Twitter</a>
+            <div className={classes.information}>
+              <div className={classes.info}>
+                <BiCurrentLocation /> <span>Türkiye</span>
+              </div>
+              <div className={classes.link}>
+                <TbNetwork />
+                <a>seyityahya.com</a>
+              </div>
+              <div className={classes.info}>
+                <FaBirthdayCake /> <span>mart 1999</span>
+              </div>
+              <div className={classes.link}>
+                <BsFillPostcardFill />
+                <a>28 post - 150 comment</a>
+              </div>
             </div>
           </div>
         </div>
