@@ -2,7 +2,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import classes from "./profilePost.module.css";
-import person from "../../../public/person.jpg";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import colors from "../../lib/color";
 import {
@@ -90,7 +89,7 @@ const ProfilePost = ({ key, book }) => {
         <div className={classes.personLeft}>
           <Image
             alt="profilPerson"
-            src={person}
+            src={user?.profilImage}
             width="45"
             height="45"
             className={classes.profilPerson}

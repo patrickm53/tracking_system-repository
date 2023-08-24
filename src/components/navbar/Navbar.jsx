@@ -1,9 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./navbar.module.css";
-import person from "../../../public/person.jpg";
 import logo from "../../../public/logo.png";
 import {
   AiOutlineSearch,
@@ -16,10 +15,21 @@ import { IoMdSettings } from "react-icons/io";
 import { HiUserGroup } from "react-icons/hi";
 import { signIn, useSession } from "next-auth/react";
 import Search from "../search/Search";
+import { fetchProfile } from "../../app/api";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const loggenIn = false;
+  const [userDetail, setUserDetail] = useState("");
+
+  useEffect(() => {
+    async function fetchProfiles() {
+      const id = session?.user?._id;
+      const data = await fetchProfile(id);
+
+      setUserDetail(data);
+    }
+    fetchProfiles();
+  }, [session]);
 
   return (
     <>
@@ -65,10 +75,10 @@ const Navbar = () => {
                 </Link>
               </button>
               <button className={classes.navbarProfile}>
-                <Link href={`/profile/${session.user._id}`}>
+                <Link href={`/profile/${session?.user?._id}`}>
                   <Image
                     alt="profilResmi"
-                    src={person}
+                    src={userDetail?.profilImage}
                     width="45"
                     height="45"
                     className={classes.image}
@@ -76,7 +86,7 @@ const Navbar = () => {
                 </Link>
               </button>
               <button>
-                <Link href={`/settings/${session.user._id}`}>
+                <Link href={`/settings/${session?.user?._id}`}>
                   <IoMdSettings className={classes.settingsIcon} />
                 </Link>
               </button>

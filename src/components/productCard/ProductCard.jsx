@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import classes from "./productCard.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import person from "../../../public/person.jpg";
 import { AiOutlineLike, AiFillStar, AiFillLike } from "react-icons/ai";
 import colors from "../../lib/color.js";
 import { useSession } from "next-auth/react";
@@ -56,13 +55,13 @@ const ProductCard = ({ key, book }) => {
         <div className={classes.person}>
           <Image
             alt="person"
-            src={person}
+            src={book?.user?.profilImage}
             width="32"
             height="32"
             className={classes.personImg}
           />
-          <Link href={`/profile/${book.user._id}`}>
-            <h2 className={classes.uploader}>{book.user.name}</h2>
+          <Link href={`/profile/${book.user?._id}`}>
+            <h2 className={classes.uploader}>{book.user?.name}</h2>
           </Link>
           <span>•</span>
           <div className={classes.clock}>3s</div>
@@ -70,7 +69,7 @@ const ProductCard = ({ key, book }) => {
           <button className={classes.followers}>Takip Et</button>
         </div>
         <div style={{ backgroundColor }} className={classes.wrapper}>
-          <Link className={classes.imgContainer} href={`/book/${book._id}`}>
+          <Link className={classes.imgContainer} href={`/book/${book?._id}`}>
             <Image
               className={classes.bookImage}
               src={book.coverImage}

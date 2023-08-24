@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./profileCard.module.css";
-import person from "../../../public/person.jpg";
 import Image from "next/image";
 import { AiFillBook } from "react-icons/ai";
 import Link from "next/link";
@@ -16,7 +15,7 @@ const ProfileCard = ({ key, user }) => {
           >
             <Image
               className={classes.image}
-              src={person}
+              src={user?.profilImage}
               width="100"
               height="100"
             />

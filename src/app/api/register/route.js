@@ -6,7 +6,13 @@ export async function POST(req) {
   try {
     await connect();
 
-    const { name, username, email, password: pass } = await req.json();
+    const {
+      name,
+      username,
+      email,
+      password: pass,
+      profilImage,
+    } = await req.json();
 
     const isExisting = await User.findOne({ email });
 
@@ -21,6 +27,7 @@ export async function POST(req) {
       username,
       email,
       password: hashedPassword,
+      profilImage,
     });
 
     const { password, ...user } = newUser._doc;

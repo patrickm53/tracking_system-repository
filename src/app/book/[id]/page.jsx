@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import classes from "./book.module.css";
-import person from "../../../../public/person.jpg";
 import Link from "next/link";
 import StarRatings from "react-star-ratings";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,6 +15,7 @@ import {
   fetchComment,
   fetchProfileBook,
   fetchCommentPost,
+  fetchProfile,
 } from "../../api";
 
 const BookDetails = (ctx) => {
@@ -25,9 +25,20 @@ const BookDetails = (ctx) => {
   const [postCount, setPostCount] = useState(0);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
+  const [userDetail, setUserDetail] = useState("");
 
   const { data: session } = useSession();
   const router = useRouter;
+
+  useEffect(() => {
+    async function fetchProfiles() {
+      const id = session.user._id;
+      const data = await fetchProfile(id);
+
+      setUserDetail(data);
+    }
+    fetchProfiles();
+  }, []);
 
   useEffect(() => {
     async function fetchComments() {
@@ -172,7 +183,7 @@ const BookDetails = (ctx) => {
               >
                 <Image
                   alt="detailProfil"
-                  src={person}
+                  src={bookDetails?.user?.profilImage}
                   width="30"
                   height="30"
                   className={classes.detailsProfilImage}
@@ -247,7 +258,12 @@ const BookDetails = (ctx) => {
           )}
           <div className={classes.commentSection}>
             <div className={classes.commentInput}>
-              <Image src={person} width="45" height="45" alt="" />
+              <Image
+                src={userDetail.profilImage}
+                width="45"
+                height="45"
+                alt=""
+              />
               <input
                 value={commentText}
                 type="text"
@@ -263,6 +279,7 @@ const BookDetails = (ctx) => {
                     key={comment._id}
                     comment={comment}
                     setComments={setComments}
+                    userDetail={userDetail}
                   />
                 ))
               ) : (

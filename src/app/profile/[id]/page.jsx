@@ -91,7 +91,7 @@ const Profile = (ctx) => {
               <Image
                 className={classes.profileImage}
                 alt="profilePerson"
-                src={person}
+                src={user.profilImage}
                 width={150}
                 height={150}
               />

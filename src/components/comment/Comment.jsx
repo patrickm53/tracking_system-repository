@@ -1,13 +1,12 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import { format } from "timeago.js";
-import person from "../../../public/person.jpg";
 import { BsTrash } from "react-icons/bs";
 import classes from "./comment.module.css";
 import Image from "next/image";
 import { fetchDeleteComment } from "@/app/api";
 
-const Comment = ({ comment, setComments }) => {
+const Comment = ({ comment, setComments, userDetail }) => {
   const { data: session } = useSession();
   const token = session?.user?.accessToken;
 
@@ -28,7 +27,7 @@ const Comment = ({ comment, setComments }) => {
       <div className={classes.wrapper}>
         <div className={classes.left}>
           <div className={classes.commentProfile}>
-            <Image src={person} width="50" height="50" alt="" />
+            <Image src={userDetail.profilImage} width="50" height="50" alt="" />
             <div className={classes.userData}>
               <h4>{comment?.authorId?.name}</h4>
               <span className={classes.timeago}>

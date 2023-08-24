@@ -5,19 +5,26 @@ import { signIn } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
-import { person } from "../../../public/person.jpg";
 import Image from "next/image";
+import profilImage from "@/lib/profilImage";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (username === "" || name === "" || email === "" || password === "") {
+    if (
+      username === "" ||
+      name === "" ||
+      email === "" ||
+      password === "" ||
+      selectedImage === ""
+    ) {
       toast.error("Fill all fields");
       return;
     }
@@ -33,7 +40,13 @@ const Register = () => {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({ username, name, email, password }),
+        body: JSON.stringify({
+          username,
+          name,
+          email,
+          password,
+          profilImage: selectedImage,
+        }),
       });
 
       console.log(await res.json());
@@ -104,6 +117,21 @@ const Register = () => {
               placeholder="Şifre..."
               onChange={(e) => setPassword(e.target.value)}
             />
+            <h4>Profil Resmini Seç</h4>
+            <div className={classes.profilImage}>
+              {profilImage.map((image, index) => (
+                <Image
+                  alt={`resim ${index + 1}`}
+                  src={image.src}
+                  width="60"
+                  height="60"
+                  className={`${classes.images} ${
+                    selectedImage === image.src ? classes.active : ""
+                  }`}
+                  onClick={() => setSelectedImage(image.src)}
+                />
+              ))}
+            </div>
             <button className={classes.submitButton}>Register</button>
           </form>
         </div>

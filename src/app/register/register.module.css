@@ -122,3 +122,19 @@
   font-weight: 600;
   color: grey;
 }
+
+form > .profilImage {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+form > .profilImage > .images {
+  border-radius: 50px;
+}
+
+form > .profilImage > .active {
+  border: 5px solid #000;
+}
