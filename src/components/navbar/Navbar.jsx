@@ -8,9 +8,13 @@ import {
   AiOutlineSearch,
   AiOutlinePlusCircle,
   AiFillHome,
+  AiOutlineClose,
 } from "react-icons/ai";
 import { ImBooks } from "react-icons/im";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import {
+  GiPerspectiveDiceSixFacesRandom,
+  GiHamburgerMenu,
+} from "react-icons/gi";
 import { IoMdSettings } from "react-icons/io";
 import { HiUserGroup } from "react-icons/hi";
 import { signIn, useSession } from "next-auth/react";
@@ -20,6 +24,7 @@ import { fetchProfile } from "../../app/api";
 const Navbar = () => {
   const { data: session } = useSession();
   const [userDetail, setUserDetail] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     async function fetchProfiles() {
@@ -30,6 +35,10 @@ const Navbar = () => {
     }
     fetchProfiles();
   }, [session]);
+
+  const menuOpenOrClose = (option) => {
+    setIsOpen(option);
+  };
 
   return (
     <>
@@ -108,7 +117,87 @@ const Navbar = () => {
               </>
             </ul>
           )}
+          <GiHamburgerMenu
+            className={classes.hamburgerIcon}
+            onClick={() => menuOpenOrClose(true)}
+          />
         </div>
+        {isOpen === true && (
+          <div className={classes.menuNavbar}>
+            <AiOutlineClose
+              className={classes.closeIcon}
+              onClick={() => menuOpenOrClose(false)}
+            />
+            <div className={classes.navbar}>
+              <button>
+                <AiFillHome />
+                <Link className={classes.navbarText} href="/">
+                  Ana Sayfa
+                </Link>
+              </button>
+              <button>
+                <ImBooks />
+                <Link className={classes.navbarText} href="/kitaplar">
+                  Tüm Kitaplar
+                </Link>
+              </button>
+              <button>
+                <GiPerspectiveDiceSixFacesRandom />
+                <Link className={classes.navbarText} href="/rastgele">
+                  Rastgele
+                </Link>
+              </button>
+              <button>
+                <HiUserGroup />
+                <Link className={classes.navbarText} href="/community">
+                  Topluluk
+                </Link>
+              </button>
+              <Search />
+            </div>
+            {session?.user ? (
+              <div className={classes.menuProfile}>
+                <button className={classes.create}>
+                  <Link href={`/create-book`}>
+                    <AiOutlinePlusCircle className={classes.createIcon} />
+                  </Link>
+                </button>
+                <button className={classes.navbarProfile}>
+                  <Link href={`/profile/${session?.user?._id}`}>
+                    <Image
+                      alt="profilResmi"
+                      src={userDetail?.profilImage}
+                      width="45"
+                      height="45"
+                      className={classes.image}
+                    />
+                  </Link>
+                </button>
+                <button>
+                  <Link href={`/settings/${session?.user?._id}`}>
+                    <IoMdSettings className={classes.settingsIcon} />
+                  </Link>
+                </button>
+              </div>
+            ) : (
+              <ul className={classes.menuNavbarBottom}>
+                <>
+                  <button
+                    onClick={() => {
+                      signIn();
+                    }}
+                    className={classes.login}
+                  >
+                    Giriş Yap
+                  </button>
+                  <Link className={classes.register} href="/register">
+                    Kayıt Ol
+                  </Link>
+                </>
+              </ul>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

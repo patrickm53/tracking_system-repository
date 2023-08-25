@@ -134,8 +134,121 @@
   font-size: 25px;
 }
 
+/* menu navbar */
+
+.menuNavbar {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 247px;
+  height: 100vh;
+  z-index: 3;
+  background-color: #fff;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menuNavbar > .navbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.navbar > button {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar > button > .navbarText {
+  font-family: Graphik, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.navbar > button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 24px;
+  padding: 2px 5px 2px 5px;
+  border-radius: 20px;
+  color: grey;
+  position: relative;
+}
+
+.navbar > button:after {
+  transition: all 0.5s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: ".";
+  color: transparent;
+  background: #aaa;
+  height: 2px;
+}
+
+.navbar > button:before {
+  transition: all 0.5s;
+}
+
+.navbar > button:hover {
+  color: #000;
+}
+
+.navbar > button:hover:after {
+  width: 100%;
+}
+
+.menuNavbar > .closeIcon {
+  font-size: 24px;
+  margin: 10px 0 0 10px;
+  position: absolute;
+  z-index: 5;
+  left: 10px;
+  top: 10px;
+}
+
+.hamburgerIcon {
+  display: none;
+  font-size: 22px;
+}
+
+.menuNavbarBottom {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+.menuProfile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
 @media screen and (max-width: 1350px) {
-  .wrapper {
+  .middle {
     display: none;
+  }
+
+  .profile {
+    display: none;
+  }
+
+  .right {
+    display: none;
+  }
+
+  .hamburgerIcon {
+    display: flex;
   }
 }
