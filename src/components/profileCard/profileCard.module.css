@@ -9,6 +9,8 @@
   flex-direction: column;
   align-items: center;
   gap: 30px;
+  width: 370px;
+  height: 210px;
 }
 
 .up {
@@ -59,4 +61,16 @@
 
 .follows > button {
   color: #fff;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    width: 320px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .container {
+    max-width: 300px;
+  }
 }

@@ -1,0 +1,33 @@
+.followPerson {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.followPerson > span {
+  display: flex;
+}
+
+.followImage {
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.followName > a {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.followName > h3 {
+  color: grey;
+  font-size: 12px;
+}
+
+.followPerson > button {
+  background-color: rgb(70, 70, 70);
+  color: #fff;
+  border-radius: 4px;
+  height: 30px;
+  padding: 0 10px;
+}

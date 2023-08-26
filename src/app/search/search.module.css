@@ -37,3 +37,11 @@
   font-size: 20px;
   font-weight: 500;
 }
+
+@media screen and (max-width: 1350px) {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

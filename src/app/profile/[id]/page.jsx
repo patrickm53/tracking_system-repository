@@ -14,9 +14,11 @@ import Image from "next/image";
 import ProfilePost from "@/components/profilePost/ProfilePost";
 import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
-import { fetchProfileBook, fetchProfile } from "@/app/api";
+import { fetchProfileBook, fetchProfile, fetchAllProfile } from "@/app/api";
+import Suggestion from "@/components/suggestion/Suggestion";
 
 const Profile = (ctx) => {
+  const [suggestion, setSuggestion] = useState([]);
   const [user, setUser] = useState("");
   const [books, setBooks] = useState("");
   const [navbarSelect, setNavbarSelect] = useState("yayınlar");
@@ -24,8 +26,6 @@ const Profile = (ctx) => {
   const { data: session } = useSession(false);
 
   const router = useRouter();
-
-  console.log(session?.user?._id);
 
   useEffect(() => {
     async function fetchUser() {
@@ -37,17 +37,23 @@ const Profile = (ctx) => {
       const book = await fetchProfileBook(ctx.params.id);
       setBooks(book);
     }
+    async function fetchSuggestion() {
+      try {
+        const users = await fetchAllProfile();
+        const filteredUser = users.filter(
+          (user) => user._id !== session?.user?._id
+        );
+        const randomUsers = getNRandomElements(filteredUser, 3);
+        setSuggestion(randomUsers);
+        console.log(randomUsers);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     fetchUser();
     fetchBooks();
+    fetchSuggestion();
   }, []);
-
-  const handleSignOut = async (event) => {
-    event.preventDefault();
-
-    await signOut({ redirect: false });
-
-    router.push("/");
-  };
 
   const handleButtonClick = (buttonName) => {
     setNavbarSelect(buttonName);
@@ -143,70 +149,7 @@ const Profile = (ctx) => {
 
         <div className={classes.right}>
           <h2>Takip Önerisi</h2>
-          <div className={classes.followPerson}>
-            <span>
-              <Image
-                className={classes.followImage}
-                alt="takipöneri"
-                src={person}
-                width="45"
-                height="45"
-              />
-              <div className={classes.followName}>
-                <a>Deniz Taş</a>
-                <h3>@deniz8255</h3>
-              </div>
-            </span>
-            <button>Takip Et</button>
-          </div>
-          <div className={classes.followPerson}>
-            <span>
-              <Image
-                className={classes.followImage}
-                alt="takipöneri"
-                src={person}
-                width="45"
-                height="45"
-              />
-              <div className={classes.followName}>
-                <a>Deniz Taş</a>
-                <h3>@deniz8255</h3>
-              </div>
-            </span>
-            <button>Takip Et</button>
-          </div>
-          <div className={classes.followPerson}>
-            <span>
-              <Image
-                className={classes.followImage}
-                alt="takipöneri"
-                src={person}
-                width="45"
-                height="45"
-              />
-              <div className={classes.followName}>
-                <a>Deniz Taş</a>
-                <h3>@deniz8255</h3>
-              </div>
-            </span>
-            <button>Takip Et</button>
-          </div>
-          <div className={classes.followPerson}>
-            <span>
-              <Image
-                className={classes.followImage}
-                alt="takipöneri"
-                src={person}
-                width="45"
-                height="45"
-              />
-              <div className={classes.followName}>
-                <a>Deniz Taş</a>
-                <h3>@deniz8255</h3>
-              </div>
-            </span>
-            <button>Takip Et</button>
-          </div>
+          <Suggestion user={suggestion} />
           <a>daha fazla</a>
         </div>
       </div>
