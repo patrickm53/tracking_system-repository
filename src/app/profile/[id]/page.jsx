@@ -38,17 +38,13 @@ const Profile = (ctx) => {
       setBooks(book);
     }
     async function fetchSuggestion() {
-      try {
-        const users = await fetchAllProfile();
-        const filteredUser = users.filter(
-          (user) => user._id !== session?.user?._id
-        );
-        const randomUsers = getNRandomElements(filteredUser, 3);
-        setSuggestion(randomUsers);
-        console.log(randomUsers);
-      } catch (error) {
-        console.log(error);
-      }
+      const users = await fetchAllProfile();
+      const filteredUser = users.filter(
+        (user) => user._id !== session?.user?._id
+      );
+      const shuffledData = filteredUser.sort(() => Math.random() - 0.5);
+      const randomUsers = shuffledData.slice(0, 3);
+      setSuggestion(randomUsers);
     }
     fetchUser();
     fetchBooks();
@@ -149,7 +145,13 @@ const Profile = (ctx) => {
 
         <div className={classes.right}>
           <h2>Takip Önerisi</h2>
-          <Suggestion user={suggestion} />
+          {suggestion?.length > 0 ? (
+            suggestion.map((user) => (
+              <Suggestion key={suggestion._id} user={user} />
+            ))
+          ) : (
+            <div>öneriler yükleniyor...</div>
+          )}
           <a>daha fazla</a>
         </div>
       </div>

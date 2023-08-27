@@ -5,13 +5,20 @@
   margin-top: 25px;
 }
 
-.followPerson > span {
+.followPerson > .wrapper {
   display: flex;
 }
 
 .followImage {
   border-radius: 50%;
   margin-right: 5px;
+}
+
+.followName {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .followName > a {

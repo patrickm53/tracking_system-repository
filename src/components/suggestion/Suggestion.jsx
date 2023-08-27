@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import classes from "./suggestion.module.css";
-import person from "../../../public/person.jpg";
+import Link from "next/link";
 import Image from "next/image";
 
 const Suggestion = ({ user }) => {
   return (
     <div className={classes.followPerson}>
-      <span>
+      <Link className={classes.wrapper} href={`/profile/${user._id}`}>
         <Image
           className={classes.followImage}
           alt="takipöneri"
-          src={person}
+          src={user.profilImage}
           width="45"
           height="45"
         />
         <div className={classes.followName}>
-          <a>Deniz Taş</a>
-          <h3>@deniz8255</h3>
+          <a>{user.name}</a>
+          <h3>@{user.username}</h3>
         </div>
-      </span>
+      </Link>
       <button>Takip Et</button>
     </div>
   );
