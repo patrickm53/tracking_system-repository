@@ -53,7 +53,7 @@ const Navbar = () => {
             <button>
               <AiFillHome />
               <Link className={classes.navbarText} href="/">
-                Ana Sayfa
+                Ana Deneme
               </Link>
             </button>
             <button>
