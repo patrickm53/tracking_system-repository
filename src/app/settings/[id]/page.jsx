@@ -28,33 +28,34 @@ const Settings = (ctx) => {
   };
 
   return (
-    <div className={classes.container}>
+    <div className={classes.body}>
+      <div className={classes.container}>
       <div className={classes.navbar}>
-        <h2>Settings</h2>
+        <h2>Ayarlar</h2>
         <ul>
           <li
             className={navbarSelect === "profile" ? classes.active : ""}
             onClick={() => handleButtonClick("profile")}
           >
-            <a>Profile</a>
+            <a>Profil</a>
           </li>
           <li
             className={navbarSelect === "password" ? classes.active : ""}
             onClick={() => handleButtonClick("password")}
           >
-            <a>Password</a>
+            <a>Şifre</a>
           </li>
           <li
             className={navbarSelect === "books" ? classes.active : ""}
             onClick={() => handleButtonClick("books")}
           >
-            <a>Books</a>
+            <a>Kitaplar</a>
           </li>
           <li
             className={navbarSelect === "teams" ? classes.active : ""}
             onClick={() => handleButtonClick("teams")}
           >
-            <a>Teams</a>
+            <a>Takım</a>
           </li>
           <li
             className={navbarSelect === "email" ? classes.active : ""}
@@ -64,7 +65,7 @@ const Settings = (ctx) => {
           </li>
         </ul>
         <Link href="/" className={classes.logout}>
-          <button onClick={handleSignOut}>logout</button>
+          <button onClick={handleSignOut}>Çıkış Yap</button>
         </Link>
       </div>
       <div className={classes.wrapper}>
@@ -74,6 +75,7 @@ const Settings = (ctx) => {
         {navbarSelect === "teams" ? <SettingsTeams /> : ""}
         {navbarSelect === "email" ? <SettingsEmail /> : ""}
       </div>
+    </div>
     </div>
   );
 };

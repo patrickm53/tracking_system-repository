@@ -1,5 +1,11 @@
-.container {
+.body {
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 80%;
   display: flex;
   justify-content: center;
   margin-top: 50px;
@@ -11,10 +17,14 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  align-items: center;
 }
 
 .container > .wrapper {
   width: 70%;
+  background-color: #dedede;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .container > .navbar > h2 {
@@ -28,9 +38,14 @@
   gap: 10px;
 }
 
+.navbar > .logout {
+  width: 100%;
+}
+
 .navbar > .logout > button {
+  width: 100%;
   color: #fff;
-  background-color: red;
+  background-color: rgb(0, 0, 0);
   padding: 5px 10px 5px 10px;
   border-radius: 20px;
 }
@@ -39,8 +54,32 @@
   padding: 5px 10px 5px 10px;
   border-radius: 5px;
   transition: background-color 0.3s ease-in-out;
+  cursor:  pointer;
 }
 
 .navbar > ul > .active > a {
   background-color: #e3e1e1;
+}
+
+@media screen and (max-width: 1350px) {
+  .container {
+    flex-direction: column;
+  }
+  .container > .wrapper {
+    width: 100%;
+  }
+
+  .container > .navbar {
+    flex-direction: row;
+  }
+
+  .navbar > ul {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .container > .navbar {
+    display: none;
+  }
 }
