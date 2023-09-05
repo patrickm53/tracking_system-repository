@@ -1,7 +1,7 @@
 import React from "react";
 
-const SettingsProfile = () => {
-  return <div>SettingsProfilee</div>;
+const SettingsProfile = ({ user }) => {
+  return <div>{user.name}</div>;
 };
 
 export default SettingsProfile;
