@@ -4,11 +4,6 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import classes from "./settings.module.css";
-import SettingsProfile from "@/components/settings-profile/SettingsProfile";
-import SettingsPassword from "@/components/settings-password/SettingsPassword";
-import SettingsBooks from "@/components/settings-books/SettingsBooks";
-import SettingsTeams from "@/components/settings-teams/SettingsTeams";
-import SettingsEmail from "@/components/settings-email/SettingsEmail";
 import { fetchProfile } from "@/app/api";
 
 const Settings = (ctx) => {
@@ -88,6 +83,26 @@ const Settings = (ctx) => {
       </div>
     </div>
   );
+};
+
+const SettingsProfile = () => {
+  return <div>settings Porfile</div>;
+};
+
+const SettingsPassword = () => {
+  return <div>SettingsPassword</div>;
+};
+
+const SettingsBooks = () => {
+  return <div>SettingsBooks</div>;
+};
+
+const SettingsTeams = () => {
+  return <div>SettingsTeams</div>;
+};
+
+const SettingsEmail = () => {
+  return <div>SettingsEmail</div>;
 };
 
 export default Settings;
