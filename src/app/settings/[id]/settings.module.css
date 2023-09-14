@@ -54,11 +54,22 @@
   padding: 5px 10px 5px 10px;
   border-radius: 5px;
   transition: background-color 0.3s ease-in-out;
-  cursor:  pointer;
+  cursor: pointer;
 }
 
 .navbar > ul > .active > a {
   background-color: #e3e1e1;
+}
+
+.settingsProfile {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
+
+.settingsProfile > .backgroundImage {
+  width: 100%;
+  height: 200px;
 }
 
 @media screen and (max-width: 1350px) {
