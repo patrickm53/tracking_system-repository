@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import classes from "./settings.module.css";
 import { fetchProfile } from "@/app/api";
-import { background } from "../../../../public/background2.jpg";
-import { profileImage } from "../../../../public/person.jpg";
+import background from "../../../../public/background2.jpg";
 import Image from "next/image";
 
 const Settings = (ctx) => {
@@ -91,13 +90,13 @@ const Settings = (ctx) => {
 const SettingsProfile = ({ user }) => {
   return (
     <div className={classes.settingsProfile}>
-      <Image
-        alt="backgroundSettings"
-        src={profileImage}
-        width={600}
-        height={100}
-        className={classes.backgroundImage}
-      />
+      <div className={classes.backgroundImageContainer}>
+        <Image
+          alt="backgroundSettings"
+          className={classes.backgroundImage}
+          src={background}
+        />
+      </div>
       <h3>{user.username}</h3>
     </div>
   );
