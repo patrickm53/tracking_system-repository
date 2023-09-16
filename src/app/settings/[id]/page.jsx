@@ -7,6 +7,7 @@ import classes from "./settings.module.css";
 import { fetchProfile } from "@/app/api";
 import background from "../../../../public/background2.jpg";
 import Image from "next/image";
+import { PiCameraRotate } from "react-icons/pi";
 
 const Settings = (ctx) => {
   const [user, setUser] = useState("");
@@ -95,6 +96,18 @@ const SettingsProfile = ({ user }) => {
           alt="backgroundSettings"
           className={classes.backgroundImage}
           src={background}
+        />
+        <div className={classes.backgroundEdit}>
+          <PiCameraRotate />
+        </div>
+      </div>
+      <div className={classes.profilImageContainer}>
+        <Image
+          alt="profilImageSettings"
+          className={classes.profilImage}
+          src={user.profilImage}
+          width={150}
+          height={150}
         />
       </div>
       <h3>{user.username}</h3>
