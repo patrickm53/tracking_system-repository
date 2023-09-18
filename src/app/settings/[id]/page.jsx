@@ -101,16 +101,26 @@ const SettingsProfile = ({ user }) => {
           <PiCameraRotate />
         </div>
       </div>
-      <div className={classes.profilImageContainer}>
-        <Image
-          alt="profilImageSettings"
-          className={classes.profilImage}
-          src={user.profilImage}
-          width={150}
-          height={150}
-        />
+      <div className={classes.profileUp}>
+        <div className={classes.profilImageContainer}>
+          <Image
+            alt="profilImageSettings"
+            className={classes.profilImage}
+            src={user.profilImage}
+            width={150}
+            height={150}
+          />
+          <div className={classes.profilExplanation}>
+            <h2>Profil</h2>
+            <h3>profil bilgileri ve fotografını güncelle</h3>
+          </div>
+        </div>
+        <div className={classes.saveButton}>
+          <button>İptal</button>
+          <button>Kaydet</button>
+        </div>
       </div>
-      <h3>{user.username}</h3>
+      <div>{user.username}</div>
     </div>
   );
 };
