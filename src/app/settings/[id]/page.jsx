@@ -8,6 +8,7 @@ import { fetchProfile } from "@/app/api";
 import background from "../../../../public/background2.jpg";
 import Image from "next/image";
 import { PiCameraRotate } from "react-icons/pi";
+import profilImage from "@/lib/profilImage";
 
 const Settings = (ctx) => {
   const [user, setUser] = useState("");
@@ -89,6 +90,10 @@ const Settings = (ctx) => {
 };
 
 const SettingsProfile = ({ user }) => {
+  const [name, setName] = useState(user.name);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const [selectedImage, setSelectedImage] = useState(user.profilImage);
   return (
     <div className={classes.settingsProfile}>
       <div className={classes.backgroundImageContainer}>
@@ -120,7 +125,50 @@ const SettingsProfile = ({ user }) => {
           <button>Kaydet</button>
         </div>
       </div>
-      <div>{user.username}</div>
+      <div className={classes.information}>
+        <form>
+          <span>
+            <h4>İsim</h4>
+            <input
+              value={name}
+              type="text"
+              placeholder="İsim..."
+              onChange={(e) => setName(e.target.value)}
+            />
+          </span>
+          <span>
+            <h4>Kullanıcı Adı</h4>
+            <input
+              type="text"
+              placeholder="Kullanıcı adı..."
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </span>
+          <span>
+            <h4>Email Adresi</h4>
+            <input
+              type="email"
+              placeholder="Email..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </span>
+          <h4>Profil Resmini Seç</h4>
+          <div className={classes.selectedProfilImage}>
+            {profilImage.map((image, index) => (
+              <Image
+                alt={`resim ${index + 1}`}
+                src={image.src}
+                width="60"
+                height="60"
+                className={`${classes.images} ${
+                  selectedImage === image.src ? classes.active : ""
+                }`}
+                onClick={() => setSelectedImage(image.src)}
+              />
+            ))}
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

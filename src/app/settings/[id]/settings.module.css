@@ -155,6 +155,26 @@
   color: #fff;
 }
 
+.information {
+  background-color: red;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.information > form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+  align-items: start;
+}
+
+.information > form > span {
+  display: flex;
+}
+
 @media screen and (max-width: 1350px) {
   .container {
     flex-direction: column;
