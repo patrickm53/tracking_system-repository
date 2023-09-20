@@ -128,7 +128,7 @@ const SettingsProfile = ({ user }) => {
       <div className={classes.information}>
         <form>
           <span>
-            <h4>İsim</h4>
+            <h4>İsim:</h4>
             <input
               value={name}
               type="text"
@@ -137,22 +137,24 @@ const SettingsProfile = ({ user }) => {
             />
           </span>
           <span>
-            <h4>Kullanıcı Adı</h4>
+            <h4>Kullanıcı Adı:</h4>
             <input
+              value={username}
               type="text"
               placeholder="Kullanıcı adı..."
               onChange={(e) => setUsername(e.target.value)}
             />
           </span>
           <span>
-            <h4>Email Adresi</h4>
+            <h4>Email Adresi:</h4>
             <input
+              value={email}
               type="email"
               placeholder="Email..."
               onChange={(e) => setEmail(e.target.value)}
             />
           </span>
-          <h4>Profil Resmini Seç</h4>
+          <h4>Profil Resmini Seç:</h4>
           <div className={classes.selectedProfilImage}>
             {profilImage.map((image, index) => (
               <Image
