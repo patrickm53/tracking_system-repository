@@ -154,6 +154,25 @@ const SettingsProfile = ({ user }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </span>
+          <span>
+            <div>
+              <h4>Profil Sözü:</h4>
+              <h5>(Maksimum 21 karekter)</h5>
+            </div>
+            <input
+              type="text"
+              placeholder="Profil Sözü Girin..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </span>
+          <span className={classes.textarea}>
+            <h4>Hikayen:</h4>
+            <textarea
+              type="text"
+              placeholder="Hikayen..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </span>
           <h4>Profil Resmini Seç:</h4>
           <div className={classes.selectedProfilImage}>
             {profilImage.map((image, index) => (

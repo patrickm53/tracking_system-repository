@@ -184,6 +184,17 @@
   color: #989898;
 }
 
+.information > form > span > div {
+  width: 30%;
+  font-size: 14px;
+  font-weight: 600;
+  color: #989898;
+}
+
+.information > form > span > div > h5 {
+  font-size: 12px;
+}
+
 .information > form > span > input {
   width: 50%;
   height: 40px;
@@ -192,6 +203,18 @@
   border-radius: 50px;
   font-weight: 600;
   color: #5d5d5d;
+}
+
+.information > form > .textarea {
+  height: 100px;
+}
+
+.information > form > span > textarea {
+  width: 50%;
+  height: 90%;
+  border: 1px solid #8e8e8e;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .information > form > h4 {
