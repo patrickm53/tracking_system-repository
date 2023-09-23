@@ -93,6 +93,11 @@ const SettingsProfile = ({ user }) => {
   const [name, setName] = useState(user.name);
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
+  const [location, setLocation] = useState();
+  const [website, setWebsite] = useState();
+  const [birthday, setBirthday] = useState();
+  const [promise, setPromise] = useState();
+  const [story, setStory] = useState();
   const [selectedImage, setSelectedImage] = useState(user.profilImage);
   return (
     <div className={classes.settingsProfile}>
@@ -155,6 +160,30 @@ const SettingsProfile = ({ user }) => {
             />
           </span>
           <span>
+            <h4>Konum:</h4>
+            <input
+              type="text"
+              placeholder="Konum..."
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </span>
+          <span>
+            <h4>Website:</h4>
+            <input
+              type="url"
+              placeholder="Website..."
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </span>
+          <span>
+            <h4>Doğum Tarihi:</h4>
+            <input
+              type="date"
+              placeholder="Doğum Tarihi..."
+              onChange={(e) => setBirthday(e.target.value)}
+            />
+          </span>
+          <span>
             <div>
               <h4>Profil Sözü:</h4>
               <h5>(Maksimum 21 karekter)</h5>
@@ -162,7 +191,7 @@ const SettingsProfile = ({ user }) => {
             <input
               type="text"
               placeholder="Profil Sözü Girin..."
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setPromise(e.target.value)}
             />
           </span>
           <span className={classes.textarea}>
@@ -170,7 +199,7 @@ const SettingsProfile = ({ user }) => {
             <textarea
               type="text"
               placeholder="Hikayen..."
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setStory(e.target.value)}
             />
           </span>
           <h4>Profil Resmini Seç:</h4>
