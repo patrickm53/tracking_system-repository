@@ -13,6 +13,11 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [location, setLocation] = useState("");
+  const [website, setWebsite] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [word, setWord] = useState("");
+  const [story, setStory] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -45,6 +50,11 @@ const Register = () => {
           name,
           email,
           password,
+          location,
+          website,
+          birthday,
+          word,
+          story,
           profilImage: selectedImage,
         }),
       });

@@ -20,6 +20,21 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    location: {
+      type: String,
+    },
+    website: {
+      type: String,
+    },
+    birthday: {
+      type: Date,
+    },
+    word: {
+      type: String,
+    },
+    story: {
+      type: String,
+    },
     followers: [
       {
         type: mongoose.Schema.Types.ObjectId,

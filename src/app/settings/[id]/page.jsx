@@ -9,9 +9,11 @@ import background from "../../../../public/background2.jpg";
 import Image from "next/image";
 import { PiCameraRotate } from "react-icons/pi";
 import profilImage from "@/lib/profilImage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Settings = (ctx) => {
-  const [user, setUser] = useState("");
+  const [users, setUsers] = useState();
   const [navbarSelect, setNavbarSelect] = useState("profile");
   const router = useRouter();
 
@@ -27,7 +29,7 @@ const Settings = (ctx) => {
     async function fetchProfiles() {
       const id = ctx.params.id;
       const data = await fetchProfile(id);
-      setUser(data);
+      setUsers(data);
     }
     fetchProfiles();
   }, []);
@@ -78,27 +80,66 @@ const Settings = (ctx) => {
           </Link>
         </div>
         <div className={classes.wrapper}>
-          {navbarSelect === "profile" ? <SettingsProfile user={user} /> : ""}
+          {navbarSelect === "profile" ? <SettingsProfile user={users} /> : ""}
           {navbarSelect === "password" ? <SettingsPassword /> : ""}
           {navbarSelect === "books" ? <SettingsBooks /> : ""}
           {navbarSelect === "teams" ? <SettingsTeams /> : ""}
           {navbarSelect === "email" ? <SettingsEmail /> : ""}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
 const SettingsProfile = ({ user }) => {
-  const [name, setName] = useState(user.name);
-  const [username, setUsername] = useState(user.username);
-  const [email, setEmail] = useState(user.email);
-  const [location, setLocation] = useState();
-  const [website, setWebsite] = useState();
-  const [birthday, setBirthday] = useState();
-  const [promise, setPromise] = useState();
-  const [story, setStory] = useState();
-  const [selectedImage, setSelectedImage] = useState(user.profilImage);
+  const [name, setName] = useState(user?.name);
+  const [username, setUsername] = useState(user?.username);
+  const [email, setEmail] = useState(user?.email);
+  const [location, setLocation] = useState(user?.location);
+  const [website, setWebsite] = useState(user?.website);
+  const [birthday, setBirthday] = useState(user?.birthday);
+  const [word, setWord] = useState(user?.word);
+  const [story, setStory] = useState(user?.story);
+  const [selectedImage, setSelectedImage] = useState(user?.profilImage);
+
+  const handleSubmit = async () => {
+    if (username === "" || name === "" || email === "") {
+      toast.error("username and name and email cannot be empty");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:3000/api/register", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({
+          name,
+          username,
+          email,
+          location,
+          website,
+          birthday,
+          word,
+          story,
+          profilImage: selectedImage,
+        }),
+      });
+      console.log(await res.json());
+      if (res.ok) {
+        toast.success("Successfully registered the user");
+        return;
+      } else {
+        toast.error("Error occured while registering");
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={classes.settingsProfile}>
       <div className={classes.backgroundImageContainer}>
@@ -116,7 +157,7 @@ const SettingsProfile = ({ user }) => {
           <Image
             alt="profilImageSettings"
             className={classes.profilImage}
-            src={user.profilImage}
+            src={user?.profilImage}
             width={150}
             height={150}
           />
@@ -127,7 +168,7 @@ const SettingsProfile = ({ user }) => {
         </div>
         <div className={classes.saveButton}>
           <button>İptal</button>
-          <button>Kaydet</button>
+          <button onClick={() => handleSubmit()}>Kaydet</button>
         </div>
       </div>
       <div className={classes.information}>
@@ -162,6 +203,7 @@ const SettingsProfile = ({ user }) => {
           <span>
             <h4>Konum:</h4>
             <input
+              value={location}
               type="text"
               placeholder="Konum..."
               onChange={(e) => setLocation(e.target.value)}
@@ -170,6 +212,7 @@ const SettingsProfile = ({ user }) => {
           <span>
             <h4>Website:</h4>
             <input
+              location={website}
               type="url"
               placeholder="Website..."
               onChange={(e) => setWebsite(e.target.value)}
@@ -178,6 +221,7 @@ const SettingsProfile = ({ user }) => {
           <span>
             <h4>Doğum Tarihi:</h4>
             <input
+              value={birthday}
               type="date"
               placeholder="Doğum Tarihi..."
               onChange={(e) => setBirthday(e.target.value)}
@@ -189,14 +233,16 @@ const SettingsProfile = ({ user }) => {
               <h5>(Maksimum 21 karekter)</h5>
             </div>
             <input
+              value={word}
               type="text"
               placeholder="Profil Sözü Girin..."
-              onChange={(e) => setPromise(e.target.value)}
+              onChange={(e) => setWord(e.target.value)}
             />
           </span>
           <span className={classes.textarea}>
             <h4>Hikayen:</h4>
             <textarea
+              value={story}
               type="text"
               placeholder="Hikayen..."
               onChange={(e) => setStory(e.target.value)}
