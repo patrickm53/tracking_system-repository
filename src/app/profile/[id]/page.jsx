@@ -105,18 +105,18 @@ const Profile = (ctx) => {
             <h3>@{user.username}</h3>
           </div>
           <div className={classes.bottom}>
-            <p>Okur gezer yer</p>
+            <p>{user.word}</p>
             <a>@Twitter</a>
             <div className={classes.information}>
               <div className={classes.info}>
-                <BiCurrentLocation /> <span>Türkiye</span>
+                <BiCurrentLocation /> <span>{user.location}</span>
               </div>
               <div className={classes.link}>
                 <TbNetwork />
-                <a>seyityahya.com</a>
+                <a>{user.website}</a>
               </div>
               <div className={classes.info}>
-                <FaBirthdayCake /> <span>mart 1999</span>
+                <FaBirthdayCake /> <span>{user.birthday}</span>
               </div>
               <div className={classes.link}>
                 <BsFillPostcardFill />

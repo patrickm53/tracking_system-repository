@@ -30,6 +30,7 @@ const Settings = (ctx) => {
       const id = ctx.params.id;
       const data = await fetchProfile(id);
       setUsers(data);
+      console.log("çalıştı");
     }
     fetchProfiles();
   }, []);
@@ -92,6 +93,8 @@ const Settings = (ctx) => {
   );
 };
 
+export default Settings;
+
 const SettingsProfile = ({ user }) => {
   const [name, setName] = useState(user?.name);
   const [username, setUsername] = useState(user?.username);
@@ -129,10 +132,10 @@ const SettingsProfile = ({ user }) => {
       });
       console.log(await res.json());
       if (res.ok) {
-        toast.success("Successfully registered the user");
+        toast.success("Successfully updated profile");
         return;
       } else {
-        toast.error("Error occured while registering");
+        toast.error("Error occured while updated");
         return;
       }
     } catch (error) {
@@ -212,7 +215,7 @@ const SettingsProfile = ({ user }) => {
           <span>
             <h4>Website:</h4>
             <input
-              location={website}
+              value={website}
               type="url"
               placeholder="Website..."
               onChange={(e) => setWebsite(e.target.value)}
@@ -284,5 +287,3 @@ const SettingsTeams = () => {
 const SettingsEmail = () => {
   return <div>SettingsEmail</div>;
 };
-
-export default Settings;
