@@ -127,7 +127,12 @@ const Profile = (ctx) => {
         </div>
         <div className={classes.post}>
           {navbarSelect === "yayınlar" ? (
-            <div>
+            <div className={classes.postAndStory}>
+              {user.story ? (
+                <div className={classes.story}>{user.story}</div>
+              ) : (
+                <div></div>
+              )}
               {books?.length > 0 ? (
                 books.map((book) => <ProfilePost key={book._id} book={book} />)
               ) : (
@@ -138,7 +143,6 @@ const Profile = (ctx) => {
             ""
           )}
           {navbarSelect === "yorumlar" ? <div>yorumlar</div> : ""}
-          {navbarSelect === "begeniler" ? <div>beğeniler</div> : ""}
         </div>
 
         {/* Takip önerisi kısmı */}
