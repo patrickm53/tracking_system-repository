@@ -273,7 +273,18 @@ const SettingsProfile = ({ user }) => {
 };
 
 const SettingsPassword = () => {
-  return <div>SettingsPassword</div>;
+  return (
+    <div>
+      <span>
+        <h4>Şifren:</h4>
+        <input type="password" placeholder="Şifren..." />
+      </span>
+      <span>
+        <h4>Yenı Şifre:</h4>
+        <input type="password" placeholder="Yeni Şifren..." />
+      </span>
+    </div>
+  );
 };
 
 const SettingsBooks = () => {

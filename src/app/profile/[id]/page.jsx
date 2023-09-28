@@ -129,7 +129,7 @@ const Profile = (ctx) => {
           {navbarSelect === "yayınlar" ? (
             <div className={classes.postAndStory}>
               {user.story ? (
-                <div className={classes.story}>{user.story}</div>
+                <div className={classes.story}> {user.story}</div>
               ) : (
                 <div></div>
               )}
