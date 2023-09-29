@@ -4,17 +4,19 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import classes from "./settings.module.css";
-import { fetchProfile } from "@/app/api";
+import { fetchProfile, fetchProfileBook } from "@/app/api";
 import background from "../../../../public/background2.jpg";
 import Image from "next/image";
 import { PiCameraRotate } from "react-icons/pi";
 import profilImage from "@/lib/profilImage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SettingsBook from "@/components/settingsBook/SettingsBook";
 
 const Settings = (ctx) => {
   const [users, setUsers] = useState();
   const [navbarSelect, setNavbarSelect] = useState("profile");
+  const [book, setBook] = useState();
   const router = useRouter();
 
   const handleSignOut = async (event) => {
@@ -30,9 +32,15 @@ const Settings = (ctx) => {
       const id = ctx.params.id;
       const data = await fetchProfile(id);
       setUsers(data);
-      console.log("çalıştı");
+    }
+    async function fetchBooks() {
+      const id = ctx.params.id;
+      const data = await fetchProfileBook(id);
+      setBook(data);
+      console.log(data);
     }
     fetchProfiles();
+    fetchBooks();
   }, []);
 
   const handleButtonClick = (buttonName) => {
@@ -83,7 +91,7 @@ const Settings = (ctx) => {
         <div className={classes.wrapper}>
           {navbarSelect === "profile" ? <SettingsProfile user={users} /> : ""}
           {navbarSelect === "password" ? <SettingsPassword /> : ""}
-          {navbarSelect === "books" ? <SettingsBooks /> : ""}
+          {navbarSelect === "books" ? <SettingsBooks book={book} /> : ""}
           {navbarSelect === "teams" ? <SettingsTeams /> : ""}
           {navbarSelect === "email" ? <SettingsEmail /> : ""}
         </div>
@@ -287,8 +295,16 @@ const SettingsPassword = () => {
   );
 };
 
-const SettingsBooks = () => {
-  return <div>SettingsBooks</div>;
+const SettingsBooks = ({ book }) => {
+  return (
+    <div>
+      {book.map((item) => (
+        <div>
+          <SettingsBook />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 const SettingsTeams = () => {
