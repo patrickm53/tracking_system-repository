@@ -300,7 +300,7 @@ const SettingsBooks = ({ book }) => {
     <div>
       {book.map((item) => (
         <div>
-          <SettingsBook />
+          <SettingsBook book={item} />
         </div>
       ))}
     </div>
