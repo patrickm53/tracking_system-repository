@@ -11,14 +11,21 @@
   height: 120px;
   background-color: #fff;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border-radius: 10px;
   display: flex;
+  padding: 15px;
+  gap: 15px;
+  border: 1px solid rgb(234, 234, 234);
+}
+
+.settingsBookImageContainer {
+  height: 100%;
+  display: flex;
   align-items: center;
-  padding: 0 15px;
 }
 
 .settingsBookImage {
   width: auto;
-  height: 100px;
+  height: 90%;
 }

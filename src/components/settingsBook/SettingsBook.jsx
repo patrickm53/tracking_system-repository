@@ -7,13 +7,15 @@ const SettingsBook = ({ book }) => {
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
-        <Image
-          alt="settingsBookImage"
-          src={book.coverImage}
-          className={classes.settingsBookImage}
-          width={100}
-          height={100}
-        />
+        <div className={classes.settingsBookImageContainer}>
+          <Image
+            alt="settingsBookImage"
+            src={book.coverImage}
+            className={classes.settingsBookImage}
+            width={100}
+            height={100}
+          />
+        </div>
         <h2>{book.title}</h2>
       </div>
     </div>
