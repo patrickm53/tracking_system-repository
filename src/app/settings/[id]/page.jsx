@@ -297,11 +297,9 @@ const SettingsPassword = () => {
 
 const SettingsBooks = ({ book }) => {
   return (
-    <div>
+    <div className={classes.settingsBooks}>
       {book.map((item) => (
-        <div>
-          <SettingsBook book={item} />
-        </div>
+        <SettingsBook book={item} />
       ))}
     </div>
   );
