@@ -95,7 +95,7 @@ const Navbar = () => {
                 </Link>
               </button>
               <button>
-                <Link href={`/settings/${session?.user?._id}`}>
+                <Link href={`/settings`}>
                   <IoMdSettings className={classes.settingsIcon} />
                 </Link>
               </button>
@@ -174,7 +174,7 @@ const Navbar = () => {
                   </Link>
                 </button>
                 <button>
-                  <Link href={`/settings/${session?.user?._id}`}>
+                  <Link href={`/settings`}>
                     <IoMdSettings className={classes.settingsIcon} />
                   </Link>
                 </button>

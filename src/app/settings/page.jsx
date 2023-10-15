@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import classes from "./settings.module.css";
 import { fetchProfile, fetchProfileBook } from "@/app/api";
-import background from "../../../../public/background2.jpg";
+import background from "../../../public/background2.jpg";
 import Image from "next/image";
 import { PiCameraRotate } from "react-icons/pi";
 import profilImage from "@/lib/profilImage";
@@ -13,9 +13,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SettingsBook from "@/components/settingsBook/SettingsBook";
 
-const Settings = (ctx) => {
+const Settings = () => {
+  const { data: session } = useSession();
   const [users, setUsers] = useState();
-  const [navbarSelect, setNavbarSelect] = useState("profile");
+  const [navbarSelect, setNavbarSelect] = useState("selected");
   const [book, setBook] = useState();
   const router = useRouter();
 
@@ -29,15 +30,14 @@ const Settings = (ctx) => {
 
   useEffect(() => {
     async function fetchProfiles() {
-      const id = ctx.params.id;
+      const id = session?.user?._id;
       const data = await fetchProfile(id);
       setUsers(data);
     }
     async function fetchBooks() {
-      const id = ctx.params.id;
+      const id = session?.user?._id;
       const data = await fetchProfileBook(id);
       setBook(data);
-      console.log(data);
     }
     fetchProfiles();
     fetchBooks();
@@ -49,9 +49,8 @@ const Settings = (ctx) => {
 
   return (
     <div className={classes.body}>
-      <div className={classes.container}>
-        <div className={classes.navbar}>
-          <h2>Ayarlar</h2>
+      {navbarSelect === "selected" ? (
+        <div className={classes.settingsFirstSelectCard}>
           <ul>
             <li
               className={navbarSelect === "profile" ? classes.active : ""}
@@ -84,19 +83,63 @@ const Settings = (ctx) => {
               <a>Email</a>
             </li>
           </ul>
-          <Link href="/" className={classes.logout}>
-            <button onClick={handleSignOut}>Çıkış Yap</button>
-          </Link>
         </div>
-        <div className={classes.wrapper}>
-          {navbarSelect === "profile" ? <SettingsProfile user={users} /> : ""}
-          {navbarSelect === "password" ? <SettingsPassword /> : ""}
-          {navbarSelect === "books" ? <SettingsBooks book={book} /> : ""}
-          {navbarSelect === "teams" ? <SettingsTeams /> : ""}
-          {navbarSelect === "email" ? <SettingsEmail /> : ""}
-        </div>
-      </div>
-      <ToastContainer />
+      ) : (
+        <>
+          <div className={classes.container}>
+            <div className={classes.navbar}>
+              <h2>Ayarlar</h2>
+              <ul>
+                <li
+                  className={navbarSelect === "profile" ? classes.active : ""}
+                  onClick={() => handleButtonClick("profile")}
+                >
+                  <a>Profil</a>
+                </li>
+                <li
+                  className={navbarSelect === "password" ? classes.active : ""}
+                  onClick={() => handleButtonClick("password")}
+                >
+                  <a>Şifre</a>
+                </li>
+                <li
+                  className={navbarSelect === "books" ? classes.active : ""}
+                  onClick={() => handleButtonClick("books")}
+                >
+                  <a>Kitaplar</a>
+                </li>
+                <li
+                  className={navbarSelect === "teams" ? classes.active : ""}
+                  onClick={() => handleButtonClick("teams")}
+                >
+                  <a>Takım</a>
+                </li>
+                <li
+                  className={navbarSelect === "email" ? classes.active : ""}
+                  onClick={() => handleButtonClick("email")}
+                >
+                  <a>Email</a>
+                </li>
+              </ul>
+              <Link href="/" className={classes.logout}>
+                <button onClick={handleSignOut}>Çıkış Yap</button>
+              </Link>
+            </div>
+            <div className={classes.wrapper}>
+              {navbarSelect === "profile" ? (
+                <SettingsProfile user={users} />
+              ) : (
+                ""
+              )}
+              {navbarSelect === "password" ? <SettingsPassword /> : ""}
+              {navbarSelect === "books" ? <SettingsBooks book={book} /> : ""}
+              {navbarSelect === "teams" ? <SettingsTeams /> : ""}
+              {navbarSelect === "email" ? <SettingsEmail /> : ""}
+            </div>
+          </div>
+          <ToastContainer />
+        </>
+      )}
     </div>
   );
 };

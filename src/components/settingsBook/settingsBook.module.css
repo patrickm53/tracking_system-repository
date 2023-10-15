@@ -3,7 +3,6 @@
   height: 120px;
   background-color: #fff;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
-  margin-bottom: 20px;
   border-radius: 10px;
   display: flex;
   padding: 10px;
@@ -49,7 +48,6 @@
 .settingsBookStarAndLike {
   display: flex;
   justify-content: space-between;
-  padding: 0 15px;
 }
 
 .settingsBookStarAndLike > .settingsBookStar {
@@ -70,7 +68,7 @@
 
 .settingsBookStarAndLike > .settingsBookStar > .settingsStar {
   font-size: 18px;
-  color: rgb(167, 167, 2);
+  color: rgb(230, 230, 0);
 }
 
 .settingsBookStarAndLike > .settingsBookLike > .settingsLike {
