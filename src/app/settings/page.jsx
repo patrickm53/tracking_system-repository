@@ -12,6 +12,11 @@ import profilImage from "@/lib/profilImage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SettingsBook from "@/components/settingsBook/SettingsBook";
+import settingsProfileImage from "../../../public/settings-profile.jpg";
+import settingsPasswordImage from "../../../public/settings-password.png";
+import settingsBookImage from "../../../public/settings-book.jpg";
+import settingsTeamImage from "../../../public/settings-team.jpg";
+import settingsEmailImage from "../../../public/settings-email.jpg";
 
 const Settings = () => {
   const { data: session } = useSession();
@@ -52,35 +57,55 @@ const Settings = () => {
       {navbarSelect === "selected" ? (
         <div className={classes.settingsFirstSelectCard}>
           <ul>
-            <li
-              className={navbarSelect === "profile" ? classes.active : ""}
-              onClick={() => handleButtonClick("profile")}
-            >
-              <a>Profil</a>
+            <li onClick={() => handleButtonClick("profile")}>
+              <Image
+                alt="deneme4324"
+                src={settingsProfileImage}
+                className={classes.settingsProfileImage}
+                width="100px"
+                height="100px"
+              />
+              <h2>Profil</h2>
             </li>
-            <li
-              className={navbarSelect === "password" ? classes.active : ""}
-              onClick={() => handleButtonClick("password")}
-            >
-              <a>Şifre</a>
+            <li onClick={() => handleButtonClick("password")}>
+              <Image
+                alt="deneme4324"
+                src={settingsPasswordImage}
+                className={classes.settingsPasswordImage}
+                width="100px"
+                height="100px"
+              />
+              <h2>Şifre</h2>
             </li>
-            <li
-              className={navbarSelect === "books" ? classes.active : ""}
-              onClick={() => handleButtonClick("books")}
-            >
-              <a>Kitaplar</a>
+            <li onClick={() => handleButtonClick("books")}>
+              <Image
+                alt="deneme4324"
+                src={settingsBookImage}
+                className={classes.settingsBookImage}
+                width="100px"
+                height="100px"
+              />
+              <h2>Kitaplar</h2>
             </li>
-            <li
-              className={navbarSelect === "teams" ? classes.active : ""}
-              onClick={() => handleButtonClick("teams")}
-            >
-              <a>Takım</a>
+            <li onClick={() => handleButtonClick("teams")}>
+              <Image
+                alt="deneme4324"
+                src={settingsTeamImage}
+                className={classes.settingsTeamImage}
+                width="100px"
+                height="100px"
+              />
+              <h2>Takım</h2>
             </li>
-            <li
-              className={navbarSelect === "email" ? classes.active : ""}
-              onClick={() => handleButtonClick("email")}
-            >
-              <a>Email</a>
+            <li onClick={() => handleButtonClick("email")}>
+              <Image
+                alt="deneme4324"
+                src={settingsEmailImage}
+                className={classes.settingsEmailImage}
+                width="100px"
+                height="100px"
+              />
+              <h2>Email</h2>
             </li>
           </ul>
         </div>
