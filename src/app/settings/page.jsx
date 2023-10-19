@@ -367,7 +367,9 @@ const SettingsBooks = ({ book }) => {
   return (
     <div className={classes.settingsBooks}>
       {book.map((item) => (
-        <SettingsBook book={item} />
+        <Link href={`settings/${item._id}`}>
+          <SettingsBook book={item} />
+        </Link>
       ))}
     </div>
   );
