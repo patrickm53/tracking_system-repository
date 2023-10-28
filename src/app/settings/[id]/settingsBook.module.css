@@ -30,3 +30,30 @@
   background-color: #3f8363;
   color: #fff;
 }
+
+.imgContainer .bookDetailPage {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.imgContainer .bookDetailPage div {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 13px;
+  gap: 5px;
+}
+
+.imgContainer .bookDetailPage .bilgi {
+  width: 60%;
+}
+
+.imgContainer .bookDetailPage .bilgi input {
+  border: 1px solid #8e8e8e;
+  border-radius: 50px;
+  padding: 0 10px;
+  color: #5d5d5d;
+  font-weight: 600;
+}

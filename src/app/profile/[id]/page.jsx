@@ -87,52 +87,52 @@ const Profile = (ctx) => {
         </div>
       </div>
       <div className={classes.wrapper}>
-        <div className={classes.personProfile}>
-          <div className={classes.top}>
-            <div className={classes.profileImageContainer}>
-              <Image
-                className={classes.profileImage}
-                alt="profilePerson"
-                src={user.profilImage}
-                width={150}
-                height={150}
-              />
+        <div className={classes.personAndStory}>
+          <div className={classes.personProfile}>
+            <div className={classes.top}>
+              <div className={classes.profileImageContainer}>
+                <Image
+                  className={classes.profileImage}
+                  alt="profilePerson"
+                  src={user.profilImage}
+                  width={150}
+                  height={150}
+                />
+              </div>
+              <h2>
+                {user.name}
+                <AiFillBook />
+              </h2>
+              <h3>@{user.username}</h3>
             </div>
-            <h2>
-              {user.name}
-              <AiFillBook />
-            </h2>
-            <h3>@{user.username}</h3>
+            <div className={classes.bottom}>
+              <p>{user.word}</p>
+              <a>@Twitter</a>
+              <div className={classes.information}>
+                <div className={classes.info}>
+                  <BiCurrentLocation /> <span>{user.location}</span>
+                </div>
+                <div className={classes.link}>
+                  <TbNetwork />
+                  <a>{user.website}</a>
+                </div>
+                <div className={classes.info}>
+                  <FaBirthdayCake /> <span>{user.birthday}</span>
+                </div>
+                <div className={classes.link}>
+                  <BsFillPostcardFill />
+                  <a>28 post - 150 comment</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className={classes.bottom}>
-            <p>{user.word}</p>
-            <a>@Twitter</a>
-            <div className={classes.information}>
-              <div className={classes.info}>
-                <BiCurrentLocation /> <span>{user.location}</span>
-              </div>
-              <div className={classes.link}>
-                <TbNetwork />
-                <a>{user.website}</a>
-              </div>
-              <div className={classes.info}>
-                <FaBirthdayCake /> <span>{user.birthday}</span>
-              </div>
-              <div className={classes.link}>
-                <BsFillPostcardFill />
-                <a>28 post - 150 comment</a>
-              </div>
-            </div>
+          <div className={classes.personStoryProfile}>
+            <p>{user.story}</p>
           </div>
         </div>
         <div className={classes.post}>
           {navbarSelect === "yayınlar" ? (
             <div className={classes.postAndStory}>
-              {user.story ? (
-                <div className={classes.story}> {user.story}</div>
-              ) : (
-                <div></div>
-              )}
               {books?.length > 0 ? (
                 books.map((book) => <ProfilePost key={book._id} book={book} />)
               ) : (

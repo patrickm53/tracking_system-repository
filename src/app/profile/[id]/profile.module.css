@@ -66,6 +66,22 @@
   justify-content: space-between;
 }
 
+.personStoryProfile {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  width: 280px;
+  height: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 20px;
+}
+
+.personStoryProfile p {
+  text-align: justify;
+}
+
 .personProfile {
   display: flex;
   flex-direction: column;
@@ -153,16 +169,6 @@
   width: 50%;
   margin-left: 20px;
   margin-top: 40px;
-}
-
-.post > .postAndStory > .story {
-  width: 100%;
-  min-height: 100px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
 }
 
 .right {

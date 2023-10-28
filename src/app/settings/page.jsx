@@ -172,18 +172,18 @@ const Settings = () => {
 export default Settings;
 
 const SettingsProfile = ({ user }) => {
+  console.log(user);
   const [name, setName] = useState(user?.name);
   const [username, setUsername] = useState(user?.username);
-  const [email, setEmail] = useState(user?.email);
   const [location, setLocation] = useState(user?.location);
   const [website, setWebsite] = useState(user?.website);
   const [birthday, setBirthday] = useState(user?.birthday);
   const [word, setWord] = useState(user?.word);
   const [story, setStory] = useState(user?.story);
   const [selectedImage, setSelectedImage] = useState(user?.profilImage);
-
+  const formattedDate = new Date(birthday).toISOString().split("T")[0];
   const handleSubmit = async () => {
-    if (username === "" || name === "" || email === "") {
+    if (username === "" || name === "") {
       toast.error("username and name and email cannot be empty");
       return;
     }
@@ -197,7 +197,6 @@ const SettingsProfile = ({ user }) => {
         body: JSON.stringify({
           name,
           username,
-          email,
           location,
           website,
           birthday,
@@ -271,15 +270,6 @@ const SettingsProfile = ({ user }) => {
             />
           </span>
           <span>
-            <h4>Email Adresi:</h4>
-            <input
-              value={email}
-              type="email"
-              placeholder="Email..."
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </span>
-          <span>
             <h4>Konum:</h4>
             <input
               value={location}
@@ -300,7 +290,7 @@ const SettingsProfile = ({ user }) => {
           <span>
             <h4>Doğum Tarihi:</h4>
             <input
-              value={birthday}
+              value={formattedDate}
               type="date"
               placeholder="Doğum Tarihi..."
               onChange={(e) => setBirthday(e.target.value)}
