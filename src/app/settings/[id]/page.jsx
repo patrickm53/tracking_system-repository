@@ -1,23 +1,62 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { fetchBookId } from "@/app/api";
+import { fetchBookId, fetchDeleteBook } from "@/app/api";
 import classes from "./settingsBook.module.css";
 import Image from "next/image";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { useSession } from "next-auth/react";
+import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const SettingsBook = (ctx) => {
+  const id = ctx.params.id;
+  const { data: session } = useSession();
+  const token = session?.user?.accessToken;
+  const router = useRouter();
+
   const [bookDetail, setBookDetail] = useState();
+  const [page, setPage] = useState();
+  const [language, setLanguage] = useState();
+  const [bookDate, setBookDate] = useState();
+  const [bookName, setBookName] = useState();
+  const [author, setAuthor] = useState();
+  const [rating, setRating] = useState();
+  const [description, setDescription] = useState();
   useEffect(() => {
     async function fecthBook() {
-      const id = ctx.params.id;
       const data = await fetchBookId(id);
       setBookDetail(data);
+      setPage(data?.pages);
+      setLanguage(data?.language);
+      setBookDate(data?.years);
+      setBookName(data?.title);
+      setAuthor(data?.author);
+      setRating(data?.rating);
+      setDescription(data?.description);
     }
     fecthBook();
   }, []);
-  console.log(bookDetail?.pages);
-  const [page, setPage] = useState(bookDetail?.pages);
-  const [language, setLanguage] = useState(bookDetail?.language);
-  const [bookDate, setBookDate] = useState(bookDetail?.years);
+  console.log(bookDetail);
+
+  const DeleteBook = async () => {
+    const confirmDeletion = window.confirm(
+      "Bu öğeyi silmek istediğinize emin misiniz?"
+    );
+    if (confirmDeletion) {
+      try {
+        await fetchDeleteBook(token, id);
+        toast.success("Kitap başarıyla silindi");
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
+      } catch (error) {
+        toast.error("Silme işlemi sırasında bir hata oluştu");
+      }
+    } else {
+      toast.warn("Silme işlemi iptal edildi");
+    }
+  };
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
@@ -32,15 +71,15 @@ const SettingsBook = (ctx) => {
           <button className={classes.buttonGreen}>Resim Seç</button>
           <button>Resim Yükle</button>
           <div className={classes.bookDetailPage}>
-            <div>
-              <span>sayfa sayısı : </span>
+            <div className={classes.bilgiTitle}>
+              <span>Sayfa Sayısı : </span>
               <span>Dil : </span>
-              <span>Yayın Tarihi : </span>
+              <span>Yayın Yılı : </span>
             </div>
             <div className={classes.bilgi}>
               <input
                 value={page}
-                type="text"
+                type="number"
                 placeholder="Sayfa Sayısı..."
                 onChange={(e) => setPage(e.target.value)}
               />
@@ -52,15 +91,57 @@ const SettingsBook = (ctx) => {
               />
               <input
                 value={bookDate}
-                type="text"
+                type="number"
                 placeholder="Çıkış Tarihi..."
                 onChange={(e) => setBookDate(e.target.value)}
               />
             </div>
           </div>
+          <button className={classes.deleteButton} onClick={DeleteBook}>
+            Kitabı Sil
+          </button>
         </div>
-        <div className={classes.inputContainer}></div>
+        <div className={classes.inputBox}>
+          <div className={classes.inputContainer}>
+            <span>
+              <h4>İsim:</h4>
+              <input
+                value={bookName}
+                type="text"
+                placeholder="Kitap İsmi..."
+                onChange={(e) => setBookName(e.target.value)}
+              />
+            </span>
+            <span>
+              <h4>Yazar:</h4>
+              <input
+                value={author}
+                type="text"
+                placeholder="Yazar İsmi..."
+                onChange={(e) => setAuthor(e.target.value)}
+              />
+            </span>
+            <span>
+              <h4>Puan:</h4>
+              <input
+                value={rating}
+                type="number"
+                min={0}
+                max={5}
+                placeholder="Puan..."
+                onChange={(e) => setRating(e.target.value)}
+              />
+            </span>
+          </div>
+          <ReactQuill
+            value={description}
+            onChange={(e) => setDescription(e)}
+            placeholder="Hikayen..."
+            className={classes.description}
+          />
+        </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

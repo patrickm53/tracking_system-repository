@@ -24,6 +24,15 @@ export async function fetchBookId(bookId) {
   return data;
 }
 
+export async function fetchDeleteBook(token, bookId) {
+  await fetch(`http://localhost:3000/api/book/${bookId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    method: "DELETE",
+  });
+}
+
 export async function fetchProfileBook(userId) {
   const response = await fetch(
     `http://localhost:3000/api/book/profile/${userId}`

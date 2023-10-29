@@ -7,6 +7,7 @@
 .wrapper {
   width: 70%;
   margin: 50px 0;
+  display: flex;
 }
 
 .imgContainer {
@@ -31,6 +32,15 @@
   color: #fff;
 }
 
+.imgContainer .deleteButton {
+  padding: 3px 0;
+  background-color: rgb(202, 3, 3);
+  color: #fff;
+  border: 1px solid red;
+  margin-top: 50px;
+  font-weight: 400;
+}
+
 .imgContainer .bookDetailPage {
   display: flex;
   align-items: center;
@@ -46,14 +56,62 @@
   gap: 5px;
 }
 
+.imgContainer .bookDetailPage .bilgiTitle {
+  width: 100px;
+}
+
 .imgContainer .bookDetailPage .bilgi {
-  width: 60%;
+  width: 50%;
 }
 
 .imgContainer .bookDetailPage .bilgi input {
+  width: 100px;
   border: 1px solid #8e8e8e;
   border-radius: 50px;
   padding: 0 10px;
   color: #5d5d5d;
   font-weight: 600;
+}
+
+.inputBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.inputContainer span {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #eee;
+  height: 50px;
+}
+
+.inputContainer span h4 {
+  width: 30%;
+  font-size: 14px;
+  font-weight: 600;
+  color: #989898;
+}
+
+.inputContainer span input {
+  width: 50%;
+  height: 40px;
+  border: 1px solid #8e8e8e;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+  color: #5d5d5d;
+}
+
+.inputContainer .description {
+  width: 80%;
 }
