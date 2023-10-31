@@ -8,6 +8,7 @@ import "react-quill/dist/quill.snow.css";
 import { useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { AiOutlineClose } from "react-icons/ai";
 
 const SettingsBook = (ctx) => {
   const id = ctx.params.id;
@@ -23,6 +24,7 @@ const SettingsBook = (ctx) => {
   const [author, setAuthor] = useState();
   const [rating, setRating] = useState();
   const [description, setDescription] = useState();
+  const [genres, setGenres] = useState();
   useEffect(() => {
     async function fecthBook() {
       const data = await fetchBookId(id);
@@ -34,6 +36,7 @@ const SettingsBook = (ctx) => {
       setAuthor(data?.author);
       setRating(data?.rating);
       setDescription(data?.description);
+      setGenres(data?.genres);
     }
     fecthBook();
   }, []);
@@ -57,6 +60,13 @@ const SettingsBook = (ctx) => {
       toast.warn("Silme işlemi iptal edildi");
     }
   };
+
+  const handleDeleteGenres = async ({ index }) => {
+    const updatedGenres = [...genres];
+    updatedGenres.splice(index, 1);
+    setGenres(updatedGenres);
+  };
+  console.log(genres);
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
@@ -131,6 +141,20 @@ const SettingsBook = (ctx) => {
                 placeholder="Puan..."
                 onChange={(e) => setRating(e.target.value)}
               />
+            </span>
+            <span>
+              <h4>Tür:</h4>
+              <ul>
+                {genres?.map((item, index) => (
+                  <li key={index}>
+                    {item}
+                    <AiOutlineClose
+                      onClick={() => handleDeleteGenres((index = { index }))}
+                      className={classes.genresClose}
+                    />
+                  </li>
+                ))}
+              </ul>
             </span>
           </div>
           <ReactQuill

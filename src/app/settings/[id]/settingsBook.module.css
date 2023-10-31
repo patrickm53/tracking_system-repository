@@ -5,9 +5,10 @@
 }
 
 .wrapper {
-  width: 70%;
+  width: 60%;
   margin: 50px 0;
   display: flex;
+  gap: 50px;
 }
 
 .imgContainer {
@@ -91,6 +92,7 @@
 .inputContainer span {
   width: 100%;
   display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid #eee;
   height: 50px;
 }
@@ -103,7 +105,7 @@
 }
 
 .inputContainer span input {
-  width: 50%;
+  width: 60%;
   height: 40px;
   border: 1px solid #8e8e8e;
   padding: 5px 10px;
@@ -114,4 +116,27 @@
 
 .inputContainer .description {
   width: 80%;
+}
+
+.inputContainer span ul {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+.inputContainer span ul li {
+  height: 25px;
+  padding: 0 10px;
+  background-color: #2480a4;
+  border-radius: 50px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.inputContainer span ul li .genresClose {
+  cursor: pointer;
 }
