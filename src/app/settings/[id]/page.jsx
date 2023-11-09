@@ -8,7 +8,7 @@ import "react-quill/dist/quill.snow.css";
 import { useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlinePlusCircle } from "react-icons/ai";
 
 const SettingsBook = (ctx) => {
   const id = ctx.params.id;
@@ -24,7 +24,8 @@ const SettingsBook = (ctx) => {
   const [author, setAuthor] = useState();
   const [rating, setRating] = useState();
   const [description, setDescription] = useState();
-  const [genres, setGenres] = useState();
+  const [genres, setGenres] = useState([]);
+  const [newGenres, setNewGenres] = useState();
   useEffect(() => {
     async function fecthBook() {
       const data = await fetchBookId(id);
@@ -65,6 +66,14 @@ const SettingsBook = (ctx) => {
     const updatedGenres = [...genres];
     updatedGenres.splice(index, 1);
     setGenres(updatedGenres);
+  };
+
+  const handleAddGenres = async (event) => {
+    if (event.key === "Enter") {
+      const updatedGenres = [...genres, event.target.value];
+      setGenres(updatedGenres);
+      setNewGenres("");
+    }
   };
   console.log(genres);
   return (
@@ -142,7 +151,7 @@ const SettingsBook = (ctx) => {
                 onChange={(e) => setRating(e.target.value)}
               />
             </span>
-            <span>
+            <span className={classes.genresSpan}>
               <h4>Tür:</h4>
               <ul>
                 {genres?.map((item, index) => (
@@ -154,6 +163,16 @@ const SettingsBook = (ctx) => {
                     />
                   </li>
                 ))}
+                <li className={classes.genresLi}>
+                  <input
+                    placeholder="Tür giriniz..."
+                    type="text"
+                    value={newGenres}
+                    onChange={(e) => setNewGenres(e.target.value)}
+                    onKeyDown={(e) => handleAddGenres(e)}
+                    className={classes.genresInput}
+                  />
+                </li>
               </ul>
             </span>
           </div>
