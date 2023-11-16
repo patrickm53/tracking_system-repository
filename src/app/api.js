@@ -1,3 +1,5 @@
+import { headers } from "next/dist/client/components/headers";
+
 export async function getBook() {
   const response = await fetch("http://localhost:3000/api/book");
   const data = await response.json();
@@ -31,6 +33,20 @@ export async function fetchDeleteBook(token, bookId) {
     },
     method: "DELETE",
   });
+}
+
+export async function fetchUpdateBook(token, bookId, body) {
+  const response = await fetch(`http://localhost:3000/api/book/${bookId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "PUT",
+    body: JSON.stringify(body),
+  });
+
+  const data = await response.json();
+  return data;
 }
 
 export async function fetchProfileBook(userId) {

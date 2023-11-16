@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { fetchBookId, fetchDeleteBook } from "@/app/api";
+import { fetchBookId, fetchDeleteBook, fetchUpdateBook } from "@/app/api";
 import classes from "./settingsBook.module.css";
 import Image from "next/image";
 import ReactQuill from "react-quill";
@@ -17,7 +17,7 @@ const SettingsBook = (ctx) => {
   const router = useRouter();
 
   const [bookDetail, setBookDetail] = useState();
-  const [page, setPage] = useState();
+  const [pages, setPages] = useState();
   const [language, setLanguage] = useState();
   const [bookDate, setBookDate] = useState();
   const [bookName, setBookName] = useState();
@@ -30,7 +30,7 @@ const SettingsBook = (ctx) => {
     async function fecthBook() {
       const data = await fetchBookId(id);
       setBookDetail(data);
-      setPage(data?.pages);
+      setPages(data?.pages);
       setLanguage(data?.language);
       setBookDate(data?.years);
       setBookName(data?.title);
@@ -50,7 +50,7 @@ const SettingsBook = (ctx) => {
     if (confirmDeletion) {
       try {
         await fetchDeleteBook(token, id);
-        toast.success("Kitap başarıyla silindi");
+        toast.success("Kitap başarı şekilde silindi");
         setTimeout(() => {
           router.push("/");
         }, 2000);
@@ -59,6 +59,35 @@ const SettingsBook = (ctx) => {
       }
     } else {
       toast.warn("Silme işlemi iptal edildi");
+    }
+  };
+
+  const handleUpdateBook = async () => {
+    const confirmUpdate = window.confirm(
+      "Bilgiler kalıcı olarak güncellenecektir. emin misin?"
+    );
+    if (confirmUpdate) {
+      try {
+        const body = {
+          title: bookName,
+          rating,
+          author,
+          description,
+          genres,
+          pages,
+          years: bookDate,
+          language,
+        };
+
+        await fetchUpdateBook(token, id, body);
+        toast.success("Kitap başarılı şekilde güncellendi");
+      } catch (error) {
+        toast.error(
+          "Güncelleme işlemi sırasında bir sorun oluştu. Lütfen tekrar deneyin."
+        );
+      }
+    } else {
+      toast.warn("Güncelleme işlemi iptal edildi.");
     }
   };
 
@@ -75,7 +104,6 @@ const SettingsBook = (ctx) => {
       setNewGenres("");
     }
   };
-  console.log(genres);
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
@@ -97,10 +125,10 @@ const SettingsBook = (ctx) => {
             </div>
             <div className={classes.bilgi}>
               <input
-                value={page}
+                value={pages}
                 type="number"
                 placeholder="Sayfa Sayısı..."
-                onChange={(e) => setPage(e.target.value)}
+                onChange={(e) => setPages(e.target.value)}
               />
               <input
                 value={language}
@@ -182,6 +210,9 @@ const SettingsBook = (ctx) => {
             placeholder="Hikayen..."
             className={classes.description}
           />
+          <div>
+            <button onClick={handleUpdateBook}>Kaydet</button>
+          </div>
         </div>
       </div>
       <ToastContainer />
