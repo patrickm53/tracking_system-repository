@@ -54,7 +54,6 @@ export async function PUT(req) {
     const {
       name,
       username,
-      email,
       location,
       website,
       birthday,
@@ -74,7 +73,6 @@ export async function PUT(req) {
       {
         name,
         username,
-        email,
         location,
         website,
         birthday,

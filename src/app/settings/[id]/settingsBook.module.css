@@ -157,3 +157,19 @@
 .inputContainer span ul li .genresClose {
   cursor: pointer;
 }
+
+.buttonContainer {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonContainer > button {
+  width: 150px;
+  border-radius: 50px;
+  padding: 3px 0;
+  background-color: #3f8363;
+  color: #fff;
+  font-weight: 400;
+}

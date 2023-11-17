@@ -210,7 +210,7 @@ const SettingsBook = (ctx) => {
             placeholder="Hikayen..."
             className={classes.description}
           />
-          <div>
+          <div className={classes.buttonContainer}>
             <button onClick={handleUpdateBook}>Kaydet</button>
           </div>
         </div>

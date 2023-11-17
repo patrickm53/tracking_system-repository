@@ -24,7 +24,6 @@ export async function PUT(req, ctx) {
   const token = accessToken.split(" ")[1];
 
   const decodedToken = verifyJwtToken(token);
-  console.log("decodedToken", decodedToken);
 
   if (!accessToken || !decodedToken) {
     return new Response(
