@@ -175,35 +175,36 @@ const SettingsProfile = ({ user }) => {
   console.log(user);
   const [name, setName] = useState(user?.name);
   const [username, setUsername] = useState(user?.username);
+  const [email, setEmail] = useState(user?.email);
   const [location, setLocation] = useState(user?.location);
   const [website, setWebsite] = useState(user?.website);
   const [birthday, setBirthday] = useState(user?.birthday);
   const [word, setWord] = useState(user?.word);
   const [story, setStory] = useState(user?.story);
-  const [selectedImage, setSelectedImage] = useState(user?.profilImage);
-  const formattedDate = new Date(birthday).toISOString().split("T")[0];
+  const [newProfilImage, setNewProfileImage] = useState("");
+  const formattedDate = birthday
+    ? new Date(birthday).toISOString().split("T")[0]
+    : "";
   const handleSubmit = async () => {
-    if (username === "" || name === "") {
+    if (username === "" || name === "" || email === "") {
       toast.error("username and name and email cannot be empty");
       return;
     }
 
     try {
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("name", name);
+      formData.append("username", username);
+      formData.append("location", location);
+      formData.append("website", website);
+      formData.append("birthday", birthday);
+      formData.append("word", word);
+      formData.append("story", story);
+      formData.append("newProfilImage", newProfilImage);
       const res = await fetch("http://localhost:3000/api/register", {
-        headers: {
-          "Content-Type": "application/json",
-        },
         method: "PUT",
-        body: JSON.stringify({
-          name,
-          username,
-          location,
-          website,
-          birthday,
-          word,
-          story,
-          profilImage: selectedImage,
-        }),
+        body: formData,
       });
       console.log(await res.json());
       if (res.ok) {
@@ -235,7 +236,7 @@ const SettingsProfile = ({ user }) => {
           <Image
             alt="profilImageSettings"
             className={classes.profilImage}
-            src={user?.profilImage}
+            src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
             width={150}
             height={150}
           />
@@ -318,7 +319,7 @@ const SettingsProfile = ({ user }) => {
             />
           </span>
           <h4>Profil Resmini Seç:</h4>
-          <div className={classes.selectedProfilImage}>
+          {/* <div className={classes.selectedProfilImage}>
             {profilImage.map((image, index) => (
               <Image
                 alt={`resim ${index + 1}`}
@@ -331,7 +332,15 @@ const SettingsProfile = ({ user }) => {
                 onClick={() => setSelectedImage(image.src)}
               />
             ))}
-          </div>
+          </div> */}
+          <input
+            type="file"
+            lable="image"
+            name="myFile"
+            id="file-upload"
+            accept=".jpeg, .png, .jpg"
+            onChange={(e) => setNewProfileImage(e.currentTarget.files?.[0])}
+          />
         </form>
       </div>
     </div>

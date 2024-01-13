@@ -87,7 +87,7 @@ const Navbar = () => {
                 <Link href={`/profile/${session?.user?._id}`}>
                   <Image
                     alt="profilResmi"
-                    src={userDetail?.profilImage}
+                    src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
                     width="45"
                     height="45"
                     className={classes.image}
@@ -166,7 +166,7 @@ const Navbar = () => {
                   <Link href={`/profile/${session?.user?._id}`}>
                     <Image
                       alt="profilResmi"
-                      src={userDetail?.profilImage}
+                      src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
                       width="45"
                       height="45"
                       className={classes.image}

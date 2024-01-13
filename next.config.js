@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "img.kitapyurdu.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "bookwave-profile-image.s3.eu-central-1.amazonaws.com",
+        port: "",
+      },
     ],
   },
   webpack(config) {

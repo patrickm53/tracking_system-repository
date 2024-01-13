@@ -15,7 +15,7 @@ const ProfileCard = ({ key, user }) => {
           >
             <Image
               className={classes.image}
-              src={user?.profilImage}
+              src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.ProfileImage}`}
               width="100"
               height="100"
             />

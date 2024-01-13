@@ -27,7 +27,12 @@ const Comment = ({ comment, setComments, userDetail }) => {
       <div className={classes.wrapper}>
         <div className={classes.left}>
           <div className={classes.commentProfile}>
-            <Image src={userDetail.profilImage} width="50" height="50" alt="" />
+            <Image
+              src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
+              width="50"
+              height="50"
+              alt=""
+            />
             <div className={classes.userData}>
               <h4>{comment?.authorId?.name}</h4>
               <span className={classes.timeago}>

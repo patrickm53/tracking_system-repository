@@ -55,7 +55,7 @@ const ProductCard = ({ key, book }) => {
         <div className={classes.person}>
           <Image
             alt="person"
-            src={book?.user?.profilImage}
+            src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${book?.user?.profilImage}`}
             width="32"
             height="32"
             className={classes.personImg}

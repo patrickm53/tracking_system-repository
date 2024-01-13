@@ -89,7 +89,7 @@ const ProfilePost = ({ key, book }) => {
         <div className={classes.personLeft}>
           <Image
             alt="profilPerson"
-            src={user?.profilImage}
+            src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
             width="45"
             height="45"
             className={classes.profilPerson}

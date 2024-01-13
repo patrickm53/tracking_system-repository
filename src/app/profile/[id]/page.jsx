@@ -26,6 +26,7 @@ const Profile = (ctx) => {
   const { data: session } = useSession(false);
 
   const router = useRouter();
+  let userBirthday = "";
 
   useEffect(() => {
     async function fetchUser() {
@@ -54,6 +55,10 @@ const Profile = (ctx) => {
   const handleButtonClick = (buttonName) => {
     setNavbarSelect(buttonName);
   };
+
+  if (user.birthday) {
+    userBirthday = user.birthday.split("T")[0];
+  }
 
   return (
     <div className={classes.container}>
@@ -94,7 +99,7 @@ const Profile = (ctx) => {
                 <Image
                   className={classes.profileImage}
                   alt="profilePerson"
-                  src={user.profilImage}
+                  src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
                   width={150}
                   height={150}
                 />
@@ -117,7 +122,7 @@ const Profile = (ctx) => {
                   <a>{user.website}</a>
                 </div>
                 <div className={classes.info}>
-                  <FaBirthdayCake /> <span>{user.birthday}</span>
+                  <FaBirthdayCake /> <span>{userBirthday}</span>
                 </div>
                 <div className={classes.link}>
                   <BsFillPostcardFill />

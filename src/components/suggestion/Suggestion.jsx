@@ -10,7 +10,7 @@ const Suggestion = ({ user }) => {
         <Image
           className={classes.followImage}
           alt="takipöneri"
-          src={user.profilImage}
+          src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
           width="45"
           height="45"
         />

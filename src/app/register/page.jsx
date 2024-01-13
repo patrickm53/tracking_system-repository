@@ -23,13 +23,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      username === "" ||
-      name === "" ||
-      email === "" ||
-      password === "" ||
-      selectedImage === ""
-    ) {
+    if (username === "" || name === "" || email === "" || password === "") {
       toast.error("Fill all fields");
       return;
     }
@@ -40,23 +34,21 @@ const Register = () => {
     }
 
     try {
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("location", location);
+      formData.append("website", website);
+      formData.append("birthday", birthday);
+      formData.append("word", word);
+      formData.append("story", story);
+      formData.append("selectedImage", selectedImage);
+
       const res = await fetch("http://localhost:3000/api/register", {
-        headers: {
-          "Content-Type": "application/json",
-        },
         method: "POST",
-        body: JSON.stringify({
-          username,
-          name,
-          email,
-          password,
-          location,
-          website,
-          birthday,
-          word,
-          story,
-          profilImage: selectedImage,
-        }),
+        body: formData,
       });
 
       console.log(await res.json());
@@ -73,6 +65,17 @@ const Register = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  // const handleFileUpload = async (e) => {
+  //   const file = e.target.files[0];
+  //   const base64 = await convertToBase64(file);
+  //   console.log(base64);
+  //   setSelectedImage(base64);
+  // };
+  const handleFileUpload = (e) => {
+    setSelectedImage(e.currentTarget.files?.[0]);
+    // setSelectedImage(e.target.files?.[0]);
   };
 
   return (
@@ -128,7 +131,15 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <h4>Profil Resmini Seç</h4>
-            <div className={classes.profilImage}>
+            <input
+              type="file"
+              lable="image"
+              name="myFile"
+              id="file-upload"
+              accept=".jpeg, .png, .jpg"
+              onChange={handleFileUpload}
+            />
+            {/* <div className={classes.profilImage}>
               {profilImage.map((image, index) => (
                 <Image
                   alt={`resim ${index + 1}`}
@@ -141,7 +152,7 @@ const Register = () => {
                   onClick={() => setSelectedImage(image.src)}
                 />
               ))}
-            </div>
+            </div> */}
             <button className={classes.submitButton}>Register</button>
           </form>
         </div>
@@ -152,3 +163,16 @@ const Register = () => {
 };
 
 export default Register;
+
+// function convertToBase64(file) {
+//   return new Promise((resolve, reject) => {
+//     const fileReader = new FileReader();
+//     fileReader.readAsDataURL(file);
+//     fileReader.onload = () => {
+//       resolve(fileReader.result);
+//     };
+//     fileReader.onerror = (error) => {
+//       reject(error);
+//     };
+//   });
+// }
