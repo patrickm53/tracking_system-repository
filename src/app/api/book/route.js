@@ -1,6 +1,32 @@
 import connect from "@/lib/db";
 import { verifyJwtToken } from "@/lib/jwt";
 import Book from "@/models/Book";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
+const s3Client = new S3Client({
+  region: process.env.REGION,
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  },
+});
+
+async function uploadFileToS3(file, fileName) {
+  const fileBuffer = file;
+  console.log(fileName);
+  const key = `${fileName}-${Date.now()}`;
+
+  const params = {
+    Bucket: process.env.BUCKET_NAME,
+    Key: `profileImage/${key}`,
+    Body: fileBuffer,
+    ContentType: "image/jpg",
+  };
+
+  const command = new PutObjectCommand(params);
+  await s3Client.send(command);
+  return key;
+}
 
 export async function GET(req) {
   await connect();
