@@ -4,11 +4,18 @@ import classes from "./register.module.css";
 import { signIn } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
-import Image from "next/image";
-import profilImage from "@/lib/profilImage";
+import { ReactCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 const Register = () => {
+  const initialCrop = {
+    aspect: 1,
+    unit: "px",
+    width: 100,
+    height: 100,
+    x: 0,
+    y: 0,
+  };
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,13 +25,30 @@ const Register = () => {
   const [birthday, setBirthday] = useState("");
   const [word, setWord] = useState("");
   const [story, setStory] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [crop, setCrop] = useState(initialCrop);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [originalImage, setOriginalImage] = useState(null);
+
+  const handleDeleteImage = () => {
+    setOriginalImage(null);
+    setCrop({ x: 0, y: 0 });
+    setCroppedImage(null);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (username === "" || name === "" || email === "" || password === "") {
       toast.error("Fill all fields");
+      return;
+    }
+
+    if (
+      originalImage &&
+      (croppedImage === null || croppedImage === undefined)
+    ) {
+      toast.error("Please image cropped");
       return;
     }
 
@@ -44,7 +68,7 @@ const Register = () => {
       formData.append("birthday", birthday);
       formData.append("word", word);
       formData.append("story", story);
-      formData.append("selectedImage", selectedImage);
+      formData.append("selectedImage", croppedImage);
 
       const res = await fetch("http://localhost:3000/api/register", {
         method: "POST",
@@ -67,15 +91,67 @@ const Register = () => {
     }
   };
 
-  // const handleFileUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   const base64 = await convertToBase64(file);
-  //   console.log(base64);
-  //   setSelectedImage(base64);
-  // };
   const handleFileUpload = (e) => {
-    setSelectedImage(e.currentTarget.files?.[0]);
-    // setSelectedImage(e.target.files?.[0]);
+    const file = e.target.files[0];
+    const fileName = file?.name || "cropperImage";
+    console.log(fileName);
+    setFileName(fileName);
+    if (originalImage) {
+      URL.revokeObjectURL(originalImage);
+    }
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCroppedImage(null);
+        setOriginalImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setOriginalImage(undefined);
+    }
+  };
+
+  const handleCropComplete = (crop, percentCrop) => {
+    const canvas = document.createElement("canvas");
+    const imageObj = new Image();
+    imageObj.src = originalImage;
+
+    imageObj.onload = () => {
+      const scaleX = imageObj.naturalWidth / 300;
+      const scaleY = scaleX;
+
+      const croppedAreaPixels = {
+        x: Math.round(crop.x * scaleX),
+        y: Math.round(crop.y * scaleY),
+        width: Math.round(crop.width * scaleX),
+        height: Math.round(crop.height * scaleY),
+      };
+      canvas.width = 250;
+      canvas.height =
+        (250 / croppedAreaPixels.width) * croppedAreaPixels.height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(
+        imageObj,
+        croppedAreaPixels.x,
+        croppedAreaPixels.y,
+        croppedAreaPixels.width,
+        croppedAreaPixels.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      // Canvas'tan Blob elde et
+      canvas.toBlob((blob) => {
+        const croppedFile = new File([blob], fileName, {
+          type: "image/jpeg",
+        });
+        // Kırpılmış dosyayı state'e kaydet
+        setCroppedImage(croppedFile);
+      }, "image/jpeg");
+    };
   };
 
   return (
@@ -130,30 +206,64 @@ const Register = () => {
               placeholder="Şifre..."
               onChange={(e) => setPassword(e.target.value)}
             />
-            <h4>Profil Resmini Seç</h4>
+            <div className={classes.profileImageSelected}>
+              <h4>Profil Resmini Seç</h4>
+              {originalImage && (
+                <button onClick={handleDeleteImage}>Resmi Sil</button>
+              )}
+            </div>
             <input
               type="file"
-              lable="image"
               name="myFile"
               id="file-upload"
               accept=".jpeg, .png, .jpg"
               onChange={handleFileUpload}
             />
-            {/* <div className={classes.profilImage}>
-              {profilImage.map((image, index) => (
-                <Image
-                  alt={`resim ${index + 1}`}
-                  src={image.src}
-                  width="60"
-                  height="60"
-                  className={`${classes.images} ${
-                    selectedImage === image.src ? classes.active : ""
-                  }`}
-                  onClick={() => setSelectedImage(image.src)}
+            {originalImage && (
+              <div className={classes.uploadImage}>
+                <ReactCrop
+                  aspect={1}
+                  crop={crop}
+                  onChange={(c) => setCrop(c)}
+                  onComplete={handleCropComplete}
+                >
+                  <img
+                    src={originalImage}
+                    alt={"kırma işlemi"}
+                    style={{
+                      maxWidth: "300px",
+                      minWidth: "300px",
+                      width: "300px",
+                      height: "auto",
+                    }}
+                  />
+                </ReactCrop>
+              </div>
+            )}
+            {croppedImage && (
+              <div
+                style={{
+                  position: "relative",
+                  maxWidth: "150px",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    color: "grey",
+                    margin: "5px 0",
+                  }}
+                >
+                  Kaydedilecek Resim
+                </p>
+                <img
+                  src={URL.createObjectURL(croppedImage)}
+                  alt="Kırpılmış Resim"
                 />
-              ))}
-            </div> */}
-            <button className={classes.submitButton}>Register</button>
+              </div>
+            )}
+            <button className={classes.submitButton}>Kayıt Ol</button>
           </form>
         </div>
       </div>
