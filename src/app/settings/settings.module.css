@@ -30,9 +30,13 @@
   cursor: pointer;
 }
 
+.settingsFirstSelectCard ul li:last-child {
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
 .settingsFirstSelectCard ul li h2 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .settingsProfileImage {
@@ -67,6 +71,13 @@
   position: absolute;
   width: auto;
   height: 180px;
+  opacity: 0.2;
+}
+
+.settingLogoutImage {
+  position: absolute;
+  width: auto;
+  height: 100px;
   opacity: 0.2;
 }
 

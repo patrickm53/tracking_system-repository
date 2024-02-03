@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import classes from "./settings.module.css";
@@ -17,6 +17,7 @@ import settingsPasswordImage from "../../../public/settings-password.png";
 import settingsBookImage from "../../../public/settings-book.jpg";
 import settingsTeamImage from "../../../public/settings-team.jpg";
 import settingsEmailImage from "../../../public/settings-email.jpg";
+import settingLogoutImage from "../../../public/logout.png";
 
 const Settings = () => {
   const { data: session } = useSession();
@@ -30,7 +31,7 @@ const Settings = () => {
 
     await signOut({ redirect: false });
 
-    router.push("/");
+    signIn();
   };
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const Settings = () => {
           <ul>
             <li onClick={() => handleButtonClick("profile")}>
               <Image
-                alt="deneme4324"
+                alt="setting profil"
                 src={settingsProfileImage}
                 className={classes.settingsProfileImage}
                 width="100px"
@@ -69,7 +70,7 @@ const Settings = () => {
             </li>
             <li onClick={() => handleButtonClick("password")}>
               <Image
-                alt="deneme4324"
+                alt="setting paswword"
                 src={settingsPasswordImage}
                 className={classes.settingsPasswordImage}
                 width="100px"
@@ -79,7 +80,7 @@ const Settings = () => {
             </li>
             <li onClick={() => handleButtonClick("books")}>
               <Image
-                alt="deneme4324"
+                alt="setting book"
                 src={settingsBookImage}
                 className={classes.settingsBookImage}
                 width="100px"
@@ -89,7 +90,7 @@ const Settings = () => {
             </li>
             <li onClick={() => handleButtonClick("teams")}>
               <Image
-                alt="deneme4324"
+                alt="setting team"
                 src={settingsTeamImage}
                 className={classes.settingsTeamImage}
                 width="100px"
@@ -99,13 +100,23 @@ const Settings = () => {
             </li>
             <li onClick={() => handleButtonClick("email")}>
               <Image
-                alt="deneme4324"
+                alt="setting email"
                 src={settingsEmailImage}
                 className={classes.settingsEmailImage}
                 width="100px"
                 height="100px"
               />
               <h2>Email</h2>
+            </li>
+            <li onClick={handleSignOut}>
+              <Image
+                alt="setting logout"
+                src={settingLogoutImage}
+                className={classes.settingLogoutImage}
+                width="100px"
+                height="100px"
+              />
+              <h2>Çıkış Yap</h2>
             </li>
           </ul>
         </div>
