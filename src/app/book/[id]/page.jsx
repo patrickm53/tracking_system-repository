@@ -32,7 +32,7 @@ const BookDetails = (ctx) => {
 
   useEffect(() => {
     async function fetchProfiles() {
-      const id = session.user._id;
+      const id = session?.user?._id;
       const data = await fetchProfile(id);
 
       setUserDetail(data);
@@ -183,7 +183,7 @@ const BookDetails = (ctx) => {
               >
                 <Image
                   alt="detailProfil"
-                  src={bookDetails?.user?.profilImage}
+                  src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${bookDetails?.user?.profilImage}`}
                   width="30"
                   height="30"
                   className={classes.detailsProfilImage}

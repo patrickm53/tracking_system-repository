@@ -1,5 +1,3 @@
-import { headers } from "next/dist/client/components/headers";
-
 export async function getBook() {
   const response = await fetch("http://localhost:3000/api/book");
   const data = await response.json();
