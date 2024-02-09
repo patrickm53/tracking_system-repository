@@ -94,7 +94,6 @@ const Register = () => {
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     const fileName = file?.name || "cropperImage";
-    console.log(fileName);
     setFileName(fileName);
     if (originalImage) {
       URL.revokeObjectURL(originalImage);

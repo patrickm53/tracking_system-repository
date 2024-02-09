@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import classes from "./settings.module.css";
 import { fetchProfile, fetchProfileBook } from "@/app/api";
 import background from "../../../public/background2.jpg";
-import Image from "next/image";
+import ImageNext from "next/image";
 import { PiCameraRotate } from "react-icons/pi";
 import profilImage from "@/lib/profilImage";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,6 +18,8 @@ import settingsBookImage from "../../../public/settings-book.jpg";
 import settingsTeamImage from "../../../public/settings-team.jpg";
 import settingsEmailImage from "../../../public/settings-email.jpg";
 import settingLogoutImage from "../../../public/logout.png";
+import { ReactCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 const Settings = () => {
   const { data: session } = useSession();
@@ -59,7 +61,7 @@ const Settings = () => {
         <div className={classes.settingsFirstSelectCard}>
           <ul>
             <li onClick={() => handleButtonClick("profile")}>
-              <Image
+              <ImageNext
                 alt="setting profil"
                 src={settingsProfileImage}
                 className={classes.settingsProfileImage}
@@ -69,7 +71,7 @@ const Settings = () => {
               <h2>Profil</h2>
             </li>
             <li onClick={() => handleButtonClick("password")}>
-              <Image
+              <ImageNext
                 alt="setting paswword"
                 src={settingsPasswordImage}
                 className={classes.settingsPasswordImage}
@@ -79,7 +81,7 @@ const Settings = () => {
               <h2>Şifre</h2>
             </li>
             <li onClick={() => handleButtonClick("books")}>
-              <Image
+              <ImageNext
                 alt="setting book"
                 src={settingsBookImage}
                 className={classes.settingsBookImage}
@@ -89,7 +91,7 @@ const Settings = () => {
               <h2>Kitaplar</h2>
             </li>
             <li onClick={() => handleButtonClick("teams")}>
-              <Image
+              <ImageNext
                 alt="setting team"
                 src={settingsTeamImage}
                 className={classes.settingsTeamImage}
@@ -99,7 +101,7 @@ const Settings = () => {
               <h2>Takım</h2>
             </li>
             <li onClick={() => handleButtonClick("email")}>
-              <Image
+              <ImageNext
                 alt="setting email"
                 src={settingsEmailImage}
                 className={classes.settingsEmailImage}
@@ -109,7 +111,7 @@ const Settings = () => {
               <h2>Email</h2>
             </li>
             <li onClick={handleSignOut}>
-              <Image
+              <ImageNext
                 alt="setting logout"
                 src={settingLogoutImage}
                 className={classes.settingLogoutImage}
@@ -183,7 +185,14 @@ const Settings = () => {
 export default Settings;
 
 const SettingsProfile = ({ user }) => {
-  console.log(user);
+  const initialCrop = {
+    aspect: 1,
+    unit: "px",
+    width: 100,
+    height: 100,
+    x: 0,
+    y: 0,
+  };
   const [name, setName] = useState(user?.name);
   const [username, setUsername] = useState(user?.username);
   const [email, setEmail] = useState(user?.email);
@@ -192,10 +201,18 @@ const SettingsProfile = ({ user }) => {
   const [birthday, setBirthday] = useState(user?.birthday);
   const [word, setWord] = useState(user?.word);
   const [story, setStory] = useState(user?.story);
-  const [newProfilImage, setNewProfileImage] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [crop, setCrop] = useState(initialCrop);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [originalImage, setOriginalImage] = useState(null);
   const formattedDate = birthday
     ? new Date(birthday).toISOString().split("T")[0]
     : "";
+
+  const handleDeleteImage = () => {
+    setOriginalImage(null);
+    setCroppedImage(null);
+  };
   const handleSubmit = async () => {
     if (username === "" || name === "" || email === "") {
       toast.error("username and name and email cannot be empty");
@@ -212,7 +229,7 @@ const SettingsProfile = ({ user }) => {
       formData.append("birthday", birthday);
       formData.append("word", word);
       formData.append("story", story);
-      formData.append("newProfilImage", newProfilImage);
+      formData.append("newProfilImage", croppedImage);
       const res = await fetch("http://localhost:3000/api/register", {
         method: "PUT",
         body: formData,
@@ -230,10 +247,72 @@ const SettingsProfile = ({ user }) => {
     }
   };
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    const fileName = file?.name || "cropperImage";
+    setFileName(fileName);
+    if (originalImage) {
+      URL.revokeObjectURL(originalImage);
+    }
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCroppedImage(null);
+        setOriginalImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setOriginalImage(undefined);
+    }
+  };
+
+  const handleCropComplete = (crop, percentCrop) => {
+    const canvas = document.createElement("canvas");
+    const imageObj = new Image();
+    imageObj.src = originalImage;
+
+    imageObj.onload = () => {
+      const scaleX = imageObj.naturalWidth / 250;
+      const scaleY = scaleX;
+
+      const croppedAreaPixels = {
+        x: Math.round(crop.x * scaleX),
+        y: Math.round(crop.y * scaleY),
+        width: Math.round(crop.width * scaleX),
+        height: Math.round(crop.height * scaleY),
+      };
+      canvas.width = 250;
+      canvas.height =
+        (250 / croppedAreaPixels.width) * croppedAreaPixels.height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(
+        imageObj,
+        croppedAreaPixels.x,
+        croppedAreaPixels.y,
+        croppedAreaPixels.width,
+        croppedAreaPixels.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      // Canvas'tan Blob elde et
+      canvas.toBlob((blob) => {
+        const croppedFile = new File([blob], fileName, {
+          type: "image/jpeg",
+        });
+        // Kırpılmış dosyayı state'e kaydet
+        setCroppedImage(croppedFile);
+      }, "image/jpeg");
+    };
+  };
+
   return (
     <div className={classes.settingsProfile}>
       <div className={classes.backgroundImageContainer}>
-        <Image
+        <ImageNext
           alt="backgroundSettings"
           className={classes.backgroundImage}
           src={background}
@@ -244,7 +323,7 @@ const SettingsProfile = ({ user }) => {
       </div>
       <div className={classes.profileUp}>
         <div className={classes.profilImageContainer}>
-          <Image
+          <ImageNext
             alt="profilImageSettings"
             className={classes.profilImage}
             src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
@@ -329,29 +408,56 @@ const SettingsProfile = ({ user }) => {
               onChange={(e) => setStory(e.target.value)}
             />
           </span>
-          <h4>Profil Resmini Seç:</h4>
-          {/* <div className={classes.selectedProfilImage}>
-            {profilImage.map((image, index) => (
-              <Image
-                alt={`resim ${index + 1}`}
-                src={image.src}
-                width="60"
-                height="60"
-                className={`${classes.images} ${
-                  selectedImage === image.src ? classes.active : ""
-                }`}
-                onClick={() => setSelectedImage(image.src)}
-              />
-            ))}
-          </div> */}
+          <div className={classes.profileImageSelected}>
+            <h4>Profil Resmini Seç:</h4>
+            {originalImage && (
+              <button onClick={handleDeleteImage}>Resmi Sil</button>
+            )}
+          </div>
           <input
             type="file"
             lable="image"
             name="myFile"
             id="file-upload"
             accept=".jpeg, .png, .jpg"
-            onChange={(e) => setNewProfileImage(e.currentTarget.files?.[0])}
+            onChange={handleFileUpload}
           />
+          <div className={classes.selectedAndCroppedImage}>
+            {originalImage && (
+              <div className={classes.uploadImage}>
+                <ReactCrop
+                  aspect={1}
+                  crop={crop}
+                  onChange={(c) => setCrop(c)}
+                  onComplete={handleCropComplete}
+                >
+                  <img
+                    src={originalImage}
+                    alt={"ana resim setting"}
+                    style={{
+                      maxWidth: "250px",
+                      minWidth: "250px",
+                      width: "250px",
+                      height: "auto",
+                    }}
+                  />
+                </ReactCrop>
+              </div>
+            )}
+            {croppedImage && (
+              <div
+                style={{
+                  position: "relative",
+                }}
+              >
+                <img
+                  src={URL.createObjectURL(croppedImage)}
+                  alt="Kırpılmış Resim Setting"
+                  style={{ minWidth: "200px", maxWidth: "200px" }}
+                />
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>

@@ -300,6 +300,25 @@
   color: #989898;
 }
 
+.profileImageSelected {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.profileImageSelected > h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #989898;
+}
+
+.profileImageSelected > button {
+  background-color: red;
+  padding: 0 10px;
+  border-radius: 50px;
+  color: #fff;
+}
+
 .selectedProfilImage {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -324,6 +343,11 @@ form > .selectedProfilImage > .active {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
+}
+
+.selectedAndCroppedImage {
+  display: flex;
+  gap: 20px;
 }
 
 @media screen and (max-width: 1350px) {
