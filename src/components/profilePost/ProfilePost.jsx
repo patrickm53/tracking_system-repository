@@ -30,7 +30,7 @@ const ProfilePost = ({ key, book }) => {
       setCommentCount(comments);
     }
     fetchComments();
-  }, []);
+  }, [book]);
 
   useEffect(() => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -81,7 +81,7 @@ const ProfilePost = ({ key, book }) => {
       setUser(user);
     }
     fetchUser();
-  }, []);
+  }, [book]);
 
   return (
     <div className={classes.container}>

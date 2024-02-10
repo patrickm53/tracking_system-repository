@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ReactCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import ImageNext from "next/image";
 
 const Register = () => {
   const initialCrop = {
@@ -226,7 +227,7 @@ const Register = () => {
                   onChange={(c) => setCrop(c)}
                   onComplete={handleCropComplete}
                 >
-                  <img
+                  <ImageNext
                     src={originalImage}
                     alt={"kırma işlemi"}
                     style={{
@@ -256,7 +257,7 @@ const Register = () => {
                 >
                   Kaydedilecek Resim
                 </p>
-                <img
+                <ImageNext
                   src={URL.createObjectURL(croppedImage)}
                   alt="Kırpılmış Resim"
                 />

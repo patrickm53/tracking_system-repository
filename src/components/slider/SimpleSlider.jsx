@@ -36,6 +36,7 @@ const SimpleSlider = () => {
       <Slider ref={slider} {...settings}>
         <div>
           <Image
+            alt="Slider 1"
             className={classes.image}
             src={slider1}
             width="1560"
@@ -44,6 +45,7 @@ const SimpleSlider = () => {
         </div>
         <div>
           <Image
+            alt="slider 2"
             className={classes.image}
             src={slider2}
             width="1560"
@@ -52,6 +54,7 @@ const SimpleSlider = () => {
         </div>
         <div>
           <Image
+            alt="slider 3"
             className={classes.image}
             src={slider3}
             width="1560"
@@ -60,6 +63,7 @@ const SimpleSlider = () => {
         </div>
         <div>
           <Image
+            alt="slider 4"
             className={classes.image}
             src={slider4}
             width="1560"

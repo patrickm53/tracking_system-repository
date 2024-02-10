@@ -49,7 +49,7 @@ const Settings = () => {
     }
     fetchProfiles();
     fetchBooks();
-  }, []);
+  }, [session]);
 
   const handleButtonClick = (buttonName) => {
     setNavbarSelect(buttonName);
@@ -483,7 +483,7 @@ const SettingsBooks = ({ book }) => {
   return (
     <div className={classes.settingsBooks}>
       {book.map((item) => (
-        <Link href={`settings/${item._id}`}>
+        <Link key={item._id} href={`settings/${item._id}`}>
           <SettingsBook book={item} />
         </Link>
       ))}

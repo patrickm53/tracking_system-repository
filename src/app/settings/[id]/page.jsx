@@ -40,7 +40,7 @@ const SettingsBook = (ctx) => {
       setGenres(data?.genres);
     }
     fecthBook();
-  }, []);
+  }, [id]);
   console.log(bookDetail);
 
   const DeleteBook = async () => {

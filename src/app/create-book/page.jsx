@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import classes from "./create-book.module.css";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
@@ -22,8 +22,6 @@ const CreateBook = () => {
   const [pages, setPages] = useState("");
   const [language, setLanguage] = useState("");
   const [years, setYears] = useState("");
-  const [search, setSearch] = useState("");
-  const [searchBook, setSearchBook] = useState([]);
 
   const { data: session, status } = useSession();
 
@@ -74,22 +72,6 @@ const CreateBook = () => {
     }
   };
 
-  useEffect(() => {
-    async function searchControl() {
-      const books = await getBook();
-
-      const searchResult = books.filter((book) =>
-        book.title.toLowerCase().includes(search)
-      );
-
-      const similarSearch = searchResult.slice(0, 3);
-
-      setSearchBook(similarSearch);
-    }
-
-    searchControl();
-  }, [search]);
-
   const handleBook = async (value) => {
     setTitle(value.title);
     setCoverImage(value.coverImage);
@@ -107,16 +89,16 @@ const CreateBook = () => {
       <div className={classes.wrapper}>
         <div className={classes.searchBox}>
           <div className={classes.search}>
-            <input
+            {/* <input
               type="text"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Kitabı Ara"
-            />
+            /> */}
             <div className={classes.searchIcon}>
               <GrSearch />
             </div>
           </div>
-          {searchBook.length > 0 && (
+          {/* {searchBook.length > 0 && (
             <div className={classes.searchBooks}>
               {searchBook.map((book) => (
                 <div
@@ -124,7 +106,12 @@ const CreateBook = () => {
                   className={classes.book}
                   onClick={(e) => handleBook(book)}
                 >
-                  <Image src={book.coverImage} width="60" height="80" />
+                  <Image
+                    alt={book._id}
+                    src={book.coverImage}
+                    width="60"
+                    height="80"
+                  />
                   <div className={classes.searchBookDetail}>
                     <h2>{book.title}</h2>
                     <h3>{book.author}</h3>
@@ -141,7 +128,7 @@ const CreateBook = () => {
                 </div>
               ))}
             </div>
-          )}
+          )} */}
         </div>
         <form onSubmit={handleSubmit}>
           <div className={classes.formBox}>
@@ -195,12 +182,12 @@ const CreateBook = () => {
                 onChange={(e) => setGenres(e.target.value.split(","))}
               />
             </div>
-            <ReactQuill
+            {/* <ReactQuill
               value={description}
               onChange={handleDescriptionChange}
               placeholder="Hikayen..."
               className={classes.yourStory}
-            />
+            /> */}
           </div>
         </form>
       </div>

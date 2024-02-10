@@ -70,7 +70,7 @@ const Populer = () => {
       );
       setFinishFilterStar(filteredStar);
     }
-  }, [filterLanguage, filterPageRange, filterYears, filterStar]);
+  }, [filterLanguage, filterPageRange, filterYears, filterStar, books]);
 
   const handleFilter = (e) => {
     e.preventDefault();

@@ -49,8 +49,13 @@ const Search = () => {
       {search.length > 0 && (
         <div className={classes.searchBox}>
           {searchTerm.map((book) => (
-            <div className={classes.searchBook}>
-              <Image alt="" src={book.coverImage} width="50" height="80" />
+            <div key={book?._id} className={classes.searchBook}>
+              <Image
+                alt={book?._id}
+                src={book.coverImage}
+                width="50"
+                height="80"
+              />
               <span>
                 <h2>{book.title}</h2>
                 <h3>{book.author}</h3>

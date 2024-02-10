@@ -38,7 +38,7 @@ const BookDetails = (ctx) => {
       setUserDetail(data);
     }
     fetchProfiles();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     async function fetchComments() {
@@ -49,7 +49,7 @@ const BookDetails = (ctx) => {
       setComments(comments);
     }
     fetchComments();
-  }, []);
+  }, [ctx]);
 
   useEffect(() => {
     async function fetchBook() {
@@ -58,7 +58,7 @@ const BookDetails = (ctx) => {
       setBookDetails(book);
     }
     session && fetchBook();
-  }, [session]);
+  }, [ctx, session]);
 
   useEffect(() => {
     const fetchSimilarBooks = async () => {
