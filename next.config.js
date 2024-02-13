@@ -1,29 +1,14 @@
 require("dotenv").config();
 
 const nextConfig = {
-  experimental: {
-    appDir: true,
-    serverComponentsExternalPackages: ["mongoose"],
-  },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "img.kitapyurdu.com",
-        port: "",
-      },
-      {
-        protocol: "https",
-        hostname: "bookwave-profile-image.s3.eu-central-1.amazonaws.com",
-        port: "",
-      },
+    domains: [
+      "img.kitapyurdu.com",
+      "bookwave-profile-image.s3.eu-central-1.amazonaws.com",
     ],
   },
   webpack(config) {
-    config.experiments = {
-      ...config.experiments,
-      topLevelAwait: true,
-    };
+    delete config.experiments.topLevelAwait;
     return config;
   },
 };
