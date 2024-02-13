@@ -431,7 +431,7 @@ const SettingsProfile = ({ user }) => {
                   onChange={(c) => setCrop(c)}
                   onComplete={handleCropComplete}
                 >
-                  <img
+                  <ImageNext
                     src={originalImage}
                     alt={"ana resim setting"}
                     style={{
@@ -450,7 +450,7 @@ const SettingsProfile = ({ user }) => {
                   position: "relative",
                 }}
               >
-                <img
+                <ImageNext
                   src={URL.createObjectURL(croppedImage)}
                   alt="Kırpılmış Resim Setting"
                   style={{ minWidth: "200px", maxWidth: "200px" }}
