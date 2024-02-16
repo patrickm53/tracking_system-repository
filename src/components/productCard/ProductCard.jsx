@@ -25,15 +25,12 @@ const ProductCard = ({ key, book }) => {
 
   const handleLike = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/book/${book._id}/like`,
-        {
-          headers: {
-            Authorization: `Bearer ${session?.user?.accessToken}`,
-          },
-          method: "PUT",
-        }
-      );
+      const res = await fetch(`/api/book/${book._id}/like`, {
+        headers: {
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+        method: "PUT",
+      });
 
       if (res.ok) {
         if (isLiked) {

@@ -44,15 +44,12 @@ const ProfilePost = ({ key, book }) => {
 
   const handleLike = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/book/${book._id}/like`,
-        {
-          headers: {
-            Authorization: `Bearer ${session?.user?.accessToken}`,
-          },
-          method: "PUT",
-        }
-      );
+      const res = await fetch(`/api/book/${book._id}/like`, {
+        headers: {
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+        method: "PUT",
+      });
 
       if (res.ok) {
         if (isLiked) {
@@ -70,12 +67,9 @@ const ProfilePost = ({ key, book }) => {
 
   useEffect(() => {
     async function fetchUser() {
-      const res = await fetch(
-        `http://localhost:3000/api/profile/${book.user}`,
-        {
-          cache: "no-store",
-        }
-      );
+      const res = await fetch(`/api/profile/${book.user}`, {
+        cache: "no-store",
+      });
       const user = await res.json();
 
       setUser(user);
