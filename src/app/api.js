@@ -1,11 +1,11 @@
 export async function getBook() {
-  const response = await fetch("http://localhost:3000/api/book");
+  const response = await fetch(`/api/book`);
   const data = await response.json();
   return data;
 }
 
 export async function fetchBookPost(token, body) {
-  const response = await fetch("http://localhost:3000/api/book", {
+  const response = await fetch(`/api/book`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -19,13 +19,13 @@ export async function fetchBookPost(token, body) {
 }
 
 export async function fetchBookId(bookId) {
-  const response = await fetch(`http://localhost:3000/api/book/${bookId}`);
+  const response = await fetch(`/api/book/${bookId}`);
   const data = await response.json();
   return data;
 }
 
 export async function fetchDeleteBook(token, bookId) {
-  await fetch(`http://localhost:3000/api/book/${bookId}`, {
+  await fetch(`/api/book/${bookId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -34,7 +34,7 @@ export async function fetchDeleteBook(token, bookId) {
 }
 
 export async function fetchUpdateBook(token, bookId, body) {
-  const response = await fetch(`http://localhost:3000/api/book/${bookId}`, {
+  const response = await fetch(`/api/book/${bookId}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -48,33 +48,31 @@ export async function fetchUpdateBook(token, bookId, body) {
 }
 
 export async function fetchProfileBook(userId) {
-  const response = await fetch(
-    `http://localhost:3000/api/book/profile/${userId}`
-  );
+  const response = await fetch(`/api/book/profile/${userId}`);
   const data = await response.json();
   return data;
 }
 
 export async function fetchAllProfile() {
-  const response = await fetch("http://localhost:3000/api/profile");
+  const response = await fetch(`/api/profile`);
   const data = await response.json();
   return data;
 }
 
 export async function fetchProfile(userId) {
-  const response = await fetch(`http://localhost:3000/api/profile/${userId}`);
+  const response = await fetch(`/api/profile/${userId}`);
   const data = await response.json();
   return data;
 }
 
 export async function fetchComment(bookId) {
-  const response = await fetch(`http://localhost:3000/api/comment/${bookId}`);
+  const response = await fetch(`/api/comment/${bookId}`);
   const data = await response.json();
   return data;
 }
 
 export async function fetchCommentPost(token, body) {
-  const response = await fetch("http://localhost:3000/api/comment", {
+  const response = await fetch(`/api/comment`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -89,7 +87,7 @@ export async function fetchCommentPost(token, body) {
 }
 
 export async function fetchDeleteComment(token, commentId) {
-  await fetch(`http://localhost:3000/api/comment/${commentId}`, {
+  await fetch(`/api/comment/${commentId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -1,6 +1,9 @@
 require("dotenv").config();
 
 const nextConfig = {
+  env: {
+    URL: process.env.API_URL,
+  },
   images: {
     domains: [
       "img.kitapyurdu.com",
