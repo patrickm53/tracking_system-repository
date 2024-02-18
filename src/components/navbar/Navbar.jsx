@@ -81,7 +81,7 @@ const Navbar = () => {
           {session?.user ? (
             <div className={classes.profile}>
               <button className={classes.create}>
-                <Link href={`/create-book`}>
+                <Link href={`/createbook`}>
                   <AiOutlinePlusCircle className={classes.createIcon} />
                 </Link>
               </button>
@@ -160,7 +160,7 @@ const Navbar = () => {
             {session?.user ? (
               <div className={classes.menuProfile}>
                 <button className={classes.create}>
-                  <Link href={`/create-book`}>
+                  <Link href={`/createbook`}>
                     <AiOutlinePlusCircle className={classes.createIcon} />
                   </Link>
                 </button>

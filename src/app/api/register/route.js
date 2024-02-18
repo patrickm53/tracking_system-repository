@@ -109,7 +109,7 @@ export async function PUT(req) {
       throw new Error("User not exists");
     }
     let imageName = "";
-    if (newProfilImage) {
+    if (newProfilImage.name) {
       const buffer = Buffer.from(await newProfilImage.arrayBuffer());
       imageName = await uploadFileToS3(buffer, newProfilImage.name);
     } else {

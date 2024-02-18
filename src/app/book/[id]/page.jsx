@@ -144,7 +144,7 @@ const BookDetails = (ctx) => {
             height="500"
           />
           <button className={classes.button1}>Diğer Okurlar</button>
-          <Link href={"/create-book"}>
+          <Link href={"/createbook"}>
             <button className={classes.button2}>Yorum Paylaş</button>
           </Link>
           <div className={classes.bookSayfa}>

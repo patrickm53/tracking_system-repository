@@ -236,6 +236,8 @@ const Register = () => {
                       width: "300px",
                       height: "auto",
                     }}
+                    width={300}
+                    height={300}
                   />
                 </ReactCrop>
               </div>
@@ -260,6 +262,8 @@ const Register = () => {
                 <ImageNext
                   src={URL.createObjectURL(croppedImage)}
                   alt="Kırpılmış Resim"
+                  width={250}
+                  height={250}
                 />
               </div>
             )}

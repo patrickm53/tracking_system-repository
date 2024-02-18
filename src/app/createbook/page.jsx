@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import classes from "./create-book.module.css";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { getBook, fetchBookPost, fetchSearchBook } from "../api";
+import dynamic from "next/dynamic";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -30,9 +30,7 @@ const CreateBook = () => {
 
   const router = useRouter();
 
-  const handleDescriptionChange = (value) => {
-    setDescription(value);
-  };
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
   useEffect(() => {
     if (searchBook?.length < 3) {
@@ -216,8 +214,8 @@ const CreateBook = () => {
             </div>
             <ReactQuill
               value={description}
-              onChange={handleDescriptionChange}
-              placeholder="Hikayen..."
+              onChange={(e) => setDescription(e)}
+              placeholder="Hikayeni yaz"
               className={classes.yourStory}
             />
           </div>

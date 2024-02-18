@@ -440,6 +440,8 @@ const SettingsProfile = ({ user }) => {
                       width: "250px",
                       height: "auto",
                     }}
+                    width={250}
+                    height={250}
                   />
                 </ReactCrop>
               </div>
@@ -454,6 +456,8 @@ const SettingsProfile = ({ user }) => {
                   src={URL.createObjectURL(croppedImage)}
                   alt="Kırpılmış Resim Setting"
                   style={{ minWidth: "200px", maxWidth: "200px" }}
+                  width={200}
+                  height={200}
                 />
               </div>
             )}
