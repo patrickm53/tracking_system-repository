@@ -4,6 +4,12 @@ export async function getBook() {
   return data;
 }
 
+export async function fetchSearchBook(searchBook) {
+  const response = await fetch(`/api/search/${searchBook}`);
+  const data = await response.json();
+  return data;
+}
+
 export async function fetchBookPost(token, body) {
   const response = await fetch(`/api/book`, {
     headers: {

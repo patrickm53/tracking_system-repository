@@ -83,7 +83,7 @@ const ProductCard = ({ book }) => {
             <div
               className={classes.desc}
               dangerouslySetInnerHTML={{ __html: book.description }}
-            />
+            ></div>
             <div className={classes.rateLike}>
               <div className={classes.rate}>
                 <AiFillStar className={classes.star} />

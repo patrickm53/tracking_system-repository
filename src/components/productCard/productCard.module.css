@@ -48,16 +48,19 @@
 }
 
 .wrapper > .imgContainer > .bookImage {
-  width: auto;
-  height: auto;
   position: absolute;
   transform: rotate(-3.5deg);
   border-radius: 2px;
   left: -10px;
   top: -5px;
-  max-width: 170px;
-  max-height: 235px;
+  width: auto;
+  height: 225px;
+  min-width: 150px;
+  min-height: 225px;
+  max-width: 160px;
+  max-height: 225px;
   object-fit: cover;
+  border: 1px solid #bababa;
 }
 
 .wrapper > .bookDetail {
@@ -99,7 +102,7 @@
 
 .rateLike {
   position: absolute;
-  width: 100%;
+  width: 210px;
   display: flex;
   justify-content: space-between;
   padding-right: 10px;
@@ -139,11 +142,15 @@
 
 .rateLike > .like > span {
   margin-left: 5px;
+  margin-top: 4px;
 }
 
 @media screen and (max-width: 400px) {
   .wrapper {
     width: 320px;
+  }
+  .rateLike {
+    width: 170px;
   }
   .wrapper > .imgContainer > .bookImage {
     width: 150px;

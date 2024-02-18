@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import classes from "./create-book.module.css";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
-import { getBook, fetchBookPost } from "../api";
+import { getBook, fetchBookPost, fetchSearchBook } from "../api";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -22,6 +22,9 @@ const CreateBook = () => {
   const [pages, setPages] = useState("");
   const [language, setLanguage] = useState("");
   const [years, setYears] = useState("");
+  const [debouncedSearchBook, setDebouncedSearchBook] = useState("");
+  const [searchBook, setSearchBook] = useState("");
+  const [resultBooks, setResultBooks] = useState([]);
 
   const { data: session, status } = useSession();
 
@@ -30,6 +33,30 @@ const CreateBook = () => {
   const handleDescriptionChange = (value) => {
     setDescription(value);
   };
+
+  useEffect(() => {
+    if (searchBook?.length < 3) {
+      setResultBooks([]);
+    }
+    const timeoutId = setTimeout(() => {
+      setDebouncedSearchBook(searchBook);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [searchBook]);
+
+  useEffect(() => {
+    if (debouncedSearchBook.length > 2) {
+      async function fetchSearchBooks() {
+        const book = await fetchSearchBook(debouncedSearchBook);
+        console.log(book);
+        setResultBooks(book);
+      }
+      fetchSearchBooks();
+    }
+  }, [debouncedSearchBook]);
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -73,14 +100,13 @@ const CreateBook = () => {
   };
 
   const handleBook = async (value) => {
-    setTitle(value.title);
-    setCoverImage(value.coverImage);
-    setRating(value.rating);
-    setAuthor(value.author);
-    setPages(value.pages);
-    setLanguage(value.language);
-    setYears(value.years);
-    setGenres(value.genres);
+    setTitle(value?.title);
+    setCoverImage(value?.coverImage);
+    setAuthor(value?.author);
+    setPages(value?.pages);
+    setLanguage(value?.language);
+    setYears(value?.years);
+    setGenres(value?.genres);
   };
 
   return (
@@ -89,18 +115,18 @@ const CreateBook = () => {
       <div className={classes.wrapper}>
         <div className={classes.searchBox}>
           <div className={classes.search}>
-            {/* <input
+            <input
               type="text"
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearchBook(e.target.value)}
               placeholder="Kitabı Ara"
-            /> */}
+            />
             <div className={classes.searchIcon}>
               <GrSearch />
             </div>
           </div>
-          {/* {searchBook.length > 0 && (
+          {resultBooks.length > 0 && resultBooks !== "dont" ? (
             <div className={classes.searchBooks}>
-              {searchBook.map((book) => (
+              {resultBooks.map((book) => (
                 <div
                   key={book._id}
                   className={classes.book}
@@ -128,7 +154,13 @@ const CreateBook = () => {
                 </div>
               ))}
             </div>
-          )} */}
+          ) : resultBooks === "dont" ? (
+            <div>Aranan Kitap Bulunamadı</div>
+          ) : searchBook.length < 3 ? (
+            <div>3 harf gir</div>
+          ) : (
+            <div>loading</div>
+          )}
         </div>
         <form onSubmit={handleSubmit}>
           <div className={classes.formBox}>
@@ -182,12 +214,12 @@ const CreateBook = () => {
                 onChange={(e) => setGenres(e.target.value.split(","))}
               />
             </div>
-            {/* <ReactQuill
+            <ReactQuill
               value={description}
               onChange={handleDescriptionChange}
               placeholder="Hikayen..."
               className={classes.yourStory}
-            /> */}
+            />
           </div>
         </form>
       </div>
