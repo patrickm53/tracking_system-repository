@@ -28,10 +28,12 @@ const Navbar = () => {
 
   useEffect(() => {
     async function fetchProfiles() {
-      const id = session?.user?._id;
-      const data = await fetchProfile(id);
+      if (session) {
+        const id = session?.user?._id;
+        const data = await fetchProfile(id);
 
-      setUserDetail(data);
+        setUserDetail(data);
+      }
     }
     fetchProfiles();
   }, [session]);

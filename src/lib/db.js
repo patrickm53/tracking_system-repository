@@ -31,8 +31,13 @@ async function connect() {
     }
     await mongoose.disconnect();
   }
-  const db = await mongoose.connect(process.env.MONGO_URL);
-  connection.isConnected = db.connections[0].readyState;
+  try {
+    const db = await mongoose.connect(process.env.MONGO_URL);
+    connection.isConnected = db.connections[0].readyState;
+  } catch (error) {
+    console.error("MongoDB bağlantı hatası:", error);
+    throw new Error("MongoDB bağlantı hatası");
+  }
 }
 
 export default connect;

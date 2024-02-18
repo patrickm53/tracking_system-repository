@@ -36,7 +36,9 @@ export async function GET(req) {
 
     return new Response(JSON.stringify(books), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify(null), { status: 500 });
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+    });
   }
 }
 

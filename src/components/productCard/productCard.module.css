@@ -48,6 +48,8 @@
 }
 
 .wrapper > .imgContainer > .bookImage {
+  width: auto;
+  height: auto;
   position: absolute;
   transform: rotate(-3.5deg);
   border-radius: 2px;

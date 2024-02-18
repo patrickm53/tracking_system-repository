@@ -7,7 +7,7 @@ import { AiOutlineLike, AiFillStar, AiFillLike } from "react-icons/ai";
 import colors from "../../lib/color.js";
 import { useSession } from "next-auth/react";
 
-const ProductCard = ({ key, book }) => {
+const ProductCard = ({ book }) => {
   const { data: session } = useSession();
   const [backgroundColor, setBackgroundColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
@@ -51,7 +51,7 @@ const ProductCard = ({ key, book }) => {
       <div className={classes.container}>
         <div className={classes.person}>
           <Image
-            alt="person"
+            alt={book?.user?._id}
             src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${book?.user?.profilImage}`}
             width="32"
             height="32"
@@ -70,7 +70,7 @@ const ProductCard = ({ key, book }) => {
             <Image
               className={classes.bookImage}
               src={book.coverImage}
-              alt="book"
+              alt={book?._id}
               height="220"
               width="155"
             />
