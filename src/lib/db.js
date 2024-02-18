@@ -17,6 +17,9 @@
 // export default connectDB;
 
 import mongoose from "mongoose";
+import User from "@/models/User";
+import Book from "@/models/Book";
+import Comment from "@/models/Comment";
 
 const connection = {};
 
