@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { fetchBookId, fetchDeleteBook, fetchUpdateBook } from "@/app/api";
 import classes from "./settingsBook.module.css";
 import Image from "next/image";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { AiOutlineClose, AiOutlinePlusCircle } from "react-icons/ai";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const SettingsBook = (ctx) => {
   const id = ctx.params.id;

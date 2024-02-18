@@ -11,6 +11,7 @@ import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { getBook, fetchBookPost, fetchSearchBook } from "../api";
 import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -29,8 +30,6 @@ const CreateBook = () => {
   const { data: session, status } = useSession();
 
   const router = useRouter();
-
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
   useEffect(() => {
     if (searchBook?.length < 3) {
