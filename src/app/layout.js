@@ -6,6 +6,7 @@ import Footer from "@/components/footer/Footer";
 import { SessionProvider } from "next-auth/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,21 @@ const metadata = {
 export default function RootLayout({ children, session }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS}`}
+        ></Script>
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.GOOGLE_ANALYTICS}');
+        `}
+        </Script>
+      </head>
       <body className={inter.className}>
         <SessionProvider session={session}>
           <Navbar />
