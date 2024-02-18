@@ -21,7 +21,7 @@ export default function RootLayout({ children, session }) {
       <head>
         <Script
           async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-PTLYF86QY3`}
         ></Script>
         <Script id="google-analytics">
           {`
@@ -29,7 +29,7 @@ export default function RootLayout({ children, session }) {
           function gtag(){dataLayer.push(arguments)}
           gtag('js', new Date());
 
-          gtag('config', '${process.env.GOOGLE_ANALYTICS}');
+          gtag('config', 'G-PTLYF86QY3');
         `}
         </Script>
       </head>
