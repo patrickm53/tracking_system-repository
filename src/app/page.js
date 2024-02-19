@@ -3,13 +3,16 @@ import ProductCard from "@/components/productCard/ProductCard";
 import SimpleSlider from "@/components/slider/SimpleSlider";
 import React, { useEffect, useState } from "react";
 import classes from "./page.module.css";
-import { getBook } from "./api";
+import { fetchAllProfile, getBook } from "./api";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   useEffect(() => {
     async function fetchBooks() {
       const book = await getBook();
+      // kaldırılması gereken bölüm kullanılmıyor
+      const profile = await fetchAllProfile();
+      console.log(profile);
 
       setBooks(book);
     }
