@@ -5,10 +5,8 @@ import ProductCard from "@/components/productCard/ProductCard";
 import classes from "./search.module.css";
 import { getBook, fetchAllProfile } from "../api";
 import ProfileCard from "@/components/profileCard/ProfileCard";
-import { useSession } from "next-auth/react";
 
 const SearchPage = () => {
-  const { data: session } = useSession();
   const [isUserChecked, setIsUserChecked] = useState(true);
   const [isBookChecked, setIsBookChecked] = useState(true);
   const [searchBook, setSearchBook] = useState([]);
@@ -20,6 +18,7 @@ const SearchPage = () => {
     async function searchControl() {
       const books = await getBook();
       const profile = await fetchAllProfile();
+      console.log("profile", profile);
 
       const searchProfile = profile.filter((user) =>
         user.username.toLowerCase().includes(searchQuery)
@@ -43,6 +42,8 @@ const SearchPage = () => {
 
     searchControl();
   }, [searchQuery, isUserChecked, isBookChecked]);
+
+  console.log(searchUser);
 
   const handleUserCheckboxChange = () => {
     setIsUserChecked(!isUserChecked);
@@ -71,7 +72,9 @@ const SearchPage = () => {
       </div>
       <div className={classes.wrapper}>
         {searchUser.length > 0
-          ? searchUser.map((user) => <ProfileCard key={user._id} user={user} />)
+          ? searchUser.map((user) => (
+              <ProfileCard key={user._id} id={user._id} user={user} />
+            ))
           : ""}
         {searchBook.length > 0
           ? searchBook.map((book) => <ProductCard key={book._id} book={book} />)

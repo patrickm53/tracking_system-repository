@@ -4,7 +4,8 @@ import Image from "next/image";
 import { AiFillBook } from "react-icons/ai";
 import Link from "next/link";
 
-const ProfileCard = ({ key, user }) => {
+const ProfileCard = ({ id, user }) => {
+  console.log(user.profilImage);
   return (
     <div className={classes.body}>
       <div className={classes.container}>
@@ -14,9 +15,9 @@ const ProfileCard = ({ key, user }) => {
             href={`/profile/${user._id}`}
           >
             <Image
-              alt="profilCard Profil Image"
+              alt={id}
               className={classes.image}
-              src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.ProfileImage}`}
+              src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
               width="100"
               height="100"
             />
