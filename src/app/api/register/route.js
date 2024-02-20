@@ -27,6 +27,20 @@ async function uploadFileToS3(file, fileName) {
   return key;
 }
 
+export async function GET(req) {
+  await connect();
+
+  try {
+    const users = await User.find({});
+
+    return new Response(JSON.stringify(users), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+    });
+  }
+}
+
 export async function POST(req) {
   try {
     await connect();

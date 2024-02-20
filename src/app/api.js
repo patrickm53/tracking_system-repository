@@ -100,3 +100,9 @@ export async function fetchDeleteComment(token, commentId) {
     method: "DELETE",
   });
 }
+
+export async function fetchProfilesAll() {
+  const response = await fetch("/api/register");
+  const data = await response.json();
+  return data;
+}
