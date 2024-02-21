@@ -9,7 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
-import { getBook, fetchBookPost, fetchSearchBook } from "../api";
+import { getBook, fetchBookPost, fetchSearchCreateBook } from "../api";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -34,6 +34,8 @@ const CreateBook = () => {
   useEffect(() => {
     if (searchBook?.length < 3) {
       setResultBooks([]);
+      setDebouncedSearchBook("");
+      return;
     }
     const timeoutId = setTimeout(() => {
       setDebouncedSearchBook(searchBook);
@@ -47,11 +49,13 @@ const CreateBook = () => {
   useEffect(() => {
     if (debouncedSearchBook.length > 2) {
       async function fetchSearchBooks() {
-        const book = await fetchSearchBook(debouncedSearchBook);
+        const book = await fetchSearchCreateBook(debouncedSearchBook);
         console.log(book);
         setResultBooks(book);
       }
-      fetchSearchBooks();
+      if (debouncedSearchBook.length > 2) {
+        fetchSearchBooks();
+      }
     }
   }, [debouncedSearchBook]);
 

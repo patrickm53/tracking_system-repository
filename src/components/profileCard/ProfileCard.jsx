@@ -5,7 +5,6 @@ import { AiFillBook } from "react-icons/ai";
 import Link from "next/link";
 
 const ProfileCard = ({ id, user }) => {
-  console.log(user.profilImage);
   return (
     <div className={classes.body}>
       <div className={classes.container}>

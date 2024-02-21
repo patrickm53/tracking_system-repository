@@ -42,7 +42,6 @@ const SettingsBook = (ctx) => {
     }
     fecthBook();
   }, [id]);
-  console.log(bookDetail);
 
   const DeleteBook = async () => {
     const confirmDeletion = window.confirm(

@@ -10,6 +10,18 @@ export async function fetchSearchBook(searchBook) {
   return data;
 }
 
+export async function fetchSearchUser(searchUser) {
+  const response = await fetch(`/api/search/${searchUser}/user`);
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchSearchCreateBook(searchBook) {
+  const response = await fetch(`/api/search/${searchBook}/createbook`);
+  const data = await response.json();
+  return data;
+}
+
 export async function fetchBookPost(token, body) {
   const response = await fetch(`/api/book`, {
     headers: {

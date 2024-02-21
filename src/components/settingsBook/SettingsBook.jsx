@@ -5,7 +5,6 @@ import { AiFillStar, AiFillLike } from "react-icons/ai";
 import Link from "next/link";
 
 const SettingsBook = ({ book }) => {
-  console.log(book);
   let date = new Date(book.createdAt);
   let day = date.getDate();
   let month = date.getMonth() + 1;

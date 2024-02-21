@@ -35,18 +35,39 @@
   border-radius: 10px;
 }
 
-.searchBox > .searchBook {
+.searchBox > div > .searchUser {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.searchBox > .searchBook > span > h2 {
+.searchBox > div > .searchUser > .searchUserImage {
+  border-radius: 50%;
+}
+
+.searchBox > div > .searchUser > span > h2 {
   font-size: 18px;
   font-weight: 500;
 }
 
-.searchBox > .searchBook > span > h3 {
+.searchBox > div > .searchUser > span > h3 {
+  font-size: 14px;
+  color: grey;
+  margin-top: -5px;
+}
+
+.searchBox > div > .searchBook {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.searchBox > div > .searchBook > span > h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.searchBox > div > .searchBook > span > h3 {
   font-size: 14px;
   color: grey;
   margin-top: -5px;

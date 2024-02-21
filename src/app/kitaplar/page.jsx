@@ -91,10 +91,6 @@ const Populer = () => {
       );
       setFilteredBooks(allFilter);
     }
-    console.log("page", finishFilterPage);
-    console.log("years", finishFilterYears);
-    console.log("lang", finishFilterLanguage);
-    console.log("star", finishFilterStar);
   };
 
   return (

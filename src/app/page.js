@@ -10,9 +10,6 @@ const Home = () => {
   useEffect(() => {
     async function fetchBooks() {
       const book = await getBook();
-      // kaldırılması gereken bölüm kullanılmıyor
-      const profile = await fetchProfilesAll();
-      console.log(profile);
 
       setBooks(book);
     }

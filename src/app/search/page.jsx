@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/productCard/ProductCard";
 import classes from "./search.module.css";
-import { getBook, fetchAllProfile } from "../api";
+import {
+  getBook,
+  fetchAllProfile,
+  fetchSearchBook,
+  fetchSearchUser,
+} from "../api";
 import ProfileCard from "@/components/profileCard/ProfileCard";
 
 const SearchPage = () => {
@@ -16,25 +21,17 @@ const SearchPage = () => {
 
   useEffect(() => {
     async function searchControl() {
-      const books = await getBook();
-      const profile = await fetchAllProfile();
-      console.log("profile", profile);
-
-      const searchProfile = profile.filter((user) =>
-        user.username.toLowerCase().includes(searchQuery)
-      );
-      const searchResult = books.filter((book) =>
-        book.title.toLowerCase().includes(searchQuery)
-      );
+      const books = await fetchSearchBook(searchQuery);
+      const users = await fetchSearchUser(searchQuery);
 
       if (isUserChecked) {
-        setSearchUser(searchProfile);
+        setSearchUser(users);
       } else {
         setSearchUser("");
       }
 
       if (isBookChecked) {
-        setSearchBook(searchResult);
+        setSearchBook(books);
       } else {
         setSearchBook("");
       }
@@ -42,8 +39,6 @@ const SearchPage = () => {
 
     searchControl();
   }, [searchQuery, isUserChecked, isBookChecked]);
-
-  console.log(searchUser);
 
   const handleUserCheckboxChange = () => {
     setIsUserChecked(!isUserChecked);
@@ -71,14 +66,18 @@ const SearchPage = () => {
         <p>Kitaplar</p>
       </div>
       <div className={classes.wrapper}>
-        {searchUser.length > 0
+        {searchUser.length > 0 && searchUser !== "dont"
           ? searchUser.map((user) => (
               <ProfileCard key={user._id} id={user._id} user={user} />
             ))
-          : ""}
-        {searchBook.length > 0
+          : searchUser === "dont"
+          ? ""
+          : "loading"}
+        {searchBook.length > 0 && searchBook !== "dont"
           ? searchBook.map((book) => <ProductCard key={book._id} book={book} />)
-          : ""}
+          : searchBook === "dont"
+          ? ""
+          : "loading"}
       </div>
     </div>
   );

@@ -3,29 +3,47 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import classes from "./search.module.css";
 import { useRouter } from "next/navigation";
-import { getBook } from "@/app/api";
+import { fetchSearchCreateBook, fetchSearchUser } from "@/app/api";
 
 const Search = () => {
+  const [searchUserTerm, setSearchUserTerm] = useState([]);
   const [searchTerm, setSearchTerm] = useState([]);
   const [search, setSearch] = useState("");
+  const [debouncedSearchBook, setDebouncedSearchBook] = useState("");
 
   const router = useRouter();
 
   useEffect(() => {
+    if (search?.length < 3) {
+      setSearchTerm([]);
+      setSearchUserTerm([]);
+      setDebouncedSearchBook("");
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      setDebouncedSearchBook(search);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [search]);
+
+  useEffect(() => {
     async function searchControl() {
-      const books = await getBook();
-
-      const searchResult = books.filter((book) =>
-        book.title.toLowerCase().includes(search)
-      );
-
-      const similarSearch = searchResult.slice(0, 3);
-
-      setSearchTerm(similarSearch);
+      const books = await fetchSearchCreateBook(debouncedSearchBook);
+      const users = await fetchSearchUser(debouncedSearchBook);
+      setSearchTerm(books);
+      let similarUsers = [];
+      if (users !== "dont") similarUsers = users.slice(0, 3);
+      else if (users === "dont") similarUsers = "dont";
+      setSearchUserTerm(similarUsers);
     }
 
-    searchControl();
-  }, [search]);
+    if (debouncedSearchBook.length > 2) {
+      searchControl();
+    }
+  }, [debouncedSearchBook]);
 
   const onSearch = (event) => {
     event.preventDefault();
@@ -46,22 +64,46 @@ const Search = () => {
         </form>
         <AiOutlineSearch className={classes.icons} />
       </div>
-      {search.length > 0 && (
+      {((searchTerm.length > 0 && searchTerm !== "dont") ||
+        (searchUserTerm.length > 0 && searchUserTerm !== "dont")) && (
         <div className={classes.searchBox}>
-          {searchTerm.map((book) => (
-            <div key={book?._id} className={classes.searchBook}>
-              <Image
-                alt={book?._id}
-                src={book.coverImage}
-                width="50"
-                height="80"
-              />
-              <span>
-                <h2>{book.title}</h2>
-                <h3>{book.author}</h3>
-              </span>
+          {searchUserTerm.length > 0 && searchUserTerm !== "dont" && (
+            <div>
+              {searchUserTerm.map((user) => (
+                <div key={user?._id} className={classes.searchUser}>
+                  <Image
+                    alt={user._id}
+                    className={classes.searchUserImage}
+                    src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
+                    width="50"
+                    height="50"
+                  />
+                  <span>
+                    <h2>{user.name}</h2>
+                    <h3>{user.username}</h3>
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
+          {searchTerm.length > 0 && searchTerm !== "dont" && (
+            <div>
+              {searchTerm.map((book) => (
+                <div key={book?._id} className={classes.searchBook}>
+                  <Image
+                    alt={book?._id}
+                    src={book.coverImage}
+                    width="50"
+                    height="80"
+                  />
+                  <span>
+                    <h2>{book.title}</h2>
+                    <h3>{book.author}</h3>
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
