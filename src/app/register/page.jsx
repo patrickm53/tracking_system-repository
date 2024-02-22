@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./register.module.css";
 import { signIn } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
@@ -30,6 +30,15 @@ const Register = () => {
   const [crop, setCrop] = useState(initialCrop);
   const [croppedImage, setCroppedImage] = useState(null);
   const [originalImage, setOriginalImage] = useState(null);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (username === "" || name === "" || email === "" || password.length < 6) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [username, name, email, password]);
 
   const handleDeleteImage = () => {
     setOriginalImage(null);
@@ -39,9 +48,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDisabled(true);
 
     if (username === "" || name === "" || email === "" || password === "") {
       toast.error("Fill all fields");
+      setDisabled(false);
       return;
     }
 
@@ -50,11 +61,13 @@ const Register = () => {
       (croppedImage === null || croppedImage === undefined)
     ) {
       toast.error("Please image cropped");
+      setDisabled(false);
       return;
     }
 
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters");
+      setDisabled(false);
       return;
     }
 
@@ -85,11 +98,13 @@ const Register = () => {
         return;
       } else {
         toast.error("Error occured while registering");
+        setDisabled(false);
         return;
       }
     } catch (error) {
       console.log(error);
     }
+    setDisabled(false);
   };
 
   const handleFileUpload = (e) => {
@@ -267,7 +282,9 @@ const Register = () => {
                 />
               </div>
             )}
-            <button className={classes.submitButton}>Kayıt Ol</button>
+            <button disabled={disabled} className={classes.submitButton}>
+              Kayıt Ol
+            </button>
           </form>
         </div>
       </div>

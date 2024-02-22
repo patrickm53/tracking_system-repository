@@ -81,6 +81,13 @@
   color: #22ab22;
 }
 
+.createBlog[disabled] {
+  background-color: #dddddd;
+  color: #aaaaaa;
+  cursor: not-allowed;
+  border: 0;
+}
+
 .accessDenied {
   width: 100%;
   text-align: center;

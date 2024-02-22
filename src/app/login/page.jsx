@@ -11,18 +11,22 @@ import { signIn } from "next-auth/react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
+    setDisabled(true);
     e.preventDefault();
 
     if (password === "" || email === "") {
       toast.error("Fill all fields!");
+      setDisabled(false);
       return;
     }
 
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long");
+      setDisabled(false);
       return;
     }
 
@@ -41,6 +45,7 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
+    setDisabled(false);
   };
 
   return (
@@ -71,20 +76,22 @@ const Login = () => {
             </Link>
           </h3>
           <form onSubmit={handleSubmit}>
-            <h4>Email Adresi</h4>
+            <h4>Email Adresi :</h4>
             <input
               type="email"
-              placeholder="Email..."
+              placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <h4>Şifre</h4>
+            <h4>Şifre :</h4>
             <input
               type="password"
-              placeholder="Şifre..."
+              placeholder="Şifre"
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button className={classes.submitButton}>Log in</button>
+            <button disabled={disabled} className={classes.submitButton}>
+              Giriş Yap
+            </button>
           </form>
         </div>
       </div>

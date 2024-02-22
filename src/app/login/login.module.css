@@ -117,6 +117,12 @@
   border-radius: 10px;
 }
 
+.signIn > form > button[disabled] {
+  background-color: #dddddd;
+  color: #aaaaaa;
+  cursor: not-allowed;
+}
+
 .signIn > form > h4 {
   font-size: 14px;
   font-weight: 600;

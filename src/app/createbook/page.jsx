@@ -26,6 +26,7 @@ const CreateBook = () => {
   const [debouncedSearchBook, setDebouncedSearchBook] = useState("");
   const [searchBook, setSearchBook] = useState("");
   const [resultBooks, setResultBooks] = useState([]);
+  const [disabled, setDisabled] = useState(false);
 
   const { data: session, status } = useSession();
 
@@ -69,9 +70,11 @@ const CreateBook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDisabled(true);
 
     if (!coverImage || !title || !rating || !author) {
       toast.error("All fields are required");
+      setDisabled(false);
       return;
     }
 
@@ -98,6 +101,7 @@ const CreateBook = () => {
     } catch (error) {
       console.log(error);
     }
+    setDisabled(false);
   };
 
   const handleBook = async (value) => {
@@ -224,7 +228,11 @@ const CreateBook = () => {
           </div>
         </form>
       </div>
-      <button className={classes.createBlog} onClick={handleSubmit}>
+      <button
+        disabled={disabled}
+        className={classes.createBlog}
+        onClick={handleSubmit}
+      >
         Paylaş
       </button>
       <ToastContainer />
