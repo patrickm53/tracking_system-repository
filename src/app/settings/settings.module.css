@@ -213,6 +213,7 @@
 
 .saveButton {
   position: absolute;
+  bottom: 0;
   right: 0;
   display: flex;
   gap: 10px;
@@ -220,16 +221,18 @@
 }
 
 .saveButton > button {
-  padding: 7px 15px;
-  background-color: #ccc;
+  padding: 10px 20px;
   border-radius: 10px;
   font-size: 14px;
   font-weight: 500;
-}
-
-.saveButton > button:last-child {
   background-color: #050d36;
   color: #fff;
+}
+
+.saveButton > button[disabled] {
+  background-color: #dddddd;
+  color: #aaaaaa;
+  cursor: not-allowed;
 }
 
 .information {
@@ -240,6 +243,7 @@
 }
 
 .information > form {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 15px;

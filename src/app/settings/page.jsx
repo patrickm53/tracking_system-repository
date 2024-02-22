@@ -205,6 +205,7 @@ const SettingsProfile = ({ user }) => {
   const [crop, setCrop] = useState(initialCrop);
   const [croppedImage, setCroppedImage] = useState(null);
   const [originalImage, setOriginalImage] = useState(null);
+  const [disabled, setDisabled] = useState(false);
   const formattedDate = birthday
     ? new Date(birthday).toISOString().split("T")[0]
     : "";
@@ -214,8 +215,10 @@ const SettingsProfile = ({ user }) => {
     setCroppedImage(null);
   };
   const handleSubmit = async () => {
+    setDisabled(true);
     if (username === "" || name === "" || email === "") {
       toast.error("username and name and email cannot be empty");
+      setDisabled(false);
       return;
     }
 
@@ -237,14 +240,17 @@ const SettingsProfile = ({ user }) => {
       console.log(await res.json());
       if (res.ok) {
         toast.success("Successfully updated profile");
+        setDisabled(false);
         return;
       } else {
         toast.error("Error occured while updated");
+        setDisabled(false);
         return;
       }
     } catch (error) {
       console.log(error);
     }
+    setDisabled(false);
   };
 
   const handleFileUpload = (e) => {
@@ -334,10 +340,6 @@ const SettingsProfile = ({ user }) => {
             <h2>Profil</h2>
             <h3>profil bilgileri ve fotografını güncelle</h3>
           </div>
-        </div>
-        <div className={classes.saveButton}>
-          <button>İptal</button>
-          <button onClick={() => handleSubmit()}>Kaydet</button>
         </div>
       </div>
       <div className={classes.information}>
@@ -461,6 +463,11 @@ const SettingsProfile = ({ user }) => {
                 />
               </div>
             )}
+          </div>
+          <div className={classes.saveButton}>
+            <button disabled={disabled} onClick={() => handleSubmit()}>
+              Kaydet
+            </button>
           </div>
         </form>
       </div>
