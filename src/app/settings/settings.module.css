@@ -18,6 +18,7 @@
 }
 
 .settingsFirstSelectCard ul li {
+  position: relative;
   width: 300px;
   height: 200px;
   overflow: hidden;
@@ -35,50 +36,52 @@
 }
 
 .settingsFirstSelectCard ul li h2 {
+  position: absolute;
   font-size: 24px;
   font-weight: 700;
+  bottom: 10px;
 }
 
 .settingsProfileImage {
   position: absolute;
   width: auto;
   height: 200px;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .settingsPasswordImage {
   position: absolute;
   width: auto;
   height: 120px;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .settingsBookImage {
   position: absolute;
   width: auto;
   height: 250px;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .settingsTeamImage {
   position: absolute;
   width: auto;
   height: 150px;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .settingsEmailImage {
   position: absolute;
   width: auto;
   height: 180px;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .settingLogoutImage {
   position: absolute;
   width: auto;
   height: 100px;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .container {
