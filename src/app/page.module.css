@@ -11,12 +11,23 @@
 }
 
 .product {
+  position: relative;
   width: 80%;
+  min-height: 300px;
   margin-top: 3rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   gap: 40px;
+}
+
+.product > .loadingAnimation {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50px;
 }
 
 @media screen and (max-width: 1350px) {

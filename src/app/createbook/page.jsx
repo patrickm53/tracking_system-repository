@@ -10,6 +10,7 @@ import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { getBook, fetchBookPost, fetchSearchCreateBook } from "../api";
+import PulseLoader from "react-spinners/PulseLoader";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -37,6 +38,9 @@ const CreateBook = () => {
       setResultBooks([]);
       setDebouncedSearchBook("");
       return;
+    }
+    if (resultBooks === "dont") {
+      setResultBooks([]);
     }
     const timeoutId = setTimeout(() => {
       setDebouncedSearchBook(searchBook);
@@ -160,11 +164,17 @@ const CreateBook = () => {
               ))}
             </div>
           ) : resultBooks === "dont" ? (
-            <div>Aranan Kitap Bulunamadı</div>
+            <div className={classes.bookControlWarning}>
+              Aranan Kitap Bulunamadı
+            </div>
           ) : searchBook.length < 3 ? (
-            <div>3 harf gir</div>
+            <div className={classes.bookControlWarning}>
+              Lütfen Kitap İsmi Girin
+            </div>
           ) : (
-            <div>loading</div>
+            <div className={classes.bookControlWarning}>
+              <PulseLoader size={20} color={"#bababa"} loading={true} />
+            </div>
           )}
         </div>
         <form onSubmit={handleSubmit}>

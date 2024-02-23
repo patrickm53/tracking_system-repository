@@ -23,6 +23,10 @@
 }
 
 .wrapper > .searchBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
   border: 1px solid #ccc;
 }
@@ -94,6 +98,10 @@
   margin-top: 5rem;
   font-size: 32px;
   font-weight: bold;
+}
+
+.bookControlWarning {
+  margin-top: 20px;
 }
 
 /* searh component */
