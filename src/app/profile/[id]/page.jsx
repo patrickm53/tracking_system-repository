@@ -16,6 +16,7 @@ import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
 import { fetchProfileBook, fetchProfile, fetchAllProfile } from "@/app/api";
 import Suggestion from "@/components/suggestion/Suggestion";
+import { PropagateLoader } from "react-spinners";
 
 const Profile = (ctx) => {
   const [suggestion, setSuggestion] = useState([]);
@@ -138,10 +139,12 @@ const Profile = (ctx) => {
         <div className={classes.post}>
           {navbarSelect === "yayınlar" ? (
             <div className={classes.postAndStory}>
-              {books?.length > 0 ? (
+              {books === "dont" ? (
+                <div>kitap yok</div>
+              ) : books?.length > 0 ? (
                 books.map((book) => <ProfilePost key={book._id} book={book} />)
               ) : (
-                <div>kitap yok</div>
+                <PropagateLoader size={30} color={"#bababa"} loading={true} />
               )}
             </div>
           ) : (
