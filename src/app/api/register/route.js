@@ -71,7 +71,7 @@ export async function POST(req) {
     const hashedPassword = await bcrypt.hash(pass, 10);
     let imageName = "";
 
-    if (selectedImage) {
+    if (selectedImage !== null && selectedImage && selectedImage !== "null") {
       const buffer = Buffer.from(await selectedImage.arrayBuffer());
       imageName = await uploadFileToS3(buffer, selectedImage.name);
     }

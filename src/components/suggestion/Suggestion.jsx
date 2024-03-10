@@ -16,7 +16,7 @@ const Suggestion = ({ user }) => {
           className={classes.followImage}
         />
         <div className={classes.followName}>
-          <a>{user.name}</a>
+          <h2>{user.name}</h2>
           <h3>@{user.username}</h3>
         </div>
       </Link>

@@ -156,9 +156,7 @@ const Profile = (ctx) => {
         <div className={classes.right}>
           <h2>Takip Önerisi</h2>
           {suggestion?.length > 0 ? (
-            suggestion.map((user) => (
-              <Suggestion key={suggestion._id} user={user} />
-            ))
+            suggestion.map((user) => <Suggestion key={user._id} user={user} />)
           ) : (
             <div>öneriler yükleniyor...</div>
           )}
