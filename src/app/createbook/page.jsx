@@ -34,13 +34,11 @@ const CreateBook = () => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("1.useEffect");
     if (searchBook?.length < 3) {
       setResultBooks([]);
       setDebouncedSearchBook("");
       return;
-    }
-    if (resultBooks === "dont") {
-      setResultBooks([]);
     }
     const timeoutId = setTimeout(() => {
       setDebouncedSearchBook(searchBook);
@@ -49,9 +47,10 @@ const CreateBook = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [searchBook, resultBooks]);
+  }, [searchBook]);
 
   useEffect(() => {
+    console.log("2.useEffect");
     if (debouncedSearchBook.length > 2) {
       async function fetchSearchBooks() {
         const book = await fetchSearchCreateBook(debouncedSearchBook);
