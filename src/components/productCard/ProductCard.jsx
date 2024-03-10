@@ -6,6 +6,7 @@ import Image from "next/image";
 import { AiOutlineLike, AiFillStar, AiFillLike } from "react-icons/ai";
 import colors from "../../lib/color.js";
 import { useSession } from "next-auth/react";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const ProductCard = ({ book }) => {
   const { data: session } = useSession();
@@ -50,11 +51,11 @@ const ProductCard = ({ book }) => {
     <div className={classes.body}>
       <div className={classes.container}>
         <div className={classes.person}>
-          <Image
-            alt={book?.user?._id}
-            src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${book?.user?.profilImage}`}
-            width="32"
-            height="32"
+          <ProfileImageControl
+            altImage={book?.user?._id}
+            imageName={book?.user?.profilImage}
+            widthImage="32"
+            heightImage="32"
             className={classes.personImg}
           />
           <Link href={`/profile/${book.user?._id}`}>

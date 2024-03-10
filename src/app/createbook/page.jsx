@@ -49,7 +49,7 @@ const CreateBook = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [searchBook]);
+  }, [searchBook, resultBooks]);
 
   useEffect(() => {
     if (debouncedSearchBook.length > 2) {

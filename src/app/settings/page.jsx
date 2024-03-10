@@ -20,6 +20,7 @@ import settingsEmailImage from "../../../public/settings-email.jpg";
 import settingLogoutImage from "../../../public/logout.png";
 import { ReactCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 
 const Settings = () => {
   const { data: session } = useSession();
@@ -329,12 +330,12 @@ const SettingsProfile = ({ user }) => {
       </div>
       <div className={classes.profileUp}>
         <div className={classes.profilImageContainer}>
-          <ImageNext
-            alt="profilImageSettings"
+          <ProfileImageControl
+            altImage="profilImageSettings"
+            imageName={user?.profilImage}
+            widthImage="150"
+            heightImage="150"
             className={classes.profilImage}
-            src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
-            width={150}
-            height={150}
           />
           <div className={classes.profilExplanation}>
             <h2>Profil</h2>

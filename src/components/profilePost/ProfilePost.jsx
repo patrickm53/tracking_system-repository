@@ -12,8 +12,9 @@ import {
 } from "react-icons/ai";
 import { useSession } from "next-auth/react";
 import { fetchComment } from "@/app/api";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
-const ProfilePost = ({ key, book }) => {
+const ProfilePost = ({ book }) => {
   const { data: session } = useSession();
   const [user, setUser] = useState("");
   const [color, setColor] = useState("");
@@ -81,11 +82,11 @@ const ProfilePost = ({ key, book }) => {
     <div className={classes.container}>
       <div className={classes.person}>
         <div className={classes.personLeft}>
-          <Image
-            alt="profilPerson"
-            src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
-            width="45"
-            height="45"
+          <ProfileImageControl
+            altImage="profilPerson"
+            imageName={user?.profilImage}
+            widthImage="45"
+            heightImage="45"
             className={classes.profilPerson}
           />
           <span>

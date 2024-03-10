@@ -3,6 +3,7 @@ import classes from "./profileCard.module.css";
 import Image from "next/image";
 import { AiFillBook } from "react-icons/ai";
 import Link from "next/link";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const ProfileCard = ({ id, user }) => {
   return (
@@ -13,12 +14,12 @@ const ProfileCard = ({ id, user }) => {
             className={classes.imageContainer}
             href={`/profile/${user._id}`}
           >
-            <Image
-              alt={id}
+            <ProfileImageControl
+              altImage={id}
+              imageName={user?.profilImage}
+              widthImage="100"
+              heightImage="100"
               className={classes.image}
-              src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
-              width="100"
-              height="100"
             />
           </Link>
           <div className={classes.information}>

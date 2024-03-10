@@ -20,6 +20,7 @@ import { HiUserGroup } from "react-icons/hi";
 import { signIn, useSession } from "next-auth/react";
 import Search from "../search/Search";
 import { fetchProfile } from "../../app/api";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -87,11 +88,11 @@ const Navbar = () => {
               </button>
               <button className={classes.navbarProfile}>
                 <Link href={`/profile/${session?.user?._id}`}>
-                  <Image
-                    alt="profilResmi"
-                    src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
-                    width="45"
-                    height="45"
+                  <ProfileImageControl
+                    imageName={userDetail?.profilIage}
+                    widthImage={45}
+                    heightImage={45}
+                    altImage={"profilImage"}
                     className={classes.image}
                   />
                 </Link>
@@ -166,11 +167,11 @@ const Navbar = () => {
                 </button>
                 <button className={classes.navbarProfile}>
                   <Link href={`/profile/${session?.user?._id}`}>
-                    <Image
-                      alt="profilResmi"
-                      src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
-                      width="45"
-                      height="45"
+                    <ProfileImageControl
+                      altImage="profilResmi"
+                      imageName={userDetail?.profilImage}
+                      widthImage="45"
+                      heightImage="45"
                       className={classes.image}
                     />
                   </Link>

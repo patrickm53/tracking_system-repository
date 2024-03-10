@@ -17,6 +17,7 @@ import {
   fetchCommentPost,
   fetchProfile,
 } from "../../api";
+import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
@@ -181,11 +182,11 @@ const BookDetails = (ctx) => {
                 className={classes.link}
                 href={`/profile/${bookDetails?.user?._id}`}
               >
-                <Image
-                  alt="detailProfil"
-                  src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${bookDetails?.user?.profilImage}`}
-                  width="30"
-                  height="30"
+                <ProfileImageControl
+                  altImage="detailProfil"
+                  imageName={bookDetails?.user?.profilImage}
+                  widthImage="30"
+                  heightImage="30"
                   className={classes.detailsProfilImage}
                 />
                 {bookDetails?.user?.name}
@@ -258,11 +259,11 @@ const BookDetails = (ctx) => {
           )}
           <div className={classes.commentSection}>
             <div className={classes.commentInput}>
-              <Image
-                src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
-                width="45"
-                height="45"
-                alt=""
+              <ProfileImageControl
+                altImage="comment profiel Image"
+                imageName={userDetail?.profilImage}
+                widthImage="45"
+                heightImage="45"
               />
               <input
                 value={commentText}

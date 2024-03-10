@@ -5,6 +5,7 @@ import { BsTrash } from "react-icons/bs";
 import classes from "./comment.module.css";
 import Image from "next/image";
 import { fetchDeleteComment } from "@/app/api";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const Comment = ({ comment, setComments, userDetail }) => {
   const { data: session } = useSession();
@@ -27,11 +28,11 @@ const Comment = ({ comment, setComments, userDetail }) => {
       <div className={classes.wrapper}>
         <div className={classes.left}>
           <div className={classes.commentProfile}>
-            <Image
-              src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
-              width="50"
-              height="50"
-              alt=""
+            <ProfileImageControl
+              altImage="comment proifle Image"
+              imageName={userDetail?.profilImage}
+              widthImage="50"
+              heightImage="50"
             />
             <div className={classes.userData}>
               <h4>{comment?.authorId?.name}</h4>
