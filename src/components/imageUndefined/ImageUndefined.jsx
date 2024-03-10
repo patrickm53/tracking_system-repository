@@ -1,5 +1,5 @@
 import Image from "next/image";
-import personDefault from "../../../public/defaultImageWomen.png";
+import personDefault from "../../../public/defaultImageMan.png";
 
 export const ProfileImageControl = ({
   imageName,

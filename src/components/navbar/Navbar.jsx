@@ -89,7 +89,7 @@ const Navbar = () => {
               <button className={classes.navbarProfile}>
                 <Link href={`/profile/${session?.user?._id}`}>
                   <ProfileImageControl
-                    imageName={userDetail?.profilIage}
+                    imageName={userDetail?.profilImage}
                     widthImage={45}
                     heightImage={45}
                     altImage={"profilImage"}
