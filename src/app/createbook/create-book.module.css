@@ -17,28 +17,30 @@
 .wrapper {
   width: 90%;
   display: flex;
-  margin-top: 50px;
+  flex-direction: column;
+  margin-top: 20px;
   justify-content: center;
+  align-items: center;
   gap: 20px;
 }
 
 .wrapper > .searchBox {
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  border: 1px solid #ccc;
+  max-width: 400px;
 }
-
+/* 
 .wrapper > form {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-}
+} */
 
-.wrapper > form > .formBox {
+.wrapper > .formBox {
   width: 100%;
   height: 100%;
   display: flex;
@@ -46,23 +48,84 @@
   gap: 20px;
 }
 
-.wrapper > form > .formBox > .inputBox {
+.wrapper > .formBox > .inputBox {
   height: 100%;
   border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 10px;
   justify-content: space-between;
+  width: 400px;
 }
 
-.wrapper > form > .formBox > .inputBox > input {
+.wrapper > .formBox > .inputBox > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.wrapper > .formBox > .inputBox > ul > li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.wrapper > .formBox > .inputBox > ul > li > p {
+  color: #5d5d5d;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.wrapper > .formBox > .inputBox > ul > li > .starPuan {
+  width: 200px;
+  position: absolute;
   outline: none;
   border: none;
-  border-bottom: 1px solid #ccc;
-  padding: 0.4rem;
+  border-radius: 20px;
   resize: none;
+  right: 0;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
 }
-.wrapper > form > .formBox > .yourStory {
+
+.wrapper > .formBox > .inputBox > ul > li > input {
+  width: 200px;
+  position: absolute;
+  outline: none;
+  border: none;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  resize: none;
+  right: 0;
+}
+.wrapper > .formBox > .inputBox > ul > li > select {
+  width: 200px;
+  position: absolute;
+  outline: none;
+  border: none;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  resize: none;
+  right: 0;
+}
+
+.wrapper > .formBox > .inputBox > ul > li > button {
+  width: 200px;
+  position: absolute;
+  outline: none;
+  border: none;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  resize: none;
+  right: 0;
+}
+
+.wrapper > .formBox > .yourStory {
   height: 90%;
 }
 
@@ -129,9 +192,16 @@
 }
 
 .searchBox > .searchBooks {
+  position: absolute;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  top: 40px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 999;
+  padding: 10px;
 }
 
 .searchBox > .searchBooks > .book {
@@ -175,11 +245,11 @@
     flex-direction: column;
     align-items: center;
   }
-  .wrapper > form > .formBox {
+  .wrapper > .formBox {
     flex-direction: column;
   }
 
-  .wrapper > form > .formBox > .yourStory {
+  .wrapper > .formBox > .yourStory {
     height: 300px;
   }
 }

@@ -12,6 +12,9 @@ import { AiFillStar } from "react-icons/ai";
 import { getBook, fetchBookPost, fetchSearchCreateBook } from "../api";
 import PulseLoader from "react-spinners/PulseLoader";
 import dynamic from "next/dynamic";
+import ReactStars from "react-rating-stars-component";
+import StarRatings from "react-star-ratings";
+import SelectGenres from "@/components/selectGenres/SelectGenres";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const CreateBook = () => {
@@ -34,7 +37,6 @@ const CreateBook = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("1.useEffect");
     if (searchBook?.length < 3) {
       setResultBooks([]);
       setDebouncedSearchBook("");
@@ -50,11 +52,9 @@ const CreateBook = () => {
   }, [searchBook]);
 
   useEffect(() => {
-    console.log("2.useEffect");
     if (debouncedSearchBook.length > 2) {
       async function fetchSearchBooks() {
         const book = await fetchSearchCreateBook(debouncedSearchBook);
-        console.log(book);
         setResultBooks(book);
       }
       if (debouncedSearchBook.length > 2) {
@@ -119,7 +119,7 @@ const CreateBook = () => {
 
   return (
     <div className={classes.container}>
-      <h2>Yorumunu Paylaş</h2>
+      <h2>Kitap Paylaş</h2>
       <div className={classes.wrapper}>
         <div className={classes.searchBox}>
           <div className={classes.search}>
@@ -167,75 +167,100 @@ const CreateBook = () => {
               Aranan Kitap Bulunamadı
             </div>
           ) : searchBook.length < 3 ? (
-            <div className={classes.bookControlWarning}>
-              Lütfen Kitap İsmi Girin
-            </div>
+            <></>
           ) : (
             <div className={classes.bookControlWarning}>
               <PulseLoader size={20} color={"#bababa"} loading={true} />
             </div>
           )}
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className={classes.formBox}>
-            <div className={classes.inputBox}>
-              <input
-                value={title}
-                type="text"
-                placeholder="Başlık..."
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <input
+        <div className={classes.formBox}>
+          <div className={classes.inputBox}>
+            <ul>
+              <li>
+                <p>Kitap İsmi:</p>
+                <input
+                  value={title}
+                  type="text"
+                  placeholder="Kitap ismi giriniz"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </li>
+              {/* <input
                 value={coverImage}
                 type="text"
                 placeholder="Resim..."
                 onChange={(e) => setCoverImage(e.target.value)}
-              />
-              <input
-                value={rating}
-                type="text"
-                placeholder="Puanı..."
-                onChange={(e) => setRating(e.target.value)}
-              />
-              <input
-                value={author}
-                type="text"
-                placeholder="Kitap Yazarı..."
-                onChange={(e) => setAuthor(e.target.value)}
-              />
-              <input
-                value={pages}
-                type="text"
-                placeholder="Sayfa Sayısı..."
-                onChange={(e) => setPages(e.target.value)}
-              />
-              <input
-                value={language}
-                type="text"
-                placeholder="Kitabı Dili..."
-                onChange={(e) => setLanguage(e.target.value)}
-              />
-              <input
-                value={years}
-                type="text"
-                placeholder="Kitap Çıkış Yılı..."
-                onChange={(e) => setYears(e.target.value)}
-              />
-              <input
-                value={genres}
-                type="text"
-                placeholder="Tür (virgül koymayı unutma)..."
-                onChange={(e) => setGenres(e.target.value.split(","))}
-              />
-            </div>
-            <ReactQuill
-              value={description}
-              onChange={(e) => setDescription(e)}
-              placeholder="Hikayeni yaz"
-              className={classes.yourStory}
-            />
+              /> */}
+              <li>
+                <p>Kitap Yazarı:</p>
+                <input
+                  value={author}
+                  type="text"
+                  placeholder="Kitap Yazarı..."
+                  onChange={(e) => setAuthor(e.target.value)}
+                />
+              </li>
+              <li>
+                <p>Sayfa Sayısı:</p>
+                <input
+                  value={pages}
+                  type="number"
+                  placeholder="Sayfa Sayısı giriniz"
+                  onChange={(e) => setPages(e.target.value)}
+                />
+              </li>
+              <li>
+                <p>Kitap Dili:</p>
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                >
+                  <option value="">Kitap Dili Seçiniz</option>
+                  <option value="Türkçe">Türkçe</option>
+                  <option value="English">English</option>
+                </select>
+              </li>
+              <li>
+                <p>Çıkış Yılı:</p>
+                <input
+                  type="date"
+                  placeholder="Yıl giriniz"
+                  value={years}
+                  onChange={(e) => setYears(e.target.value)}
+                />
+              </li>
+              <li>
+                <p>Puanınız:</p>
+                <div className={classes.starPuan}>
+                  <ReactStars
+                    size={40}
+                    count={5}
+                    value={rating}
+                    isHalf={true}
+                    onChange={(newValue) => setRating(newValue)}
+                  />
+                </div>
+              </li>
+              <li>
+                <p>Tür:</p>
+                {/* <input
+                    value={genres}
+                    type="text"
+                    placeholder="Tür (virgül koymayı unutma)..."
+                    onChange={(e) => setGenres(e.target.value.split(","))}
+                  /> */}
+                <SelectGenres />
+              </li>
+            </ul>
           </div>
-        </form>
+          <ReactQuill
+            value={description}
+            onChange={(e) => setDescription(e)}
+            placeholder="Hikayeni yaz"
+            className={classes.yourStory}
+          />
+        </div>
       </div>
       <button
         disabled={disabled}
