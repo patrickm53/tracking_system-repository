@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classes from "./navbar.module.css";
-import logo from "../../../public/logo.png";
+import logo from "../../../public/newLogo.png";
 import {
   AiOutlineSearch,
   AiOutlinePlusCircle,
@@ -49,7 +49,7 @@ const Navbar = () => {
         <div className={classes.wrapper}>
           <h2 className={classes.left}>
             <Link href="/">
-              <Image alt="logo" src={logo} height="50" className="logoImage" />
+              <Image alt="logo" src={logo} height="40" className="logoImage" />
             </Link>
           </h2>
           <div className={classes.middle}>
