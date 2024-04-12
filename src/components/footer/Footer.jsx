@@ -1,29 +1,34 @@
+import Link from "next/link";
 import React from "react";
 import classes from "./footer.module.css";
+import {
+  TiSocialFacebook,
+  TiSocialInstagram,
+  TiSocialTwitter,
+} from "react-icons/ti";
 
 const Footer = () => {
   return (
     <footer className={classes.footer}>
       <div className={classes.wrapper}>
         <div className={classes.col}>
-          <h2>Uygulama Hakkında</h2>
-          <p>
-            Bu uygulama okuduğun kitapları sisteme kayıt edebilmeni ve o
-            kitaplar hakkında yorumunu ve puanlamanı yapabilmeni sağlayan bir
-            sistemdir.
-          </p>
+          <p>Kitapsız yaşamak kör, sağır, dilsiz yaşamaktır</p>
+          <span>Mustafa Kemal Atatürk</span>
         </div>
-        <div className={classes.col}>
-          <h2>İletişim</h2>
-          <span>Telefon +90 931 453 32 32</span>
-          <span>Instagram: seyityahya</span>
-          <span>Github: seyityahya</span>
+        <div className={classes.socialMedia}>
+          <Link href={"https://www.facebook.com"}>
+            <TiSocialFacebook />
+          </Link>
+          <Link href={"https://www.instagram.com"}>
+            <TiSocialInstagram />
+          </Link>
+          <Link href={"https://www.twitter.com"}>
+            <TiSocialTwitter />
+          </Link>
         </div>
-        <div className={classes.col}>
-          <h2>Konum</h2>
-          <span>Kıta: Europe</span>
-          <span>Ülke: Turkey</span>
-        </div>
+      </div>
+      <div className={classes.bottomFooter}>
+        <p>BOOKSMENT.COM</p>
       </div>
     </footer>
   );

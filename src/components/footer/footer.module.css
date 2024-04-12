@@ -1,12 +1,12 @@
 .footer {
   width: 100%;
-  height: 200px;
+  height: 120px;
   margin-top: 5rem;
   border-top: 1px solid #c1c1c1;
 }
 
 .wrapper {
-  width: 85%;
+  width: 70%;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -20,14 +20,33 @@
   gap: 0.5rem;
 }
 
-.col > h2 {
-  margin-bottom: 15px;
-  justify-self: flex-start;
-  margin-left: -5px;
+.col > span {
+  font-weight: 800;
 }
 
 .col > p {
   max-width: 425px;
   color: #555;
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.socialMedia {
+  display: flex;
+  gap: 20px;
+  font-size: 30px;
+}
+
+.bottomFooter {
+  display: flex;
+  justify-content: center;
+  height: 30px;
+  background-color: #000;
+}
+
+.bottomFooter p {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 7px;
 }
