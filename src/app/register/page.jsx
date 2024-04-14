@@ -7,16 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { ReactCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import ImageNext from "next/image";
+import CreateImage from "@/components/createImage/CreateImage";
 
 const Register = () => {
-  const initialCrop = {
-    aspect: 1,
-    unit: "px",
-    width: 100,
-    height: 100,
-    x: 0,
-    y: 0,
-  };
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,10 +19,7 @@ const Register = () => {
   const [birthday, setBirthday] = useState("");
   const [word, setWord] = useState("");
   const [story, setStory] = useState("");
-  const [fileName, setFileName] = useState("");
-  const [crop, setCrop] = useState(initialCrop);
   const [croppedImage, setCroppedImage] = useState(null);
-  const [originalImage, setOriginalImage] = useState(null);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
@@ -40,27 +30,12 @@ const Register = () => {
     }
   }, [username, name, email, password]);
 
-  const handleDeleteImage = () => {
-    setOriginalImage(null);
-    setCrop({ x: 0, y: 0 });
-    setCroppedImage(null);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDisabled(true);
 
     if (username === "" || name === "" || email === "" || password === "") {
       toast.error("Fill all fields");
-      setDisabled(false);
-      return;
-    }
-
-    if (
-      originalImage &&
-      (croppedImage === null || croppedImage === undefined)
-    ) {
-      toast.error("Please image cropped");
       setDisabled(false);
       return;
     }
@@ -89,7 +64,7 @@ const Register = () => {
         body: formData,
       });
 
-      console.log(await res.json());
+      const finishMessage = await res.json();
       if (res.ok) {
         toast.success("Successfully registered the user");
         setTimeout(() => {
@@ -97,76 +72,15 @@ const Register = () => {
         }, 1000);
         return;
       } else {
-        toast.error("Error occured while registering");
+        toast.error(finishMessage);
         setDisabled(false);
         return;
       }
     } catch (error) {
+      toast.error("Error occured while registering");
       console.log(error);
     }
     setDisabled(false);
-  };
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    const fileName = file?.name || "cropperImage";
-    setFileName(fileName);
-    if (originalImage) {
-      URL.revokeObjectURL(originalImage);
-    }
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setCroppedImage(null);
-        setOriginalImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setOriginalImage(undefined);
-    }
-  };
-
-  const handleCropComplete = (crop, percentCrop) => {
-    const canvas = document.createElement("canvas");
-    const imageObj = new Image();
-    imageObj.src = originalImage;
-
-    imageObj.onload = () => {
-      const scaleX = imageObj.naturalWidth / 300;
-      const scaleY = scaleX;
-
-      const croppedAreaPixels = {
-        x: Math.round(crop.x * scaleX),
-        y: Math.round(crop.y * scaleY),
-        width: Math.round(crop.width * scaleX),
-        height: Math.round(crop.height * scaleY),
-      };
-      canvas.width = 250;
-      canvas.height =
-        (250 / croppedAreaPixels.width) * croppedAreaPixels.height;
-
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(
-        imageObj,
-        croppedAreaPixels.x,
-        croppedAreaPixels.y,
-        croppedAreaPixels.width,
-        croppedAreaPixels.height,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      // Canvas'tan Blob elde et
-      canvas.toBlob((blob) => {
-        const croppedFile = new File([blob], fileName, {
-          type: "image/jpeg",
-        });
-        // Kırpılmış dosyayı state'e kaydet
-        setCroppedImage(croppedFile);
-      }, "image/jpeg");
-    };
   };
 
   return (
@@ -176,7 +90,7 @@ const Register = () => {
           <h1>BookWave</h1>
           <div className={classes.middle}>
             <h2>
-              Kayıt Ol <br /> ve değişik kitap yorumlarını keşfet
+              Kayıt Ol ve <br /> kitap yorumlarını keşfet
             </h2>
             <h3>
               okuduğun kitapları paylaş, yorumları oku, yorum yap, topluluklara
@@ -196,7 +110,7 @@ const Register = () => {
               Giriş Yap
             </button>
           </h3>
-          <form onSubmit={handleSubmit}>
+          <div className={classes.form}>
             <h4>İsim</h4>
             <input
               type="text"
@@ -221,42 +135,13 @@ const Register = () => {
               placeholder="Şifre..."
               onChange={(e) => setPassword(e.target.value)}
             />
-            <div className={classes.profileImageSelected}>
-              <h4>Profil Resmini Seç</h4>
-              {originalImage && (
-                <button onClick={handleDeleteImage}>Resmi Sil</button>
-              )}
-            </div>
-            <input
-              type="file"
-              name="myFile"
-              id="file-upload"
-              accept=".jpeg, .png, .jpg"
-              onChange={handleFileUpload}
+            <h4>Profil Resmini Seç</h4>
+            <CreateImage
+              aspect1={2}
+              aspect2={2}
+              croppedImage={croppedImage}
+              setCroppedImage={setCroppedImage}
             />
-            {originalImage && (
-              <div className={classes.uploadImage}>
-                <ReactCrop
-                  aspect={1}
-                  crop={crop}
-                  onChange={(c) => setCrop(c)}
-                  onComplete={handleCropComplete}
-                >
-                  <ImageNext
-                    src={originalImage}
-                    alt={"kırma işlemi"}
-                    style={{
-                      maxWidth: "300px",
-                      minWidth: "300px",
-                      width: "300px",
-                      height: "auto",
-                    }}
-                    width={300}
-                    height={300}
-                  />
-                </ReactCrop>
-              </div>
-            )}
             {croppedImage && (
               <div
                 style={{
@@ -282,10 +167,14 @@ const Register = () => {
                 />
               </div>
             )}
-            <button disabled={disabled} className={classes.submitButton}>
+            <button
+              disabled={disabled}
+              className={classes.submitButton}
+              onClick={handleSubmit}
+            >
               Kayıt Ol
             </button>
-          </form>
+          </div>
         </div>
       </div>
       <ToastContainer />
@@ -294,16 +183,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// function convertToBase64(file) {
-//   return new Promise((resolve, reject) => {
-//     const fileReader = new FileReader();
-//     fileReader.readAsDataURL(file);
-//     fileReader.onload = () => {
-//       resolve(fileReader.result);
-//     };
-//     fileReader.onerror = (error) => {
-//       reject(error);
-//     };
-//   });
-// }
