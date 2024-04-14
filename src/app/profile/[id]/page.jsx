@@ -40,6 +40,9 @@ const Profile = (ctx) => {
       setBooks(book);
     }
     async function fetchSuggestion() {
+      if (suggestion.length > 1) {
+        return;
+      }
       const users = await fetchAllProfile();
       const filteredUser = users.filter(
         (user) => user._id !== session?.user?._id
