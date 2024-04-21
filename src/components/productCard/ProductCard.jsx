@@ -8,7 +8,7 @@ import colors from "../../lib/color.js";
 import { useSession } from "next-auth/react";
 import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
-const ProductCard = ({ book }) => {
+const ProductCard = ({ book, profile }) => {
   const { data: session } = useSession();
   const [backgroundColor, setBackgroundColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
@@ -20,8 +20,8 @@ const ProductCard = ({ book }) => {
   }, []);
 
   useEffect(() => {
-    session && book && setIsLiked(book.likes.includes(session?.user?._id));
-    session && book && setBookLikes(book.likes.length);
+    session && book && setIsLiked(book?.likes?.includes(session?.user?._id));
+    session && book && setBookLikes(book?.likes?.length);
   }, [book, session]);
 
   const handleLike = async () => {
@@ -50,30 +50,32 @@ const ProductCard = ({ book }) => {
   return (
     <div className={classes.body}>
       <div className={classes.container}>
-        <div className={classes.person}>
-          <ProfileImageControl
-            altImage={book?.user?._id}
-            imageName={book?.user?.profilImage}
-            widthImage="32"
-            heightImage="32"
-            className={classes.personImg}
-          />
-          <Link href={`/profile/${book.user?._id}`}>
-            <h2 className={classes.uploader}>{book.user?.name}</h2>
-          </Link>
-          <span>•</span>
-          <div className={classes.clock}>3s</div>
-          <span>•</span>
-          <button className={classes.followers}>Takip Et</button>
-        </div>
+        {profile !== false && (
+          <div className={classes.person}>
+            <ProfileImageControl
+              altImage={book?.user?._id}
+              imageName={book?.user?.profilImage}
+              widthImage="32"
+              heightImage="32"
+              className={classes.personImg}
+            />
+            <Link href={`/profile/${book.user?._id}`}>
+              <h2 className={classes.uploader}>{book.user?.name}</h2>
+            </Link>
+            <span>•</span>
+            <div className={classes.clock}>3s</div>
+            <span>•</span>
+            <button className={classes.followers}>Takip Et</button>
+          </div>
+        )}
         <div style={{ backgroundColor }} className={classes.wrapper}>
           <Link className={classes.imgContainer} href={`/book/${book?._id}`}>
             <Image
               className={classes.bookImage}
               src={book.coverImage}
               alt={book?._id}
-              height="220"
-              width="155"
+              height="225"
+              width="150"
             />
           </Link>
           <div className={classes.bookDetail}>
