@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import classes from "../create-book.module.css";
+import classes from "./newBook.module.css";
 import "react-quill/dist/quill.snow.css";
 import { GrSearch } from "react-icons/gr";
 import Image from "next/image";
@@ -15,11 +15,12 @@ import dynamic from "next/dynamic";
 import ReactStars from "react-rating-stars-component";
 import SelectGenres from "@/components/selectGenres/SelectGenres";
 import CreateImage from "@/components/createImage/CreateImage";
+import Loading from "@/components/loading/Loading";
+import ProductCard from "@/components/productCard/ProductCard";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const CreateBookNew = () => {
   const [title, setTitle] = useState("");
-  const [coverImage, setCoverImage] = useState("");
   const [rating, setRating] = useState();
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
@@ -29,14 +30,39 @@ const CreateBookNew = () => {
   const [years, setYears] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [croppedImage, setCroppedImage] = useState(null);
-  console.log(croppedImage);
+  const [allBook, setAllBook] = useState([]);
 
   const { data: session, status } = useSession();
 
   const router = useRouter();
 
+  useEffect(() => {
+    const data = {
+      title: title,
+      coverImage: croppedImage ? URL.createObjectURL(croppedImage) : "",
+      rating: rating,
+      author: author,
+      description: description,
+      genres: genres,
+      pages: pages,
+      language: language,
+      years: years,
+    };
+    setAllBook(data);
+  }, [
+    title,
+    rating,
+    author,
+    description,
+    genres,
+    pages,
+    language,
+    years,
+    croppedImage,
+  ]);
+
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (status === "unauthenticated") {
@@ -47,7 +73,7 @@ const CreateBookNew = () => {
     e.preventDefault();
     setDisabled(true);
 
-    if (!coverImage || !title || !rating || !author) {
+    if (!croppedImage || !title || !rating || !author) {
       toast.error("All fields are required");
       setDisabled(false);
       return;
@@ -57,7 +83,6 @@ const CreateBookNew = () => {
       const processedGenres = genres.map((genre) => genre.toLowerCase());
       const body = {
         title,
-        coverImage,
         rating,
         author,
         description,
@@ -79,6 +104,8 @@ const CreateBookNew = () => {
     setDisabled(false);
   };
 
+  console.log(allBook);
+
   return (
     <div className={classes.container}>
       <h2>Kitap Paylaş</h2>
@@ -95,12 +122,6 @@ const CreateBookNew = () => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </li>
-              {/* <input
-                  value={coverImage}
-                  type="text"
-                  placeholder="Resim..."
-                  onChange={(e) => setCoverImage(e.target.value)}
-                /> */}
               <li>
                 <p>Kitap Yazarı:</p>
                 <input
@@ -179,6 +200,7 @@ const CreateBookNew = () => {
             className={classes.yourStory}
           />
         </div>
+        <ProductCard book={allBook} profile={false} />
       </div>
       <button
         disabled={disabled}

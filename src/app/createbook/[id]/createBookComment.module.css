@@ -1,0 +1,68 @@
+.container {
+  min-height: calc(100vh - 322px);
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.container > h2 {
+  font-size: 32px;
+  color: #222;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.wrapper {
+  width: 500px;
+  height: 425px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.inputBox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.inputBox > p {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.yourStory {
+  width: 100%;
+  height: 300px;
+}
+
+.createBlog {
+  margin-top: 2.5rem;
+  outline: none;
+  border: 1px solid transparent;
+  padding: 0.5rem 1.25rem;
+  font-size: 18px;
+  border-radius: 12px;
+  background-color: #22ab22;
+  color: #efefef;
+  cursor: pointer;
+  transition: 150ms;
+}
+
+.createBlog:hover {
+  background-color: #efefef;
+  border-color: #22ab22;
+  color: #22ab22;
+}
+
+.createBlog[disabled] {
+  background-color: #dddddd;
+  color: #aaaaaa;
+  cursor: not-allowed;
+  border: 0;
+}
