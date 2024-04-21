@@ -18,6 +18,7 @@ import {
   fetchProfile,
 } from "../../api";
 import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
+import Loading from "@/components/loading/Loading";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
@@ -27,8 +28,9 @@ const BookDetails = (ctx) => {
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
   const [userDetail, setUserDetail] = useState("");
+  const [accessDenied, setAccessDenied] = useState(false);
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter;
 
   useEffect(() => {
@@ -38,7 +40,7 @@ const BookDetails = (ctx) => {
 
       setUserDetail(data);
     }
-    fetchProfiles();
+    session && fetchProfiles();
   }, [session]);
 
   useEffect(() => {
@@ -58,8 +60,8 @@ const BookDetails = (ctx) => {
 
       setBookDetails(book);
     }
-    session && fetchBook();
-  }, [ctx, session]);
+    fetchBook();
+  }, [ctx]);
 
   useEffect(() => {
     const fetchSimilarBooks = async () => {
@@ -132,6 +134,14 @@ const BookDetails = (ctx) => {
       console.log(error);
     }
   };
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "unauthenticated") {
+    accessDenied === false && setAccessDenied(true);
+  }
 
   return (
     <div className={classes.container}>
@@ -257,39 +267,41 @@ const BookDetails = (ctx) => {
               </div>
             </>
           )}
-          <div className={classes.commentSection}>
-            <div className={classes.commentInput}>
-              <ProfileImageControl
-                altImage="comment profiel Image"
-                imageName={userDetail?.profilImage}
-                widthImage="45"
-                heightImage="45"
-              />
-              <input
-                value={commentText}
-                type="text"
-                placeholder="Yorumunu Yaz..."
-                onChange={(e) => setCommentText(e.target.value)}
-              />
-              <button onClick={handleComment}>Paylaş</button>
+          {accessDenied !== true && (
+            <div className={classes.commentSection}>
+              <div className={classes.commentInput}>
+                <ProfileImageControl
+                  altImage="comment profiel Image"
+                  imageName={userDetail?.profilImage}
+                  widthImage="45"
+                  heightImage="45"
+                />
+                <input
+                  value={commentText}
+                  type="text"
+                  placeholder="Yorumunu Yaz..."
+                  onChange={(e) => setCommentText(e.target.value)}
+                />
+                <button onClick={handleComment}>Paylaş</button>
+              </div>
+              <div className={classes.comments}>
+                {comments?.length > 0 ? (
+                  comments.map((comment) => (
+                    <Comment
+                      key={comment._id}
+                      comment={comment}
+                      setComments={setComments}
+                      userDetail={userDetail}
+                    />
+                  ))
+                ) : (
+                  <h4 className={classes.noComments}>
+                    Yorum yok! İlk sen yapmak ister misin?
+                  </h4>
+                )}
+              </div>
             </div>
-            <div className={classes.comments}>
-              {comments?.length > 0 ? (
-                comments.map((comment) => (
-                  <Comment
-                    key={comment._id}
-                    comment={comment}
-                    setComments={setComments}
-                    userDetail={userDetail}
-                  />
-                ))
-              ) : (
-                <h4 className={classes.noComments}>
-                  Yorum yok! İlk sen yapmak ister misin?
-                </h4>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <ToastContainer />
