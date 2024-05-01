@@ -99,9 +99,8 @@ const ModalPopup = ({
   );
 };
 
-const SelectGenres = () => {
+const SelectGenres = ({ selectedGenres, setSelectedGenres }) => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectValue, setSelectValue] = useState("");
 
   const closeModal = () => {

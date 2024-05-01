@@ -73,7 +73,7 @@ const ProductCard = ({ book, profile }) => {
             <Image
               className={classes.bookImage}
               src={book.coverImage}
-              alt={book?._id}
+              alt={book?._id || book?.title}
               height="225"
               width="150"
             />

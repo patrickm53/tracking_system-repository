@@ -43,23 +43,9 @@ const CreateBookNew = () => {
       rating: rating,
       author: author,
       description: description,
-      genres: genres,
-      pages: pages,
-      language: language,
-      years: years,
     };
     setAllBook(data);
-  }, [
-    title,
-    rating,
-    author,
-    description,
-    genres,
-    pages,
-    language,
-    years,
-    croppedImage,
-  ]);
+  }, [title, rating, author, description, croppedImage]);
 
   if (status === "loading") {
     return <Loading />;
@@ -73,7 +59,17 @@ const CreateBookNew = () => {
     e.preventDefault();
     setDisabled(true);
 
-    if (!croppedImage || !title || !rating || !author) {
+    if (
+      !croppedImage ||
+      !title ||
+      !rating ||
+      !author ||
+      !genres ||
+      !pages ||
+      !years ||
+      !language ||
+      !description
+    ) {
       toast.error("All fields are required");
       setDisabled(false);
       return;
@@ -81,30 +77,49 @@ const CreateBookNew = () => {
 
     try {
       const processedGenres = genres.map((genre) => genre.toLowerCase());
-      const body = {
-        title,
-        rating,
-        author,
-        description,
-        genres: processedGenres,
-        pages,
-        years,
-        language,
-        user: session?.user?._id,
-      };
+      const formData = new FormData();
+      const formComment = new FormData();
+      formData.append("title", title);
+      formData.append("author", author);
+      formData.append("genres", processedGenres);
+      formData.append("pages", pages);
+      formData.append("years", years);
+      formData.append("language", language);
+      formData.append("croppedImage", croppedImage);
+      formData.append("user", session?.user?._id);
+
+      formComment.append("rating", rating);
+      formComment.append("description", description);
+      formComment.append("user", session?.user?._id);
 
       const token = session?.user?.accessToken;
 
-      const book = await fetchBookPost(token, body);
+      const response = await fetch(`/api/book`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: "POST",
+        body: formData,
+      });
 
-      router.push(`/book/${book?._id}`);
+      const bookId = await response.json();
+      console.log("bookss", bookId);
+      if (bookId) {
+        formComment.append("book", bookId);
+        const res = await fetch(`/api/bookComment`, {
+          method: "POST",
+          body: formComment,
+        });
+
+        if (res) {
+          router.push(`/book/${bookId}`);
+        }
+      }
     } catch (error) {
       console.log(error);
     }
     setDisabled(false);
   };
-
-  console.log(allBook);
 
   return (
     <div className={classes.container}>
@@ -180,7 +195,10 @@ const CreateBookNew = () => {
                       placeholder="Tür (virgül koymayı unutma)..."
                       onChange={(e) => setGenres(e.target.value.split(","))}
                     /> */}
-                <SelectGenres />
+                <SelectGenres
+                  selectedGenres={genres}
+                  setSelectedGenres={setGenres}
+                />
               </li>
               <li>
                 <p>Resim Seç:</p>

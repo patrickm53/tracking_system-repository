@@ -17,7 +17,7 @@ async function uploadFileToS3(file, fileName) {
 
   const params = {
     Bucket: process.env.BUCKET_NAME,
-    Key: `profileImage/${key}`,
+    Key: `book/${key}`,
     Body: fileBuffer,
     ContentType: "image/jpg",
   };
@@ -57,11 +57,45 @@ export async function POST(req) {
   }
 
   try {
-    const body = await req.json();
-    const newBook = await Book.create(body);
+    const formData = await req.formData();
+    const fields = {};
+    for (const [key, value] of formData.entries()) {
+      fields[key] = value;
+    }
+    const {
+      title,
+      author,
+      genres,
+      pages,
+      years,
+      language,
+      croppedImage,
+      user,
+    } = fields;
 
-    return new Response(JSON.stringify(newBook), { status: 201 });
+    let imageName = "";
+
+    if (croppedImage !== null && croppedImage && croppedImage !== "null") {
+      const buffer = Buffer.from(await croppedImage.arrayBuffer());
+      imageName = await uploadFileToS3(buffer, title);
+    }
+
+    const newBook = await Book.create({
+      title,
+      author,
+      genres,
+      pages,
+      years,
+      language,
+      bookImage: imageName,
+      user,
+    });
+
+    const { _id } = newBook;
+
+    return new Response(JSON.stringify(_id), { status: 201 });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify(null), { status: 500 });
   }
 }
