@@ -336,6 +336,7 @@ const SettingsProfile = ({ user }) => {
             widthImage="150"
             heightImage="150"
             className={classes.profilImage}
+            person={true}
           />
           <div className={classes.profilExplanation}>
             <h2>Profil</h2>

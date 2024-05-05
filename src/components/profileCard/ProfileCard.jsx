@@ -20,6 +20,7 @@ const ProfileCard = ({ id, user }) => {
               widthImage="100"
               heightImage="100"
               className={classes.image}
+              person={true}
             />
           </Link>
           <div className={classes.information}>

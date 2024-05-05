@@ -106,6 +106,7 @@ const Profile = (ctx) => {
                   widthImage="150"
                   heightImage="150"
                   className={classes.profileImage}
+                  person={true}
                 />
               </div>
               <h2>

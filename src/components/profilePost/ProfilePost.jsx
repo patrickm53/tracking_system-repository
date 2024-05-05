@@ -88,6 +88,7 @@ const ProfilePost = ({ book }) => {
             widthImage="45"
             heightImage="45"
             className={classes.profilPerson}
+            person={true}
           />
           <span>
             <h2>{user.name}</h2>
@@ -105,12 +106,13 @@ const ProfilePost = ({ book }) => {
             style={{ border: `5px solid ${color}` }}
             className={classes.postImageContainer}
           >
-            <Image
-              alt="coverImage"
-              src={book.coverImage}
-              width="300"
-              height="180"
+            <ProfileImageControl
+              altImage="coverImage"
+              imageName={book.bookImage}
+              widthImage="300"
+              heightImage="180"
               className={classes.bookImage}
+              person={false}
             />
           </div>
         </div>

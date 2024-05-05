@@ -14,6 +14,7 @@ const Suggestion = ({ user }) => {
           widthImage="45"
           heightImage="45"
           className={classes.followImage}
+          person={true}
         />
         <div className={classes.followName}>
           <h2>{user.name}</h2>

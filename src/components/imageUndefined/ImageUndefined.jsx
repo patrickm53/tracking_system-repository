@@ -1,5 +1,6 @@
 import Image from "next/image";
 import personDefault from "../../../public/defaultImageMan.png";
+import defaultBookImage from "../../../public/default-book-image.png";
 
 export const ProfileImageControl = ({
   imageName,
@@ -7,11 +8,16 @@ export const ProfileImageControl = ({
   heightImage,
   altImage,
   className,
+  person,
 }) => {
   return imageName && altImage ? (
     <Image
       alt={altImage}
-      src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${imageName}`}
+      src={
+        person
+          ? `https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${imageName}`
+          : `https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/book/${imageName}`
+      }
       width={widthImage}
       height={heightImage}
       className={className}
@@ -19,7 +25,7 @@ export const ProfileImageControl = ({
   ) : (
     <Image
       alt="default Image"
-      src={personDefault}
+      src={person ? personDefault : defaultBookImage}
       width={widthImage}
       height={heightImage}
       className={className}

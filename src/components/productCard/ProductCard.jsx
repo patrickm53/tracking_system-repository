@@ -58,6 +58,7 @@ const ProductCard = ({ book, profile }) => {
               widthImage="32"
               heightImage="32"
               className={classes.personImg}
+              person={true}
             />
             <Link href={`/profile/${book.user?._id}`}>
               <h2 className={classes.uploader}>{book.user?.name}</h2>
@@ -70,12 +71,13 @@ const ProductCard = ({ book, profile }) => {
         )}
         <div style={{ backgroundColor }} className={classes.wrapper}>
           <Link className={classes.imgContainer} href={`/book/${book?._id}`}>
-            <Image
+            <ProfileImageControl
               className={classes.bookImage}
-              src={book.coverImage}
-              alt={book?._id || book?.title}
-              height="225"
-              width="150"
+              imageName={book.bookImage}
+              altImage={book?._id || book?.title}
+              heightImage="225"
+              widthImage="150"
+              person={false}
             />
           </Link>
           <div className={classes.bookDetail}>

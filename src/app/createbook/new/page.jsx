@@ -39,7 +39,7 @@ const CreateBookNew = () => {
   useEffect(() => {
     const data = {
       title: title,
-      coverImage: croppedImage ? URL.createObjectURL(croppedImage) : "",
+      bookImage: croppedImage ? URL.createObjectURL(croppedImage) : "",
       rating: rating,
       author: author,
       description: description,

@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classes from "./rastgele.module.css";
 import { getBook } from "../api";
+import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 
 const Rastgele = () => {
   const [randomBooks, setRandomBooks] = useState("");
@@ -31,7 +32,13 @@ const Rastgele = () => {
 
   return (
     <div className={classes.container}>
-      <Image src={randomBooks.coverImage} alt="" width={300} height={400} />
+      <ProfileImageControl
+        imageName={randomBooks.bookImage}
+        altImage={randomBooks._id}
+        widthImage="300"
+        heightImage="450"
+        person={false}
+      />
       <div className={classes.setting}>
         <Link href={`/search?q=${randomBooks.title?.toLowerCase()}`}>
           <button className={classes.bookSearch}>Kitabı Ara</button>

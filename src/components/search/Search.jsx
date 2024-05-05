@@ -79,6 +79,7 @@ const Search = () => {
                     widthImage="50"
                     heightImage="50"
                     className={classes.searchUserImage}
+                    person={true}
                   />
                   <span>
                     <h2>{user.name}</h2>
@@ -92,11 +93,11 @@ const Search = () => {
             <div>
               {searchTerm.map((book) => (
                 <div key={book?._id} className={classes.searchBook}>
-                  <Image
-                    alt={book?._id}
-                    src={book.coverImage}
-                    width="50"
-                    height="80"
+                  <ProfileImageControl
+                    altImage={book?._id}
+                    imageName={book.bookImage}
+                    widthImage="50"
+                    heightImage="75"
                   />
                   <span>
                     <h2>{book.title}</h2>

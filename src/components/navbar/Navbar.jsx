@@ -94,6 +94,7 @@ const Navbar = () => {
                     heightImage={45}
                     altImage={"profilImage"}
                     className={classes.image}
+                    person={true}
                   />
                 </Link>
               </button>
@@ -173,6 +174,7 @@ const Navbar = () => {
                       widthImage="45"
                       heightImage="45"
                       className={classes.image}
+                      person={true}
                     />
                   </Link>
                 </button>

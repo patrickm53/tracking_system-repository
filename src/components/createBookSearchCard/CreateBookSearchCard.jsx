@@ -5,6 +5,7 @@ import classes from "./createBookSearchCard.module.css";
 import { AiFillStar } from "react-icons/ai";
 import colors from "../../lib/color.js";
 import { useRouter } from "next/navigation";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const CreateBookSearchCard = ({ book }) => {
   const router = useRouter();
@@ -37,12 +38,12 @@ const CreateBookSearchCard = ({ book }) => {
       className={classes.wrapper}
       onClick={handleBook}
     >
-      <Image
+      <ProfileImageControl
         className={classes.bookImage}
-        src={book.coverImage}
-        alt={book?._id}
-        height="300"
-        width="200"
+        imageName={book.bookImage}
+        altImage={book?._id}
+        heightImage="300"
+        widthImage="200"
       />
       <div className={classes.bookDetail}>
         <div className={classes.authorDetail}>

@@ -33,6 +33,7 @@ const Comment = ({ comment, setComments, userDetail }) => {
               imageName={userDetail?.profilImage}
               widthImage="50"
               heightImage="50"
+              person={true}
             />
             <div className={classes.userData}>
               <h4>{comment?.authorId?.name}</h4>
