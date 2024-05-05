@@ -13,7 +13,8 @@ const s3Client = new S3Client({
 
 async function uploadFileToS3(file, fileName) {
   const fileBuffer = file;
-  const key = `${fileName}-${Date.now()}`;
+  const saveFileName = fileName.replace(/\s+/g, "").toLowerCase();
+  const key = `${saveFileName}-${Date.now()}`;
 
   const params = {
     Bucket: process.env.BUCKET_NAME,

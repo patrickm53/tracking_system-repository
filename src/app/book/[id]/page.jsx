@@ -16,9 +16,11 @@ import {
   fetchProfileBook,
   fetchCommentPost,
   fetchProfile,
+  fetchGetBookComment,
 } from "../../api";
 import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 import Loading from "@/components/loading/Loading";
+import BookDetailComment from "@/components/bookDetailComment/BookDetailComment";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
@@ -29,6 +31,7 @@ const BookDetails = (ctx) => {
   const [comments, setComments] = useState([]);
   const [userDetail, setUserDetail] = useState("");
   const [accessDenied, setAccessDenied] = useState(false);
+  const [bookComment, setBookComment] = useState([]);
 
   const { data: session, status } = useSession();
   const router = useRouter;
@@ -42,6 +45,14 @@ const BookDetails = (ctx) => {
     }
     session && fetchProfiles();
   }, [session]);
+
+  useEffect(() => {
+    async function fetchBookComment() {
+      const data = await fetchGetBookComment(ctx?.params?.id);
+      setBookComment(data);
+    }
+    ctx && fetchBookComment();
+  }, [ctx]);
 
   useEffect(() => {
     async function fetchComments() {
@@ -85,10 +96,10 @@ const BookDetails = (ctx) => {
   useEffect(() => {
     const fetchProfileBooks = async () => {
       try {
-        const books = await fetchProfileBook(bookDetails.user._id);
+        const books = await fetchProfileBook(bookDetails?.user?._id);
 
         const differentBooks = books.filter(
-          (book) => book._id !== bookDetails?._id
+          (book) => book?._id !== bookDetails?._id
         );
 
         const filteredBooks = differentBooks.slice(0, 3);
@@ -147,15 +158,16 @@ const BookDetails = (ctx) => {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.imgContainer}>
-          <Image
-            alt="bookDetailImage"
-            src={bookDetails.coverImage}
+          <ProfileImageControl
+            altImage="bookDetailImage"
+            imageName={bookDetails?.bookImage}
             className={classes.image}
-            width="250"
-            height="500"
+            widthImage="300"
+            heightImage="450"
+            person={false}
           />
           <button className={classes.button1}>Diğer Okurlar</button>
-          <Link href={"/createbook"}>
+          <Link href={`/createbook/${ctx.params.id}`}>
             <button className={classes.button2}>Yorum Paylaş</button>
           </Link>
           <div className={classes.bookSayfa}>
@@ -165,9 +177,9 @@ const BookDetails = (ctx) => {
               <span>Yayın Tarihi : </span>
             </div>
             <div className={classes.bilgi}>
-              <span>{bookDetails.pages}</span>
-              <span>{bookDetails.language}</span>
-              <span>{bookDetails.years}</span>
+              <span>{bookDetails?.pages}</span>
+              <span>{bookDetails?.language}</span>
+              <span>{bookDetails?.years}</span>
             </div>
           </div>
         </div>
@@ -186,30 +198,8 @@ const BookDetails = (ctx) => {
               <span>{bookDetails.rating}</span>
             </div>
           </div>
-          <div className={classes.bookDetailsProfil}>
-            <div>
-              <Link
-                className={classes.link}
-                href={`/profile/${bookDetails?.user?._id}`}
-              >
-                <ProfileImageControl
-                  altImage="detailProfil"
-                  imageName={bookDetails?.user?.profilImage}
-                  widthImage="30"
-                  heightImage="30"
-                  className={classes.detailsProfilImage}
-                />
-                {bookDetails?.user?.name}
-              </Link>
-              <div>
-                - paylaşım <span>{postCount}</span> - yorum <span>72</span>
-              </div>
-            </div>
-          </div>
-          <div
-            className={classes.desc}
-            dangerouslySetInnerHTML={{ __html: bookDetails.description }}
-          />
+          {bookComment &&
+            bookComment.map((item) => <BookDetailComment bookDetails={item} />)}
 
           <div className={classes.tür}>
             tür :
@@ -226,12 +216,13 @@ const BookDetails = (ctx) => {
                     <li key={book._id}>
                       <Link className={classes.link} href={`/book/${book._id}`}>
                         <div className={classes.imgSimilarContainer}>
-                          <Image
-                            alt="book._id"
-                            src={book.coverImage}
-                            width="150"
-                            height="300"
+                          <ProfileImageControl
+                            altImage="book._id"
+                            imageName={book.bookImage}
+                            widthImage="150"
+                            heightImage="300"
                             className={classes.image}
+                            person={false}
                           />
                         </div>
                       </Link>
@@ -251,12 +242,13 @@ const BookDetails = (ctx) => {
                     <li key={book._id}>
                       <Link className={classes.link} href={`/book/${book._id}`}>
                         <div className={classes.imgSimilarContainer}>
-                          <Image
-                            alt="book._id"
-                            src={book.coverImage}
-                            width="150"
-                            height="300"
+                          <ProfileImageControl
+                            altImage="book._id"
+                            imageName={book.bookImage}
+                            widthImage="150"
+                            heightImage="300"
                             className={classes.image}
+                            person={false}
                           />
                         </div>
                       </Link>
@@ -275,6 +267,7 @@ const BookDetails = (ctx) => {
                   imageName={userDetail?.profilImage}
                   widthImage="45"
                   heightImage="45"
+                  person={true}
                 />
                 <input
                   value={commentText}
