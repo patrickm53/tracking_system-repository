@@ -25,7 +25,6 @@ export async function fetchSearchCreateBook(searchBook) {
 export async function fetchBookPost(token, body) {
   const response = await fetch(`/api/book`, {
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     method: "POST",
@@ -116,5 +115,20 @@ export async function fetchDeleteComment(token, commentId) {
 export async function fetchProfilesAll() {
   const response = await fetch("/api/register");
   const data = await response.json();
+  return data;
+}
+
+export async function fetchBookComment(body) {
+  const response = await fetch("/api/bookComment", {
+    method: "POST",
+    body: body,
+  });
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchGetBookComment(bookId) {
+  const response = await fetch(`/api/bookComment/${bookId}`);
+  const data = response.json();
   return data;
 }

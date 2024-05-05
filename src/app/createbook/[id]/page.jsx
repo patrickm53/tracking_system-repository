@@ -29,7 +29,6 @@ const CreateBookComment = (ctx) => {
       if (book.description) {
         book.description = description;
       }
-      console.log("gırdı");
       setBooks(book);
     }
     fetchBooks();
@@ -53,32 +52,27 @@ const CreateBookComment = (ctx) => {
     e.preventDefault();
     setDisabled(true);
 
-    if (!coverImage || !title || !rating || !author) {
+    if (!rating || !description) {
       toast.error("All fields are required");
       setDisabled(false);
       return;
     }
 
     try {
-      const processedGenres = genres.map((genre) => genre.toLowerCase());
-      const body = {
-        title,
-        coverImage,
-        rating,
-        author,
-        description,
-        genres: processedGenres,
-        pages,
-        years,
-        language,
-        user: session?.user?._id,
-      };
+      const formData = new FormData();
+      formData.append("rating", rating);
+      formData.append("description", description);
+      formData.append("user", session?.user?._id);
+      formData.append("book", ctx?.params?.id);
 
-      const token = session?.user?.accessToken;
+      const response = await fetch(`/api/bookComment`, {
+        method: "POST",
+        body: formData,
+      });
 
-      const book = await fetchBookPost(token, body);
-
-      router.push(`/book/${book?._id}`);
+      if (response) {
+        router.push(`/book/${ctx?.params?.id}`);
+      }
     } catch (error) {
       console.log(error);
     }
