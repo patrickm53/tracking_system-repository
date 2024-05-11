@@ -1,6 +1,7 @@
 import connect from "@/lib/db";
 import { verifyJwtToken } from "@/lib/jwt";
 import Book from "@/models/Book";
+import BookComment from "@/models/BookComment";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 const s3Client = new S3Client({
@@ -32,9 +33,35 @@ export async function GET(req) {
   await connect();
 
   try {
-    const books = await Book.find({}).populate("user");
+    const books = await Book.find({});
+    const lastBook = [];
+    for (const book of books) {
+      const bookComments = await BookComment.find({ book: book._id })
+        .sort({
+          likes: -1,
+          createdAt: 1,
+        })
+        .populate("user");
 
-    return new Response(JSON.stringify(books), { status: 200 });
+      let averageRating = 0;
+      if (bookComments.length > 0) {
+        const totalRating = bookComments.reduce(
+          (acc, comment) => acc + comment.rating,
+          0
+        );
+        averageRating = totalRating / bookComments.length;
+      }
+      book.user = bookComments[0].user;
+      const responseBook = {
+        ...book._doc,
+        rating: averageRating,
+        description: bookComments[0].description,
+      };
+      lastBook.push(responseBook);
+    }
+    console.log(lastBook);
+
+    return new Response(JSON.stringify(lastBook), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
