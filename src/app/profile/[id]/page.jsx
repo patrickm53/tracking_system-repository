@@ -143,7 +143,9 @@ const Profile = (ctx) => {
         <div className={classes.post}>
           {navbarSelect === "yayınlar" ? (
             <div className={classes.postAndStory}>
-              {books?.length > 0 ? (
+              {books === "dont" ? (
+                <div>kitap yok</div>
+              ) : books?.length > 0 ? (
                 books.map((book) => <ProfilePost key={book._id} book={book} />)
               ) : (
                 <></>
