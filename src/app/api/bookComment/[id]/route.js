@@ -8,6 +8,10 @@ export async function GET(req, ctx) {
 
   try {
     const books = await BookComment.find({ book: id })
+      .sort({
+        likes: -1,
+        createdAt: 1,
+      })
       .populate("user")
       .limit(3);
 

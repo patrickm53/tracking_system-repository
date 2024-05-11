@@ -1,6 +1,7 @@
 import connect from "@/lib/db";
 import { verifyJwtToken } from "@/lib/jwt";
 import Book from "@/models/Book";
+import BookComment from "@/models/BookComment";
 
 export async function GET(req, ctx) {
   await connect();
@@ -9,8 +10,18 @@ export async function GET(req, ctx) {
 
   try {
     const book = await Book.findById(id).populate("user").select("-password");
+    const bookComment = await BookComment.find({ book: id }).select("rating");
+    let averageRating = 0;
+    if (bookComment.length > 0) {
+      const totalRating = bookComment.reduce(
+        (acc, comment) => acc + comment.rating,
+        0
+      );
+      averageRating = totalRating / bookComment.length;
+    }
+    const responseBook = { ...book._doc, rating: averageRating };
 
-    return new Response(JSON.stringify(book), { status: 200 });
+    return new Response(JSON.stringify(responseBook), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify(null), { status: 500 });
   }

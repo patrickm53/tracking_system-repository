@@ -68,7 +68,6 @@ const BookDetails = (ctx) => {
   useEffect(() => {
     async function fetchBook() {
       const book = await fetchBookId(ctx.params.id);
-
       setBookDetails(book);
     }
     fetchBook();
@@ -259,7 +258,7 @@ const BookDetails = (ctx) => {
               </div>
             </>
           )}
-          {accessDenied !== true && (
+          {/* {accessDenied !== true && (
             <div className={classes.commentSection}>
               <div className={classes.commentInput}>
                 <ProfileImageControl
@@ -294,7 +293,7 @@ const BookDetails = (ctx) => {
                 )}
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       <ToastContainer />
