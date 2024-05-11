@@ -26,32 +26,17 @@
   gap: 20px;
 }
 
-.wrapper > .searchBox {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
-}
-/* 
-.wrapper > form {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-} */
-
 .wrapper > .formBox {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-bottom: 30px;
 }
 
 .wrapper > .formBox > .inputBox {
-  height: 100%;
+  height: 420px;
   border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
@@ -128,7 +113,8 @@
 }
 
 .wrapper > .formBox > .yourStory {
-  height: 90%;
+  height: 378px;
+  width: 400px;
 }
 
 .createBlog {
@@ -167,91 +153,6 @@
 
 .bookControlWarning {
   margin-top: 20px;
-}
-
-/* searh component */
-
-.searchBox > .search {
-  position: relative;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.searchBox > .search > .searchIcon {
-  position: absolute;
-  font-size: 20px;
-  left: 10px;
-}
-
-.searchBox > .search > input {
-  width: 300px;
-  border-radius: 30px;
-  padding: 10px 20px;
-  padding-left: 35px;
-  border: 1px solid #ccc;
-}
-
-.searchBox > .searchBooks {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 20px;
-  top: 40px;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.newBook {
-  width: 370px;
-  height: 220px;
-  border: 2px solid #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-  font-size: 24px;
-  font-weight: 700;
-  border-radius: 5px;
-  cursor: pointer;
-}
-/* .searchBox > .searchBooks > .book {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.searchBox > .searchBooks > .book > img {
-  height: 80px;
-}
-
-.searchBox > .searchBooks > .book > .searchBookDetail > span {
-  display: flex;
-  gap: 5px;
-  margin-top: 5px;
-}
-
-.searchBox > .searchBooks > .book > .searchBookDetail > h2 {
-  font-size: 16px;
-}
-
-.searchBox > .searchBooks > .book > .searchBookDetail > h3 {
-  font-size: 12px;
-  color: #555;
-}
-
-.searchBox > .searchBooks > .book > .searchBookDetail > span > p {
-  color: #ccc;
-  font-size: 12px;
-} */
-
-.book > .star {
-  display: flex;
-  align-items: center;
-  margin-left: 20px;
 }
 
 @media screen and (max-width: 999px) {

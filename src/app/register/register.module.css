@@ -91,7 +91,7 @@
   font-weight: 600;
 }
 
-.register > form {
+.register > .form {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
@@ -99,7 +99,7 @@
   gap: 4px;
 }
 
-.register > form > input {
+.register > .form > input {
   width: 300px;
   padding: 15px;
   background-color: #f3f3f3;
@@ -108,7 +108,17 @@
   font-weight: 500;
 }
 
-.register > form > button {
+.register > .form > button {
+  width: 300px;
+  background-color: #f3f3f3;
+  padding: 15px;
+  color: #aaa;
+  font-weight: 600;
+  border-radius: 10px;
+  justify-content: flex-start;
+}
+
+.register > .form > .submitButton {
   margin-top: 10px;
   width: 300px;
   background-color: rgb(44, 44, 255);
@@ -117,19 +127,19 @@
   border-radius: 10px;
 }
 
-.register > form > button[disabled] {
+.register > .form > button[disabled] {
   background-color: #dddddd;
   color: #aaaaaa;
   cursor: not-allowed;
 }
 
-.register > form > h4 {
+.register > .form > h4 {
   font-size: 14px;
   font-weight: 600;
   color: grey;
 }
 
-form > .profilImage {
+.form > .profilImage {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   justify-items: center;
@@ -137,11 +147,11 @@ form > .profilImage {
   margin: 10px 0;
 }
 
-form > .profilImage > .images {
+.form > .profilImage > .images {
   border-radius: 50px;
 }
 
-form > .profilImage > .active {
+.form > .profilImage > .active {
   border: 5px solid #000;
 }
 
@@ -151,22 +161,4 @@ form > .profilImage > .active {
   align-items: flex-start;
   gap: 10px;
   margin-top: -10px;
-}
-
-.profileImageSelected {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.profileImageSelected > h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: grey;
-}
-
-.profileImageSelected > button {
-  background-color: red;
-  padding: 0 10px;
-  border-radius: 50px;
-  color: #fff;
 }

@@ -16,7 +16,7 @@ import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
 import { fetchProfileBook, fetchProfile, fetchAllProfile } from "@/app/api";
 import Suggestion from "@/components/suggestion/Suggestion";
-import { PropagateLoader } from "react-spinners";
+import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 
 const Profile = (ctx) => {
   const [suggestion, setSuggestion] = useState([]);
@@ -40,6 +40,9 @@ const Profile = (ctx) => {
       setBooks(book);
     }
     async function fetchSuggestion() {
+      if (suggestion.length > 1) {
+        return;
+      }
       const users = await fetchAllProfile();
       const filteredUser = users.filter(
         (user) => user._id !== session?.user?._id
@@ -97,12 +100,13 @@ const Profile = (ctx) => {
           <div className={classes.personProfile}>
             <div className={classes.top}>
               <div className={classes.profileImageContainer}>
-                <Image
+                <ProfileImageControl
+                  altImage="profilePerson"
+                  imageName={user?.profilImage}
+                  widthImage="150"
+                  heightImage="150"
                   className={classes.profileImage}
-                  alt="profilePerson"
-                  src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
-                  width={150}
-                  height={150}
+                  person={true}
                 />
               </div>
               <h2>
@@ -144,7 +148,7 @@ const Profile = (ctx) => {
               ) : books?.length > 0 ? (
                 books.map((book) => <ProfilePost key={book._id} book={book} />)
               ) : (
-                <PropagateLoader size={30} color={"#bababa"} loading={true} />
+                <></>
               )}
             </div>
           ) : (
@@ -158,9 +162,7 @@ const Profile = (ctx) => {
         <div className={classes.right}>
           <h2>Takip Önerisi</h2>
           {suggestion?.length > 0 ? (
-            suggestion.map((user) => (
-              <Suggestion key={suggestion._id} user={user} />
-            ))
+            suggestion.map((user) => <Suggestion key={user._id} user={user} />)
           ) : (
             <div>öneriler yükleniyor...</div>
           )}

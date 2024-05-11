@@ -21,7 +21,7 @@
   text-overflow: ellipsis;
 }
 
-.followName > a {
+.followName > h2 {
   font-size: 16px;
   font-weight: 800;
 }

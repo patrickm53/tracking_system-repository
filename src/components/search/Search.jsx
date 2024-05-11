@@ -4,6 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import classes from "./search.module.css";
 import { useRouter } from "next/navigation";
 import { fetchSearchCreateBook, fetchSearchUser } from "@/app/api";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const Search = () => {
   const [searchUserTerm, setSearchUserTerm] = useState([]);
@@ -71,12 +72,14 @@ const Search = () => {
             <div>
               {searchUserTerm.map((user) => (
                 <div key={user?._id} className={classes.searchUser}>
-                  <Image
-                    alt={user._id}
+                  <ProfileImageControl
+                    key={user?._id}
+                    altImage={user._id}
+                    imageName={user?.profilImage}
+                    widthImage="50"
+                    heightImage="50"
                     className={classes.searchUserImage}
-                    src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
-                    width="50"
-                    height="50"
+                    person={true}
                   />
                   <span>
                     <h2>{user.name}</h2>
@@ -90,11 +93,11 @@ const Search = () => {
             <div>
               {searchTerm.map((book) => (
                 <div key={book?._id} className={classes.searchBook}>
-                  <Image
-                    alt={book?._id}
-                    src={book.coverImage}
-                    width="50"
-                    height="80"
+                  <ProfileImageControl
+                    altImage={book?._id}
+                    imageName={book.bookImage}
+                    widthImage="50"
+                    heightImage="75"
                   />
                   <span>
                     <h2>{book.title}</h2>

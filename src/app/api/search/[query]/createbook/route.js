@@ -9,7 +9,7 @@ export async function GET(req, ctx) {
   try {
     let searchBooks = await Book.find({
       title: { $regex: query, $options: "i" },
-    }).limit(3);
+    }).limit(5);
 
     if (searchBooks.length === 0) {
       searchBooks = "dont";

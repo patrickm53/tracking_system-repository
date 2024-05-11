@@ -3,6 +3,7 @@ import React from "react";
 import classes from "./settingsBook.module.css";
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import Link from "next/link";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const SettingsBook = ({ book }) => {
   let date = new Date(book.createdAt);
@@ -13,12 +14,12 @@ const SettingsBook = ({ book }) => {
   return (
     <div className={classes.wrapper}>
       <div className={classes.settingsBookImageContainer}>
-        <Image
-          alt="settingsBookImage"
-          src={book.coverImage}
+        <ProfileImageControl
+          altImage="settingsBookImage"
+          imageName={book.bookImage}
           className={classes.settingsBookImage}
-          width={70}
-          height={100}
+          widthImage="70"
+          heightImage="105"
         />
       </div>
       <div className={classes.settingsBookInformation}>

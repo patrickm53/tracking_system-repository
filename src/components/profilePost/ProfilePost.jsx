@@ -12,10 +12,11 @@ import {
 } from "react-icons/ai";
 import { useSession } from "next-auth/react";
 import { fetchComment } from "@/app/api";
+import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
-const ProfilePost = ({ key, book }) => {
+const ProfilePost = ({ book }) => {
   const { data: session } = useSession();
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(book?.user);
   const [color, setColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
   const [bookLikes, setBookLikes] = useState(0);
@@ -44,7 +45,7 @@ const ProfilePost = ({ key, book }) => {
 
   const handleLike = async () => {
     try {
-      const res = await fetch(`/api/book/${book._id}/like`, {
+      const res = await fetch(`/api/bookComment/${book._id}/like`, {
         headers: {
           Authorization: `Bearer ${session?.user?.accessToken}`,
         },
@@ -65,28 +66,29 @@ const ProfilePost = ({ key, book }) => {
     }
   };
 
-  useEffect(() => {
-    async function fetchUser() {
-      const res = await fetch(`/api/profile/${book.user}`, {
-        cache: "no-store",
-      });
-      const user = await res.json();
+  // useEffect(() => {
+  //   async function fetchUser() {
+  //     const res = await fetch(`/api/profile/${book.user}`, {
+  //       cache: "no-store",
+  //     });
+  //     const user = await res.json();
 
-      setUser(user);
-    }
-    fetchUser();
-  }, [book]);
+  //     setUser(user);
+  //   }
+  //   fetchUser();
+  // }, [book]);
 
   return (
     <div className={classes.container}>
       <div className={classes.person}>
         <div className={classes.personLeft}>
-          <Image
-            alt="profilPerson"
-            src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${user?.profilImage}`}
-            width="45"
-            height="45"
+          <ProfileImageControl
+            altImage="profilPerson"
+            imageName={user?.profilImage}
+            widthImage="45"
+            heightImage="45"
             className={classes.profilPerson}
+            person={true}
           />
           <span>
             <h2>{user.name}</h2>
@@ -104,18 +106,19 @@ const ProfilePost = ({ key, book }) => {
             style={{ border: `5px solid ${color}` }}
             className={classes.postImageContainer}
           >
-            <Image
-              alt="coverImage"
-              src={book.coverImage}
-              width="300"
-              height="180"
+            <ProfileImageControl
+              altImage="coverImage"
+              imageName={book.book.bookImage}
+              widthImage="300"
+              heightImage="180"
               className={classes.bookImage}
+              person={false}
             />
           </div>
         </div>
         <div className={classes.postInformation}>
-          <h1>{book.title}</h1>
-          <h2>{book.author}</h2>
+          <h1>{book.book.title}</h1>
+          <h2>{book.book.author}</h2>
           <div
             className={classes.desc}
             dangerouslySetInnerHTML={{ __html: book.description }}

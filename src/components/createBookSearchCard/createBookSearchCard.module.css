@@ -1,0 +1,135 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  width: 370px;
+  height: 210px;
+  box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.wrapper > .bookImage {
+  position: absolute;
+  transform: rotate(-3.5deg);
+  border-radius: 2px;
+  left: -10px;
+  top: -5px;
+  width: auto;
+  height: 225px;
+  min-width: 150px;
+  min-height: 225px;
+  max-width: 160px;
+  max-height: 225px;
+  object-fit: cover;
+  border: 1px solid #bababa;
+}
+
+.wrapper > .bookDetail {
+  max-width: 210px;
+  position: absolute;
+  left: 165px;
+  top: 15px;
+  padding-right: 10px;
+  height: 100%;
+}
+
+.wrapper > .bookDetail > .desc {
+  color: #e6e6e6;
+  font-size: 13px;
+  padding: 5px 0;
+  height: 108px;
+  overflow: hidden;
+}
+
+.wrapper > .bookDetail > .desc > ul > li {
+  color: #fff;
+  font-weight: 600;
+}
+
+.wrapper > .bookDetail > .desc > ul > li > span {
+  color: #afafaf;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.wrapper > .bookDetail > .authorDetail > h2 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+  height: 36px;
+  overflow: hidden;
+}
+
+.wrapper > .bookDetail > .authorDetail > h3 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  color: #afafaf;
+  margin-top: -10px;
+}
+
+.rateLike {
+  position: absolute;
+  width: 210px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+  bottom: 20px;
+  margin-right: 50px;
+}
+
+.rateLike > .rate {
+  display: flex;
+  align-items: center;
+}
+
+.rateLike > .rate > .star {
+  color: rgb(230, 230, 0);
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.rateLike > .rate > span {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.rateLike > .updateDate {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 12px;
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 400px) {
+  .wrapper {
+    width: 320px;
+  }
+  .rateLike {
+    width: 170px;
+  }
+  .wrapper > .bookImage {
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .wrapper {
+    max-width: 300px;
+  }
+  .wrapper > .bookDetail {
+    max-width: 300px;
+    left: 10px;
+  }
+  .wrapper > .bookImage {
+    display: none;
+  }
+}

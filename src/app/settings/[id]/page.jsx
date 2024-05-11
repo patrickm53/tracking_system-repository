@@ -9,6 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { AiOutlineClose, AiOutlinePlusCircle } from "react-icons/ai";
 import dynamic from "next/dynamic";
+import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const SettingsBook = (ctx) => {
@@ -108,12 +109,13 @@ const SettingsBook = (ctx) => {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.imgContainer}>
-          <Image
-            alt="settingsBookImage"
-            src={bookDetail?.coverImage}
-            width={200}
-            height={400}
+          <ProfileImageControl
+            altImage="settingsBookImage"
+            imageName={bookDetail?.bookImage}
+            widthImage="200"
+            heightImage="300"
             className={classes.coverImage}
+            person={false}
           />
           <button className={classes.buttonGreen}>Resim Seç</button>
           <button>Resim Yükle</button>

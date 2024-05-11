@@ -1,0 +1,112 @@
+.modal {
+  position: relative;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 8px 9px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  min-height: 400px;
+  max-height: 600px;
+  min-width: 500px;
+  overflow-y: auto;
+}
+
+.uploadImage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.choseDesc {
+  min-width: 400px;
+  padding: 20px 0;
+  font-size: 50px;
+  color: rgb(62, 99, 210);
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 700;
+  margin-top: -50px;
+}
+
+.choseDesc p {
+  color: #000;
+  font-size: 24px;
+}
+
+.inputImage {
+  width: 200px;
+  position: relative;
+}
+
+.selectedFile {
+  width: 200px;
+  height: 30px;
+  position: absolute;
+  border: 1px red solid;
+  z-index: 1;
+  opacity: 0;
+}
+
+.inputImage span {
+  width: 200px;
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+  border-radius: 20px;
+  height: 30px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.closeIcon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.imageButton {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  display: flex;
+  gap: 10px;
+}
+
+.crossButton {
+  background-color: rgb(21, 102, 243);
+  width: 90px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.deleteImage {
+  width: 90px;
+  background-color: red;
+  font-size: 14px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+.imageSelectButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

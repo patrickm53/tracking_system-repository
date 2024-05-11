@@ -6,13 +6,9 @@ const BookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    coverImage: {
+    bookImage: {
       type: String,
       required: true,
-    },
-    rating: {
-      type: Number,
-      default: 0,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -23,21 +19,12 @@ const BookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-    },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
     ],
-    startDate: {
-      type: Date,
-    },
-    endDate: {
-      type: Date,
-    },
     genres: [
       {
         type: String,

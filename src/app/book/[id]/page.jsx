@@ -16,7 +16,11 @@ import {
   fetchProfileBook,
   fetchCommentPost,
   fetchProfile,
+  fetchGetBookComment,
 } from "../../api";
+import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
+import Loading from "@/components/loading/Loading";
+import BookDetailComment from "@/components/bookDetailComment/BookDetailComment";
 
 const BookDetails = (ctx) => {
   const [bookDetails, setBookDetails] = useState("");
@@ -26,8 +30,10 @@ const BookDetails = (ctx) => {
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
   const [userDetail, setUserDetail] = useState("");
+  const [accessDenied, setAccessDenied] = useState(false);
+  const [bookComment, setBookComment] = useState([]);
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter;
 
   useEffect(() => {
@@ -37,8 +43,16 @@ const BookDetails = (ctx) => {
 
       setUserDetail(data);
     }
-    fetchProfiles();
+    session && fetchProfiles();
   }, [session]);
+
+  useEffect(() => {
+    async function fetchBookComment() {
+      const data = await fetchGetBookComment(ctx?.params?.id);
+      setBookComment(data);
+    }
+    ctx && fetchBookComment();
+  }, [ctx]);
 
   useEffect(() => {
     async function fetchComments() {
@@ -54,11 +68,10 @@ const BookDetails = (ctx) => {
   useEffect(() => {
     async function fetchBook() {
       const book = await fetchBookId(ctx.params.id);
-
       setBookDetails(book);
     }
-    session && fetchBook();
-  }, [ctx, session]);
+    fetchBook();
+  }, [ctx]);
 
   useEffect(() => {
     const fetchSimilarBooks = async () => {
@@ -82,10 +95,10 @@ const BookDetails = (ctx) => {
   useEffect(() => {
     const fetchProfileBooks = async () => {
       try {
-        const books = await fetchProfileBook(bookDetails.user._id);
+        const books = await fetchProfileBook(bookDetails?.user?._id);
 
         const differentBooks = books.filter(
-          (book) => book._id !== bookDetails?._id
+          (book) => book?._id !== bookDetails?._id
         );
 
         const filteredBooks = differentBooks.slice(0, 3);
@@ -132,19 +145,28 @@ const BookDetails = (ctx) => {
     }
   };
 
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "unauthenticated") {
+    accessDenied === false && setAccessDenied(true);
+  }
+
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.imgContainer}>
-          <Image
-            alt="bookDetailImage"
-            src={bookDetails.coverImage}
+          <ProfileImageControl
+            altImage="bookDetailImage"
+            imageName={bookDetails?.bookImage}
             className={classes.image}
-            width="250"
-            height="500"
+            widthImage="300"
+            heightImage="450"
+            person={false}
           />
           <button className={classes.button1}>Diğer Okurlar</button>
-          <Link href={"/createbook"}>
+          <Link href={`/createbook/${ctx.params.id}`}>
             <button className={classes.button2}>Yorum Paylaş</button>
           </Link>
           <div className={classes.bookSayfa}>
@@ -154,9 +176,9 @@ const BookDetails = (ctx) => {
               <span>Yayın Tarihi : </span>
             </div>
             <div className={classes.bilgi}>
-              <span>{bookDetails.pages}</span>
-              <span>{bookDetails.language}</span>
-              <span>{bookDetails.years}</span>
+              <span>{bookDetails?.pages}</span>
+              <span>{bookDetails?.language}</span>
+              <span>{bookDetails?.years}</span>
             </div>
           </div>
         </div>
@@ -175,30 +197,8 @@ const BookDetails = (ctx) => {
               <span>{bookDetails.rating}</span>
             </div>
           </div>
-          <div className={classes.bookDetailsProfil}>
-            <div>
-              <Link
-                className={classes.link}
-                href={`/profile/${bookDetails?.user?._id}`}
-              >
-                <Image
-                  alt="detailProfil"
-                  src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${bookDetails?.user?.profilImage}`}
-                  width="30"
-                  height="30"
-                  className={classes.detailsProfilImage}
-                />
-                {bookDetails?.user?.name}
-              </Link>
-              <div>
-                - paylaşım <span>{postCount}</span> - yorum <span>72</span>
-              </div>
-            </div>
-          </div>
-          <div
-            className={classes.desc}
-            dangerouslySetInnerHTML={{ __html: bookDetails.description }}
-          />
+          {bookComment &&
+            bookComment.map((item) => <BookDetailComment bookDetails={item} />)}
 
           <div className={classes.tür}>
             tür :
@@ -215,12 +215,13 @@ const BookDetails = (ctx) => {
                     <li key={book._id}>
                       <Link className={classes.link} href={`/book/${book._id}`}>
                         <div className={classes.imgSimilarContainer}>
-                          <Image
-                            alt="book._id"
-                            src={book.coverImage}
-                            width="150"
-                            height="300"
+                          <ProfileImageControl
+                            altImage="book._id"
+                            imageName={book.bookImage}
+                            widthImage="150"
+                            heightImage="300"
                             className={classes.image}
+                            person={false}
                           />
                         </div>
                       </Link>
@@ -240,12 +241,13 @@ const BookDetails = (ctx) => {
                     <li key={book._id}>
                       <Link className={classes.link} href={`/book/${book._id}`}>
                         <div className={classes.imgSimilarContainer}>
-                          <Image
-                            alt="book._id"
-                            src={book.coverImage}
-                            width="150"
-                            height="300"
+                          <ProfileImageControl
+                            altImage="book._id"
+                            imageName={book.bookImage}
+                            widthImage="150"
+                            heightImage="300"
                             className={classes.image}
+                            person={false}
                           />
                         </div>
                       </Link>
@@ -256,39 +258,42 @@ const BookDetails = (ctx) => {
               </div>
             </>
           )}
-          <div className={classes.commentSection}>
-            <div className={classes.commentInput}>
-              <Image
-                src={`https://bookwave-profile-image.s3.eu-central-1.amazonaws.com/profileImage/${userDetail?.profilImage}`}
-                width="45"
-                height="45"
-                alt=""
-              />
-              <input
-                value={commentText}
-                type="text"
-                placeholder="Yorumunu Yaz..."
-                onChange={(e) => setCommentText(e.target.value)}
-              />
-              <button onClick={handleComment}>Paylaş</button>
+          {/* {accessDenied !== true && (
+            <div className={classes.commentSection}>
+              <div className={classes.commentInput}>
+                <ProfileImageControl
+                  altImage="comment profiel Image"
+                  imageName={userDetail?.profilImage}
+                  widthImage="45"
+                  heightImage="45"
+                  person={true}
+                />
+                <input
+                  value={commentText}
+                  type="text"
+                  placeholder="Yorumunu Yaz..."
+                  onChange={(e) => setCommentText(e.target.value)}
+                />
+                <button onClick={handleComment}>Paylaş</button>
+              </div>
+              <div className={classes.comments}>
+                {comments?.length > 0 ? (
+                  comments.map((comment) => (
+                    <Comment
+                      key={comment._id}
+                      comment={comment}
+                      setComments={setComments}
+                      userDetail={userDetail}
+                    />
+                  ))
+                ) : (
+                  <h4 className={classes.noComments}>
+                    Yorum yok! İlk sen yapmak ister misin?
+                  </h4>
+                )}
+              </div>
             </div>
-            <div className={classes.comments}>
-              {comments?.length > 0 ? (
-                comments.map((comment) => (
-                  <Comment
-                    key={comment._id}
-                    comment={comment}
-                    setComments={setComments}
-                    userDetail={userDetail}
-                  />
-                ))
-              ) : (
-                <h4 className={classes.noComments}>
-                  Yorum yok! İlk sen yapmak ister misin?
-                </h4>
-              )}
-            </div>
-          </div>
+          )} */}
         </div>
       </div>
       <ToastContainer />
