@@ -16,7 +16,7 @@ import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 
 const ProfilePost = ({ book }) => {
   const { data: session } = useSession();
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(book?.user);
   const [color, setColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
   const [bookLikes, setBookLikes] = useState(0);
@@ -45,7 +45,7 @@ const ProfilePost = ({ book }) => {
 
   const handleLike = async () => {
     try {
-      const res = await fetch(`/api/book/${book._id}/like`, {
+      const res = await fetch(`/api/bookComment/${book._id}/like`, {
         headers: {
           Authorization: `Bearer ${session?.user?.accessToken}`,
         },
@@ -66,17 +66,17 @@ const ProfilePost = ({ book }) => {
     }
   };
 
-  useEffect(() => {
-    async function fetchUser() {
-      const res = await fetch(`/api/profile/${book.user}`, {
-        cache: "no-store",
-      });
-      const user = await res.json();
+  // useEffect(() => {
+  //   async function fetchUser() {
+  //     const res = await fetch(`/api/profile/${book.user}`, {
+  //       cache: "no-store",
+  //     });
+  //     const user = await res.json();
 
-      setUser(user);
-    }
-    fetchUser();
-  }, [book]);
+  //     setUser(user);
+  //   }
+  //   fetchUser();
+  // }, [book]);
 
   return (
     <div className={classes.container}>
@@ -108,7 +108,7 @@ const ProfilePost = ({ book }) => {
           >
             <ProfileImageControl
               altImage="coverImage"
-              imageName={book.bookImage}
+              imageName={book.book.bookImage}
               widthImage="300"
               heightImage="180"
               className={classes.bookImage}
@@ -117,8 +117,8 @@ const ProfilePost = ({ book }) => {
           </div>
         </div>
         <div className={classes.postInformation}>
-          <h1>{book.title}</h1>
-          <h2>{book.author}</h2>
+          <h1>{book.book.title}</h1>
+          <h2>{book.book.author}</h2>
           <div
             className={classes.desc}
             dangerouslySetInnerHTML={{ __html: book.description }}

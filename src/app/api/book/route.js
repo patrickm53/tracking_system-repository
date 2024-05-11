@@ -39,7 +39,6 @@ export async function GET(req) {
       const bookComments = await BookComment.find({ book: book._id })
         .sort({
           likes: -1,
-          createdAt: 1,
         })
         .populate("user");
 

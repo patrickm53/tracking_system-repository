@@ -146,7 +146,7 @@ const Profile = (ctx) => {
               {books?.length > 0 ? (
                 books.map((book) => <ProfilePost key={book._id} book={book} />)
               ) : (
-                <div>kitap yok</div>
+                <></>
               )}
             </div>
           ) : (
