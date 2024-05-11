@@ -103,7 +103,6 @@ const CreateBookNew = () => {
       });
 
       const bookId = await response.json();
-      console.log("bookss", bookId);
       if (bookId) {
         formComment.append("book", bookId);
         const res = await fetch(`/api/bookComment`, {

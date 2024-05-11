@@ -58,7 +58,6 @@ export async function GET(req) {
       };
       lastBook.push(responseBook);
     }
-    console.log(lastBook);
 
     return new Response(JSON.stringify(lastBook), { status: 200 });
   } catch (error) {
