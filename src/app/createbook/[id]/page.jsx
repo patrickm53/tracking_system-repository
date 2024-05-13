@@ -26,9 +26,6 @@ const CreateBookComment = (ctx) => {
   useEffect(() => {
     async function fetchBooks() {
       const book = await fetchBookId(ctx?.params?.id);
-      if (book.description) {
-        book.description = description;
-      }
       setBooks(book);
     }
     fetchBooks();
@@ -38,7 +35,7 @@ const CreateBookComment = (ctx) => {
     if (books) {
       books.description = description;
     }
-  }, [description]);
+  }, [description, books]);
 
   if (status === "loading") {
     return <Loading />;

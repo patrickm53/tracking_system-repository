@@ -64,12 +64,12 @@ const CreateBookSearchCard = ({ book }) => {
             <li>
               Dil: <span>{book?.language}</span>
             </li>
-            <li>
+            {/* <li>
               Tür:{" "}
               {book?.genres.map((item) => (
                 <span> {item},</span>
               ))}
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className={classes.rateLike}>

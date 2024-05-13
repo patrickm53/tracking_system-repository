@@ -198,7 +198,9 @@ const BookDetails = (ctx) => {
             </div>
           </div>
           {bookComment &&
-            bookComment.map((item) => <BookDetailComment bookDetails={item} />)}
+            bookComment.map((item) => (
+              <BookDetailComment key={item?._id} bookDetails={item} />
+            ))}
 
           <div className={classes.tür}>
             tür :

@@ -54,7 +54,7 @@ const Profile = (ctx) => {
     fetchUser();
     fetchBooks();
     fetchSuggestion();
-  }, [ctx, session]);
+  }, [ctx, session, suggestion]);
 
   const handleButtonClick = (buttonName) => {
     setNavbarSelect(buttonName);
