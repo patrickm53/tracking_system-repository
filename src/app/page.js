@@ -3,19 +3,39 @@ import ProductCard from "@/components/productCard/ProductCard";
 import SimpleSlider from "@/components/slider/SimpleSlider";
 import React, { useEffect, useState } from "react";
 import classes from "./page.module.css";
-import { fetchProfilesAll, getBook } from "./api";
+import { fetchProfilesAll, getBookPage } from "./api";
 import { PropagateLoader } from "react-spinners";
+import PaginationButton from "@/components/paginationBtn/PaginationButton";
 
 const Home = () => {
-  const [books, setBooks] = useState("");
+  const [books, setBooks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   useEffect(() => {
     async function fetchBooks() {
-      const book = await getBook();
+      const response = await getBookPage(currentPage);
+      const fetchedBooks = response.books;
+      const fetchedTotalPages = response.totalPages;
+      const fetchedCurrentPages = response.currentPage;
 
-      setBooks(book);
+      setCurrentPage(fetchedCurrentPages);
+      setTotalPages(fetchedTotalPages);
+      setBooks(fetchedBooks);
     }
     fetchBooks();
   }, []);
+
+  async function fetchMoreBooks() {
+    const response = await getBookPage(currentPage + 1);
+    const fetchedBooks = response.books;
+    const fetchedTotalPages = response.totalPages;
+    const fetchedCurrentPages = response.currentPage;
+
+    setCurrentPage(fetchedCurrentPages);
+    setTotalPages(fetchedTotalPages);
+    setBooks([...books, ...fetchedBooks]);
+  }
+
   return (
     <div className={classes.container}>
       <SimpleSlider />
@@ -30,6 +50,11 @@ const Home = () => {
           )}
         </div>
       </div>
+      <PaginationButton
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onClick={fetchMoreBooks}
+      />
     </div>
   );
 };

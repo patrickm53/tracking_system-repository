@@ -6,7 +6,7 @@ import BookComment from "@/models/BookComment";
 export async function GET(req, ctx) {
   await connect();
 
-  const userId = ctx.params.id;
+  const userId = ctx.params.userId;
 
   try {
     const book = await BookComment.find({ user: userId })
