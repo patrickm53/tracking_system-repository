@@ -4,6 +4,12 @@ export async function getBook() {
   return data;
 }
 
+export async function getBookPage(page) {
+  const response = await fetch(`/api/book/page/${page}`);
+  const data = await response.json();
+  return data;
+}
+
 export async function fetchSearchBook(searchBook) {
   const response = await fetch(`/api/search/${searchBook}`);
   const data = await response.json();
@@ -130,5 +136,11 @@ export async function fetchBookComment(body) {
 export async function fetchGetBookComment(bookId) {
   const response = await fetch(`/api/bookComment/${bookId}`);
   const data = response.json();
+  return data;
+}
+
+export async function fetchProfileBookPage(userId, page) {
+  const response = await fetch(`/api/book/profile/${userId}/${page}`);
+  const data = await response.json();
   return data;
 }

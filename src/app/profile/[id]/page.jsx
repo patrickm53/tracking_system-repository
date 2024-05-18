@@ -6,23 +6,24 @@ import { FaBirthdayCake } from "react-icons/fa";
 import { BiCurrentLocation } from "react-icons/bi";
 import { TbNetwork } from "react-icons/tb";
 import { BsFillPostcardFill } from "react-icons/bs";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import classes from "./profile.module.css";
 import Image from "next/image";
 import ProfilePost from "@/components/profilePost/ProfilePost";
 import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
-import { fetchProfileBook, fetchProfile, fetchAllProfile } from "@/app/api";
+import { fetchProfileBookPage, fetchProfile, fetchAllProfile } from "@/app/api";
 import Suggestion from "@/components/suggestion/Suggestion";
 import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
+import PaginationButton from "@/components/paginationBtn/PaginationButton";
 
 const Profile = (ctx) => {
   const [suggestion, setSuggestion] = useState([]);
   const [user, setUser] = useState("");
-  const [books, setBooks] = useState("");
+  const [books, setBooks] = useState([]);
   const [navbarSelect, setNavbarSelect] = useState("yayınlar");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const { data: session } = useSession(false);
 
@@ -35,9 +36,29 @@ const Profile = (ctx) => {
 
       setUser(user);
     }
-    async function fetchBooks() {
-      const book = await fetchProfileBook(ctx.params.id);
-      setBooks(book);
+    async function fetchData() {
+      // const cachedBooks = JSON.parse(localStorage.getItem("profileBooks"));
+      // if (cachedBooks) {
+      //   setBooks(cachedBooks.books);
+      //   setCurrentPage(cachedBooks.currentPage);
+      //   setTotalPages(cachedBooks.totalPages);
+      // } else {
+      const user = await fetchProfile(ctx.params.id);
+      setUser(user);
+      const response = await fetchProfileBookPage(ctx.params.id, currentPage);
+      const fetchedBooks = response.books;
+      const fetchedTotalPages = response.totalPages;
+      const fetchedCurrentPages = response.currentPage;
+      setBooks(fetchedBooks);
+      setCurrentPage(fetchedCurrentPages);
+      setTotalPages(fetchedTotalPages);
+      //   const cachedData = {
+      //     books: fetchedBooks,
+      //     currentPage: fetchedCurrentPages,
+      //     totalPages: fetchedTotalPages,
+      //   };
+      //   localStorage.setItem("profileBooks", JSON.stringify(cachedData));
+      // }
     }
     async function fetchSuggestion() {
       if (suggestion.length > 1) {
@@ -52,7 +73,7 @@ const Profile = (ctx) => {
       setSuggestion(randomUsers);
     }
     fetchUser();
-    fetchBooks();
+    fetchData();
     fetchSuggestion();
   }, [ctx, session, suggestion]);
 
@@ -62,6 +83,23 @@ const Profile = (ctx) => {
 
   if (user.birthday) {
     userBirthday = user.birthday.split("T")[0];
+  }
+
+  async function fetchMoreBooks() {
+    const response = await fetchProfileBookPage(ctx.params.id, currentPage + 1);
+    const fetchedBooks = response.books;
+    const fetchedTotalPages = response.totalPages;
+    const fetchedCurrentPages = response.currentPage;
+
+    setCurrentPage(fetchedCurrentPages);
+    setTotalPages(fetchedTotalPages);
+    setBooks((prevBooks) => [...prevBooks, ...fetchedBooks]);
+    const cachedData = {
+      books: [...books, ...fetchedBooks],
+      currentPage: fetchedCurrentPages,
+      totalPages: fetchedTotalPages,
+    };
+    localStorage.setItem("profileBooks", JSON.stringify(cachedData));
   }
 
   return (
@@ -150,6 +188,12 @@ const Profile = (ctx) => {
               ) : (
                 <></>
               )}
+              <PaginationButton
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onClick={fetchMoreBooks}
+                margin="mt-2 mb-10"
+              />
             </div>
           ) : (
             ""
