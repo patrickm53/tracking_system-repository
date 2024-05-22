@@ -12,7 +12,13 @@ import Image from "next/image";
 import ProfilePost from "@/components/profilePost/ProfilePost";
 import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
-import { fetchProfileBookPage, fetchProfile, fetchAllProfile } from "@/app/api";
+import {
+  fetchProfileBookPage,
+  fetchProfile,
+  fetchAllProfile,
+  fetchFollowUser,
+  fetchGetFollowControl,
+} from "@/app/api";
 import Suggestion from "@/components/suggestion/Suggestion";
 import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 import PaginationButton from "@/components/paginationBtn/PaginationButton";
@@ -24,6 +30,7 @@ const Profile = (ctx) => {
   const [navbarSelect, setNavbarSelect] = useState("yayınlar");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [followControl, setFollowControl] = useState(null);
 
   const { data: session } = useSession(false);
 
@@ -77,6 +84,21 @@ const Profile = (ctx) => {
     fetchSuggestion();
   }, [ctx, session, suggestion]);
 
+  useEffect(() => {
+    if (!session || !user) {
+      return;
+    }
+    async function fetchFollowControlUser() {
+      const getFollowControl = await fetchGetFollowControl(
+        session?.user?._id,
+        user._id
+      );
+      setFollowControl(getFollowControl);
+      console.log("Control", getFollowControl);
+    }
+    fetchFollowControlUser();
+  }, [session, user]);
+
   const handleButtonClick = (buttonName) => {
     setNavbarSelect(buttonName);
   };
@@ -100,6 +122,23 @@ const Profile = (ctx) => {
       totalPages: fetchedTotalPages,
     };
     localStorage.setItem("profileBooks", JSON.stringify(cachedData));
+  }
+
+  async function handleFollow({ action }) {
+    console.log("action", action);
+    if (action === "follow") {
+      setFollowControl(true);
+    } else if (action === "unfollow") {
+      setFollowControl(false);
+    }
+    const token = session?.user?.accessToken;
+    const response = await fetchFollowUser(
+      token,
+      session?.user?._id,
+      user._id,
+      action
+    );
+    console.log(response);
   }
 
   return (
@@ -128,7 +167,25 @@ const Profile = (ctx) => {
               </button>
             </div>
             <div className={classes.navbarRight}>
-              {session?.user?._id !== user._id && <button>Takip Et</button>}
+              {session?.user?._id === user._id || followControl === null ? (
+                <></>
+              ) : followControl === false ? (
+                <button
+                  className={classes.followButton}
+                  onClick={() => handleFollow({ action: "follow" })}
+                >
+                  Takip Et
+                </button>
+              ) : followControl === true ? (
+                <button
+                  onClick={() => handleFollow({ action: "unfollow" })}
+                  className={classes.followingButton}
+                >
+                  Takiptesin
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

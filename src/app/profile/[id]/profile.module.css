@@ -47,11 +47,18 @@
   border-bottom: 1px solid #000;
 }
 
-.profileNavbar > .navbar > .navbarRight > button {
+.profileNavbar > .navbar > .navbarRight > .followButton {
   background-color: rgb(70, 70, 70);
   padding: 5px 15px;
   border-radius: 4px;
   color: #fff;
+}
+
+.profileNavbar > .navbar > .navbarRight > .followingButton {
+  background-color: #afafaf;
+  padding: 5px 15px;
+  border-radius: 4px;
+  color: #000;
 }
 
 .backgroundImage {

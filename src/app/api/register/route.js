@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import User from "@/models/User";
 import connect from "@/lib/db";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import Follower from "@/models/Follower";
 
 const s3Client = new S3Client({
   region: process.env.REGION,
@@ -90,6 +91,8 @@ export async function POST(req) {
     });
 
     const { password, ...user } = newUser._doc;
+
+    await Follower.create({ user: user._id, following: [], followers: [] });
 
     return new Response(JSON.stringify(user), { status: 201 });
   } catch (error) {
