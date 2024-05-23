@@ -49,6 +49,7 @@ export async function GET(req) {
           0
         );
         averageRating = totalRating / bookComments.length;
+        averageRating = averageRating.toFixed(1);
       }
       book.user = bookComments[0].user;
       const responseBook = {
