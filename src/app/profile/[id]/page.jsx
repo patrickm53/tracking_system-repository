@@ -18,6 +18,7 @@ import {
   fetchAllProfile,
   fetchFollowUser,
   fetchGetFollowControl,
+  fetchSuggestionProfile,
 } from "@/app/api";
 import Suggestion from "@/components/suggestion/Suggestion";
 import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
@@ -71,13 +72,11 @@ const Profile = (ctx) => {
       if (suggestion.length > 1) {
         return;
       }
-      const users = await fetchAllProfile();
-      const filteredUser = users.filter(
-        (user) => user._id !== session?.user?._id
+      const users = await fetchSuggestionProfile(
+        session?.user?._id,
+        ctx.params.id
       );
-      const shuffledData = filteredUser.sort(() => Math.random() - 0.5);
-      const randomUsers = shuffledData.slice(0, 3);
-      setSuggestion(randomUsers);
+      setSuggestion(users);
     }
     fetchUser();
     fetchData();
@@ -267,7 +266,6 @@ const Profile = (ctx) => {
           ) : (
             <div>öneriler yükleniyor...</div>
           )}
-          <a>daha fazla</a>
         </div>
       </div>
     </div>

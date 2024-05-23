@@ -82,6 +82,14 @@ export async function fetchAllProfile() {
   return data;
 }
 
+export async function fetchSuggestionProfile(userId, profileId) {
+  const response = await fetch(
+    `/api/profile/suggestion/${userId}/${profileId}`
+  );
+  const data = await response.json();
+  return data;
+}
+
 export async function fetchProfile(userId) {
   const response = await fetch(`/api/profile/${userId}`);
   const data = await response.json();
