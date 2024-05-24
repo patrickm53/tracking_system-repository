@@ -65,8 +65,6 @@ const ProductCard = ({ book, profile }) => {
             </Link>
             <span>•</span>
             <div className={classes.clock}>3s</div>
-            <span>•</span>
-            <button className={classes.followers}>Takip Et</button>
           </div>
         )}
         <div style={{ backgroundColor }} className={classes.wrapper}>

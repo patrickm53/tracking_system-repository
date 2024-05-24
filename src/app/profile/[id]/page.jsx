@@ -137,7 +137,6 @@ const Profile = (ctx) => {
       user._id,
       action
     );
-    console.log(response);
   }
 
   return (
@@ -261,8 +260,10 @@ const Profile = (ctx) => {
 
         <div className={classes.right}>
           <h2>Takip Önerisi</h2>
-          {suggestion?.length > 0 ? (
-            suggestion.map((user) => <Suggestion key={user._id} user={user} />)
+          {suggestion?.length > 0 && session ? (
+            suggestion.map((user) => (
+              <Suggestion key={user._id} user={user} session={session} />
+            ))
           ) : (
             <div>öneriler yükleniyor...</div>
           )}

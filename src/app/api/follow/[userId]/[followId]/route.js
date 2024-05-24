@@ -7,7 +7,6 @@ export async function POST(req, ctx) {
 
   const { userId, followId } = ctx.params;
   const { action } = await req.json();
-  console.log("action", action);
 
   const accessToken = req.headers.get("authorization");
   const token = accessToken.split(" ")[1];

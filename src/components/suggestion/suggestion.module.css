@@ -31,9 +31,17 @@
   font-size: 12px;
 }
 
-.followPerson > button {
+.followPerson > .followButton {
   background-color: rgb(70, 70, 70);
   color: #fff;
+  border-radius: 4px;
+  height: 30px;
+  padding: 0 10px;
+}
+
+.followPerson > .followingButton {
+  background-color: #afafaf;
+  color: #000;
   border-radius: 4px;
   height: 30px;
   padding: 0 10px;
