@@ -25,6 +25,7 @@ import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined"
 import PaginationButton from "@/components/paginationBtn/PaginationButton";
 import Loading from "@/components/loading/Loading";
 import { ClipLoader, FadeLoader, PulseLoader } from "react-spinners";
+import FollowCount from "@/components/followPopup/FollowPopup";
 
 const Profile = (ctx) => {
   const [suggestion, setSuggestion] = useState(null);
@@ -86,25 +87,24 @@ const Profile = (ctx) => {
   }, [ctx, session, suggestion]);
 
   useEffect(() => {
-    if (!session || !user) {
+    if (!session || !ctx.params.id) {
       return;
     }
     async function fetchFollowControlUser() {
       const getFollowControl = await fetchGetFollowControl(
         session?.user?._id,
-        user._id
+        ctx.params.id
       );
       setFollowControl(getFollowControl);
-      console.log("Control", getFollowControl);
     }
     fetchFollowControlUser();
-  }, [session, user]);
+  }, [session, ctx]);
 
   const handleButtonClick = (buttonName) => {
     setNavbarSelect(buttonName);
   };
 
-  if (user.birthday) {
+  if (user?.birthday) {
     userBirthday = user.birthday.split("T")[0];
   }
 
@@ -126,7 +126,6 @@ const Profile = (ctx) => {
   }
 
   async function handleFollow({ action }) {
-    console.log("action", action);
     if (action === "follow") {
       setFollowControl(true);
     } else if (action === "unfollow") {
@@ -152,19 +151,8 @@ const Profile = (ctx) => {
             heigh={100}
           />
           <div className={classes.navbar}>
-            <div className={classes.navbarLeft}>
-              <button
-                className={navbarSelect === "yayınlar" ? classes.active : ""}
-                onClick={() => handleButtonClick("yayınlar")}
-              >
-                Yayınlar
-              </button>
-              <button
-                className={navbarSelect === "yorumlar" ? classes.active : ""}
-                onClick={() => handleButtonClick("yorumlar")}
-              >
-                Yorumlar
-              </button>
+            <div>
+              <FollowCount userId={ctx.params.id} />
             </div>
             <div className={classes.navbarRight}>
               {session?.user?._id === user._id || followControl === null ? (
@@ -235,27 +223,45 @@ const Profile = (ctx) => {
             <p>{user.story}</p>
           </div>
         </div>
-        <div className={classes.post}>
-          {navbarSelect === "yayınlar" ? (
-            <div className={classes.postAndStory}>
-              {books === "dont" ? (
-                <div>kitap yok</div>
-              ) : books?.length > 0 ? (
-                books.map((book) => <ProfilePost key={book._id} book={book} />)
-              ) : (
-                <></>
-              )}
-              <PaginationButton
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onClick={fetchMoreBooks}
-                margin="mt-2 mb-10"
-              />
-            </div>
-          ) : (
-            ""
-          )}
-          {navbarSelect === "yorumlar" ? <div>yorumlar</div> : ""}
+        <div className={classes.middle}>
+          <div className={classes.headerTitle}>
+            <button
+              className={navbarSelect === "yayınlar" ? classes.active : ""}
+              onClick={() => handleButtonClick("yayınlar")}
+            >
+              Yayınlar
+            </button>
+            <button
+              className={navbarSelect === "yorumlar" ? classes.active : ""}
+              onClick={() => handleButtonClick("yorumlar")}
+            >
+              Yorumlar
+            </button>
+          </div>
+          <div className={classes.post}>
+            {navbarSelect === "yayınlar" ? (
+              <div className={classes.postAndStory}>
+                {books === "dont" ? (
+                  <div>kitap yok</div>
+                ) : books?.length > 0 ? (
+                  books.map((book) => (
+                    <ProfilePost key={book._id} book={book} />
+                  ))
+                ) : (
+                  <></>
+                )}
+                <PaginationButton
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onClick={fetchMoreBooks}
+                  margin="mt-2 mb-10"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            {navbarSelect === "yorumlar" ? <div>yorumlar</div> : ""}
+          </div>
         </div>
 
         {/* Takip önerisi kısmı */}

@@ -1,0 +1,14 @@
+.followContainer {
+  display: flex;
+  gap: 40px;
+}
+
+.followButton {
+  font-size: 16px;
+  font-weight: 600;
+  color: #616161;
+}
+
+.followButton > span {
+  color: #000;
+}

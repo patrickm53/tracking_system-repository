@@ -172,3 +172,9 @@ export async function fetchGetFollowControl(userId, followId) {
   const data = await response.json();
   return data;
 }
+
+export async function fetchFollowCount(userId) {
+  const response = await fetch(`/api/follow/count/${userId}`);
+  const data = await response.json();
+  return data;
+}

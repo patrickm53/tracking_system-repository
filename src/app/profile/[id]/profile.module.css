@@ -31,19 +31,11 @@
   padding-right: 50px;
 }
 
-.profileNavbar > .navbar > .navbarLeft > button {
-  margin-right: 30px;
-  font-weight: 700;
-  font-size: 20px;
-  padding: 5px 10px 5px 10px;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.navbarLeft > button:hover {
+.headerTitle > button:hover {
   background-color: #ccc;
 }
 
-.navbarLeft > .active {
+.headerTitle > .active {
   border-bottom: 1px solid #000;
 }
 
@@ -172,12 +164,27 @@
   cursor: pointer;
 }
 
-.post {
-  display: flex;
-  justify-content: center;
+.middle {
   width: 50%;
   margin-left: 20px;
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.middle > .headerTitle > button {
+  margin-right: 30px;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 5px 10px 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.post {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .postAndStory {
