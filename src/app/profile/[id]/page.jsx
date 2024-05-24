@@ -23,9 +23,11 @@ import {
 import Suggestion from "@/components/suggestion/Suggestion";
 import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 import PaginationButton from "@/components/paginationBtn/PaginationButton";
+import Loading from "@/components/loading/Loading";
+import { ClipLoader, FadeLoader, PulseLoader } from "react-spinners";
 
 const Profile = (ctx) => {
-  const [suggestion, setSuggestion] = useState([]);
+  const [suggestion, setSuggestion] = useState(null);
   const [user, setUser] = useState("");
   const [books, setBooks] = useState([]);
   const [navbarSelect, setNavbarSelect] = useState("yayınlar");
@@ -69,7 +71,7 @@ const Profile = (ctx) => {
       // }
     }
     async function fetchSuggestion() {
-      if (suggestion.length > 1) {
+      if (suggestion?.length > 1) {
         return;
       }
       const users = await fetchSuggestionProfile(
@@ -264,8 +266,12 @@ const Profile = (ctx) => {
             suggestion.map((user) => (
               <Suggestion key={user._id} user={user} session={session} />
             ))
+          ) : suggestion?.length === 0 ? (
+            <></>
           ) : (
-            <div>öneriler yükleniyor...</div>
+            <div className={classes.loadingContainer}>
+              <FadeLoader size={50} color={"#bababa"} loading={true} />
+            </div>
           )}
         </div>
       </div>

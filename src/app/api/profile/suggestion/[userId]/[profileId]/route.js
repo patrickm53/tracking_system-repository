@@ -19,7 +19,6 @@ export async function GET(req, ctx) {
       ? followAll.following.map((f) => f.toString())
       : [];
     followingIds.push(userId.toString(), profileId.toString());
-    console.log(followingIds);
 
     const users = await User.aggregate([
       {
