@@ -72,7 +72,7 @@ const Profile = (ctx) => {
       // }
     }
     async function fetchSuggestion() {
-      if (suggestion?.length > 1) {
+      if (suggestion?.length > 1 || !session || !ctx.params.id) {
         return;
       }
       const users = await fetchSuggestionProfile(
