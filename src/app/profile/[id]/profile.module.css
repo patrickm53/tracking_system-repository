@@ -47,10 +47,10 @@
 }
 
 .profileNavbar > .navbar > .navbarRight > .followingButton {
-  background-color: #afafaf;
+  background-color: #6e6e6eb3;
   padding: 5px 15px;
   border-radius: 4px;
-  color: #000;
+  color: #fff;
 }
 
 .backgroundImage {

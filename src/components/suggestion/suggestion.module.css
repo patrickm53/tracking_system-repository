@@ -40,8 +40,8 @@
 }
 
 .followPerson > .followingButton {
-  background-color: #afafaf;
-  color: #000;
+  background-color: #6e6e6eb3;
+  color: #fff;
   border-radius: 4px;
   height: 30px;
   padding: 0 10px;

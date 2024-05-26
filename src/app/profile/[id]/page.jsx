@@ -155,7 +155,8 @@ const Profile = (ctx) => {
               <FollowCount userId={ctx.params.id} />
             </div>
             <div className={classes.navbarRight}>
-              {session?.user?._id === user._id || followControl === null ? (
+              {session?.user?._id === ctx.params.id ||
+              followControl === null ? (
                 <></>
               ) : followControl === false ? (
                 <button
