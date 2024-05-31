@@ -184,3 +184,11 @@ export async function fetchFollowerViewData(userId, action) {
   const data = await response.json();
   return data;
 }
+
+export async function fetchFollowSearch(searchUser, userId, action) {
+  const response = await fetch(
+    `/api/follow/search/${searchUser}/${userId}/${action}`
+  );
+  const data = await response.json();
+  return data;
+}

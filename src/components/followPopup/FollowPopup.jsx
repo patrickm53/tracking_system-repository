@@ -1,24 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
 import classes from "./followPopup.module.css";
-import { fetchFollowCount, fetchFollowerViewData } from "@/app/api";
+import {
+  fetchFollowCount,
+  fetchFollowSearch,
+  fetchFollowerViewData,
+} from "@/app/api";
 import { Box, Modal } from "@mui/material";
 import Image from "next/image";
 import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import Link from "next/link";
 
 const FollowCard = ({ user, action }) => {
   return (
     <div className={classes.followCard}>
       <div className={classes.followCardHeader}>
-        <ProfileImageControl
-          imageName={user.profilImage}
-          widthImage={50}
-          heightImage={50}
-          altImage={user.username}
-          className={classes.followCardImage}
-          person={true}
-        />
+        <Link href={`/profile/${user._id}`}>
+          <ProfileImageControl
+            imageName={user.profilImage}
+            widthImage={50}
+            heightImage={50}
+            altImage={user.username}
+            className={classes.followCardImage}
+            person={true}
+          />
+        </Link>
         <div className={classes.followCardInfo}>
           <p className={classes.followCardUsername}>{user.username}</p>
           <p className={classes.followCardName}>{user.name}</p>
@@ -36,9 +43,45 @@ const FollowCard = ({ user, action }) => {
 };
 
 const ModalPopup = ({ closeModal, open, userId, action }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(undefined);
+  const [allUsers, setAllUsers] = useState(null);
   const [users, setUsers] = useState(null);
   const [actionType, setActionType] = useState(null);
+  const [debouncedSearchBook, setDebouncedSearchBook] = useState(null);
+
+  useEffect(() => {
+    if (search?.length < 1) {
+      setDebouncedSearchBook(null);
+      setUsers(allUsers);
+      return;
+    }
+    if (!search) {
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      setDebouncedSearchBook(search);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [search]);
+
+  useEffect(() => {
+    if (!debouncedSearchBook || !userId || !action) {
+      return;
+    }
+    async function fetchSearch() {
+      const response = await fetchFollowSearch(
+        debouncedSearchBook,
+        userId,
+        action
+      );
+      setUsers(response);
+    }
+    fetchSearch();
+  }, [debouncedSearchBook]);
+
   useEffect(() => {
     if (!userId || !action) {
       return;
@@ -46,12 +89,13 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
     if (actionType !== action) {
       setUsers(null);
     }
-    console.log("ilerledi");
     async function fetchFollowerView() {
       const response = await fetchFollowerViewData(userId, action);
       setUsers(response.following || response.followers);
+      setAllUsers(response.following || response.followers);
       setActionType(action);
     }
+
     fetchFollowerView();
   }, [userId, action]);
   return (
