@@ -11,6 +11,7 @@ import Image from "next/image";
 import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
+import { PulseLoader } from "react-spinners";
 
 const FollowCard = ({ user, action }) => {
   return (
@@ -48,9 +49,11 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
   const [users, setUsers] = useState(null);
   const [actionType, setActionType] = useState(null);
   const [debouncedSearchBook, setDebouncedSearchBook] = useState(null);
+  const [searchLoading, setSearchLoading] = useState(false);
 
   useEffect(() => {
     if (search?.length < 1) {
+      setSearchLoading(false);
       setDebouncedSearchBook(null);
       setUsers(allUsers);
       return;
@@ -58,6 +61,7 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
     if (!search) {
       return;
     }
+    setSearchLoading(true);
     const timeoutId = setTimeout(() => {
       setDebouncedSearchBook(search);
     }, 1000);
@@ -78,6 +82,7 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
         action
       );
       setUsers(response);
+      setSearchLoading(false);
     }
     fetchSearch();
   }, [debouncedSearchBook]);
@@ -120,6 +125,7 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
               placeholder="Ara..."
               onChange={(event) => setSearch(event.target.value)}
             />
+            <PulseLoader size={10} color={"#bababa"} loading={searchLoading} />
           </div>
         </div>
         <div className={classes.componentContainer}>
