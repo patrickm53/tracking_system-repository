@@ -162,9 +162,6 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
             <PulseLoader size={10} color={"#bababa"} loading={searchLoading} />
           </div>
         </div>
-        <div className={classes.popupLoading}>
-          <FadeLoader size={50} color={"#bababa"} loading={loading} />
-        </div>
         <div className={classes.componentContainer}>
           {users &&
             users.length > 0 &&
@@ -172,6 +169,11 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
               <FollowCard key={user._id} user={user} action={action} handleFollow={handleFollow} />
             ))}
         </div>
+        {loading && (
+          <div className={classes.popupLoading}>
+          <FadeLoader size={50} color={"#bababa"} loading={loading} />
+        </div>
+        )}
       </Box>
     </Modal>
   );
