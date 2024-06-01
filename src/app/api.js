@@ -179,8 +179,8 @@ export async function fetchFollowCount(userId) {
   return data;
 }
 
-export async function fetchFollowerViewData(userId, action) {
-  const response = await fetch(`/api/follow/${action}/${userId}`);
+export async function fetchFollowerViewData(userId, action, meId) {
+  const response = await fetch(`/api/follow/${action}/${userId}/${meId}`);
   const data = await response.json();
   return data;
 }

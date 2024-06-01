@@ -4,6 +4,7 @@ import classes from "./followPopup.module.css";
 import {
   fetchFollowCount,
   fetchFollowSearch,
+  fetchFollowUser,
   fetchFollowerViewData,
 } from "@/app/api";
 import { Box, Modal } from "@mui/material";
@@ -11,9 +12,11 @@ import Image from "next/image";
 import { ProfileImageControl } from "../imageUndefined/ImageUndefined";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
-import { PulseLoader } from "react-spinners";
+import { FadeLoader, PulseLoader } from "react-spinners";
+import { useSession } from "next-auth/react";
 
-const FollowCard = ({ user, action }) => {
+const FollowCard = ({ user, action, handleFollow }) => {
+
   return (
     <div className={classes.followCard}>
       <div className={classes.followCardHeader}>
@@ -28,28 +31,57 @@ const FollowCard = ({ user, action }) => {
           />
         </Link>
         <div className={classes.followCardInfo}>
-          <p className={classes.followCardUsername}>{user.username}</p>
-          <p className={classes.followCardName}>{user.name}</p>
+          <p className={classes.followCardUsername}>{user.name}</p>
+          <p className={classes.followCardName}>{user.username}</p>
         </div>
       </div>
       <div className={classes.followContainer}>
-        {action === "followers" ? (
-          <button className={classes.followButtonPopup}>Takip Et</button>
-        ) : (
-          <button className={classes.followingButtonPopup}>Takiptesin</button>
-        )}
+        {user?.follow === false ? (
+          <button className={classes.followButtonPopup} onClick={() => handleFollow({ action: "follow", user: {user} })}>Takip Et</button>
+        ) : user?.follow === true ? (
+          <button className={classes.followingButtonPopup} onClick={() => handleFollow({ action: "unfollow", user: {user} })}>Takiptesin</button>
+        ) : <></>}
       </div>
     </div>
   );
 };
 
 const ModalPopup = ({ closeModal, open, userId, action }) => {
+  const { data: session } = useSession()
   const [search, setSearch] = useState(undefined);
   const [allUsers, setAllUsers] = useState(null);
   const [users, setUsers] = useState(null);
   const [actionType, setActionType] = useState(null);
   const [debouncedSearchBook, setDebouncedSearchBook] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  async function handleFollow({ action, user }) {
+    if (action === "follow") {
+      const updatedUsers = users.map(item => {
+        if (item._id === user.user._id) {
+          return { ...item, follow: true };
+        }
+        return item;
+      });
+      setUsers(updatedUsers);
+    } else if (action === "unfollow") {
+      const updatedUsers = users.map(item => {
+        if (item._id === user.user._id) {
+          return { ...item, follow: false };
+        }
+        return item;
+      });
+      setUsers(updatedUsers);
+    }
+    const token = session?.user?.accessToken;
+    const response = await fetchFollowUser(
+      token,
+      session?.user?._id,
+      user.user._id,
+      action
+    );
+  }
 
   useEffect(() => {
     if (search?.length < 1) {
@@ -88,21 +120,23 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
   }, [debouncedSearchBook]);
 
   useEffect(() => {
-    if (!userId || !action) {
+    if (!userId || !action || !session) {
       return;
     }
     if (actionType !== action) {
       setUsers(null);
     }
+    setLoading(true);
     async function fetchFollowerView() {
-      const response = await fetchFollowerViewData(userId, action);
-      setUsers(response.following || response.followers);
-      setAllUsers(response.following || response.followers);
+      const response = await fetchFollowerViewData(userId, action, session.user._id);
+      setLoading(false)
+      setUsers(response);
+      setAllUsers(response);
       setActionType(action);
     }
 
     fetchFollowerView();
-  }, [userId, action]);
+  }, [userId, action, session]);
   return (
     <Modal
       open={open}
@@ -128,11 +162,14 @@ const ModalPopup = ({ closeModal, open, userId, action }) => {
             <PulseLoader size={10} color={"#bababa"} loading={searchLoading} />
           </div>
         </div>
+        <div className={classes.popupLoading}>
+          <FadeLoader size={50} color={"#bababa"} loading={loading} />
+        </div>
         <div className={classes.componentContainer}>
           {users &&
             users.length > 0 &&
             users.map((user) => (
-              <FollowCard key={user._id} user={user} action={action} />
+              <FollowCard key={user._id} user={user} action={action} handleFollow={handleFollow} />
             ))}
         </div>
       </Box>
