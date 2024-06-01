@@ -18,6 +18,9 @@ export async function GET(req, ctx) {
         0
       );
       averageRating = totalRating / bookComment.length;
+      if (typeof averageRating === "number" && !isNaN(averageRating)) {
+        averageRating = parseFloat(averageRating.toFixed(1));
+      }
     }
     const responseBook = { ...book._doc, rating: averageRating };
 

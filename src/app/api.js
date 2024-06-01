@@ -82,6 +82,14 @@ export async function fetchAllProfile() {
   return data;
 }
 
+export async function fetchSuggestionProfile(userId, profileId) {
+  const response = await fetch(
+    `/api/profile/suggestion/${userId}/${profileId}`
+  );
+  const data = await response.json();
+  return data;
+}
+
 export async function fetchProfile(userId) {
   const response = await fetch(`/api/profile/${userId}`);
   const data = await response.json();
@@ -141,6 +149,46 @@ export async function fetchGetBookComment(bookId) {
 
 export async function fetchProfileBookPage(userId, page) {
   const response = await fetch(`/api/book/profile/${userId}/${page}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchFollowUser(token, userId, followId, action) {
+  const response = await fetch(`/api/follow/${userId}/${followId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "POST",
+    body: JSON.stringify({ action }),
+  });
+
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchGetFollowControl(userId, followId) {
+  const response = await fetch(`/api/follow/${userId}/${followId}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchFollowCount(userId) {
+  const response = await fetch(`/api/follow/count/${userId}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchFollowerViewData(userId, action, meId) {
+  const response = await fetch(`/api/follow/${action}/${userId}/${meId}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchFollowSearch(searchUser, userId, action) {
+  const response = await fetch(
+    `/api/follow/search/${searchUser}/${userId}/${action}`
+  );
   const data = await response.json();
   return data;
 }

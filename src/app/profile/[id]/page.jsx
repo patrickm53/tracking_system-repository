@@ -12,18 +12,29 @@ import Image from "next/image";
 import ProfilePost from "@/components/profilePost/ProfilePost";
 import person from "../../../../public/person.jpg";
 import background from "../../../../public/background2.jpg";
-import { fetchProfileBookPage, fetchProfile, fetchAllProfile } from "@/app/api";
+import {
+  fetchProfileBookPage,
+  fetchProfile,
+  fetchAllProfile,
+  fetchFollowUser,
+  fetchGetFollowControl,
+  fetchSuggestionProfile,
+} from "@/app/api";
 import Suggestion from "@/components/suggestion/Suggestion";
 import { ProfileImageControl } from "@/components/imageUndefined/ImageUndefined";
 import PaginationButton from "@/components/paginationBtn/PaginationButton";
+import Loading from "@/components/loading/Loading";
+import { ClipLoader, FadeLoader, PulseLoader } from "react-spinners";
+import FollowCount from "@/components/followPopup/FollowPopup";
 
 const Profile = (ctx) => {
-  const [suggestion, setSuggestion] = useState([]);
+  const [suggestion, setSuggestion] = useState(null);
   const [user, setUser] = useState("");
   const [books, setBooks] = useState([]);
   const [navbarSelect, setNavbarSelect] = useState("yayınlar");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [followControl, setFollowControl] = useState(null);
 
   const { data: session } = useSession(false);
 
@@ -61,27 +72,39 @@ const Profile = (ctx) => {
       // }
     }
     async function fetchSuggestion() {
-      if (suggestion.length > 1) {
+      if (suggestion?.length > 1 || !session || !ctx.params.id) {
         return;
       }
-      const users = await fetchAllProfile();
-      const filteredUser = users.filter(
-        (user) => user._id !== session?.user?._id
+      const users = await fetchSuggestionProfile(
+        session?.user?._id,
+        ctx.params.id
       );
-      const shuffledData = filteredUser.sort(() => Math.random() - 0.5);
-      const randomUsers = shuffledData.slice(0, 3);
-      setSuggestion(randomUsers);
+      setSuggestion(users);
     }
     fetchUser();
     fetchData();
     fetchSuggestion();
   }, [ctx, session, suggestion]);
 
+  useEffect(() => {
+    if (!session || !ctx.params.id) {
+      return;
+    }
+    async function fetchFollowControlUser() {
+      const getFollowControl = await fetchGetFollowControl(
+        session?.user?._id,
+        ctx.params.id
+      );
+      setFollowControl(getFollowControl);
+    }
+    fetchFollowControlUser();
+  }, [session, ctx]);
+
   const handleButtonClick = (buttonName) => {
     setNavbarSelect(buttonName);
   };
 
-  if (user.birthday) {
+  if (user?.birthday) {
     userBirthday = user.birthday.split("T")[0];
   }
 
@@ -102,6 +125,21 @@ const Profile = (ctx) => {
     localStorage.setItem("profileBooks", JSON.stringify(cachedData));
   }
 
+  async function handleFollow({ action }) {
+    if (action === "follow") {
+      setFollowControl(true);
+    } else if (action === "unfollow") {
+      setFollowControl(false);
+    }
+    const token = session?.user?.accessToken;
+    const response = await fetchFollowUser(
+      token,
+      session?.user?._id,
+      user._id,
+      action
+    );
+  }
+
   return (
     <div className={classes.container}>
       <div className={classes.imageContainer}>
@@ -113,22 +151,30 @@ const Profile = (ctx) => {
             heigh={100}
           />
           <div className={classes.navbar}>
-            <div className={classes.navbarLeft}>
-              <button
-                className={navbarSelect === "yayınlar" ? classes.active : ""}
-                onClick={() => handleButtonClick("yayınlar")}
-              >
-                Yayınlar
-              </button>
-              <button
-                className={navbarSelect === "yorumlar" ? classes.active : ""}
-                onClick={() => handleButtonClick("yorumlar")}
-              >
-                Yorumlar
-              </button>
+            <div>
+              <FollowCount userId={ctx.params.id} />
             </div>
             <div className={classes.navbarRight}>
-              {session?.user?._id !== user._id && <button>Takip Et</button>}
+              {session?.user?._id === ctx.params.id ||
+              followControl === null ? (
+                <></>
+              ) : followControl === false ? (
+                <button
+                  className={classes.followButton}
+                  onClick={() => handleFollow({ action: "follow" })}
+                >
+                  Takip Et
+                </button>
+              ) : followControl === true ? (
+                <button
+                  onClick={() => handleFollow({ action: "unfollow" })}
+                  className={classes.followingButton}
+                >
+                  Takiptesin
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
@@ -178,39 +224,62 @@ const Profile = (ctx) => {
             <p>{user.story}</p>
           </div>
         </div>
-        <div className={classes.post}>
-          {navbarSelect === "yayınlar" ? (
-            <div className={classes.postAndStory}>
-              {books === "dont" ? (
-                <div>kitap yok</div>
-              ) : books?.length > 0 ? (
-                books.map((book) => <ProfilePost key={book._id} book={book} />)
-              ) : (
-                <></>
-              )}
-              <PaginationButton
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onClick={fetchMoreBooks}
-                margin="mt-2 mb-10"
-              />
-            </div>
-          ) : (
-            ""
-          )}
-          {navbarSelect === "yorumlar" ? <div>yorumlar</div> : ""}
+        <div className={classes.middle}>
+          <div className={classes.headerTitle}>
+            <button
+              className={navbarSelect === "yayınlar" ? classes.active : ""}
+              onClick={() => handleButtonClick("yayınlar")}
+            >
+              Yayınlar
+            </button>
+            <button
+              className={navbarSelect === "yorumlar" ? classes.active : ""}
+              onClick={() => handleButtonClick("yorumlar")}
+            >
+              Yorumlar
+            </button>
+          </div>
+          <div className={classes.post}>
+            {navbarSelect === "yayınlar" ? (
+              <div className={classes.postAndStory}>
+                {books === "dont" ? (
+                  <div>kitap yok</div>
+                ) : books?.length > 0 ? (
+                  books.map((book) => (
+                    <ProfilePost key={book._id} book={book} />
+                  ))
+                ) : (
+                  <></>
+                )}
+                <PaginationButton
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onClick={fetchMoreBooks}
+                  margin="mt-2 mb-10"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            {navbarSelect === "yorumlar" ? <div>yorumlar</div> : ""}
+          </div>
         </div>
 
         {/* Takip önerisi kısmı */}
 
         <div className={classes.right}>
           <h2>Takip Önerisi</h2>
-          {suggestion?.length > 0 ? (
-            suggestion.map((user) => <Suggestion key={user._id} user={user} />)
+          {suggestion?.length > 0 && session ? (
+            suggestion.map((user) => (
+              <Suggestion key={user._id} user={user} session={session} />
+            ))
+          ) : suggestion?.length === 0 ? (
+            <></>
           ) : (
-            <div>öneriler yükleniyor...</div>
+            <div className={classes.loadingContainer}>
+              <FadeLoader size={50} color={"#bababa"} loading={true} />
+            </div>
           )}
-          <a>daha fazla</a>
         </div>
       </div>
     </div>

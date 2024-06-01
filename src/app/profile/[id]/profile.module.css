@@ -31,24 +31,23 @@
   padding-right: 50px;
 }
 
-.profileNavbar > .navbar > .navbarLeft > button {
-  margin-right: 30px;
-  font-weight: 700;
-  font-size: 20px;
-  padding: 5px 10px 5px 10px;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.navbarLeft > button:hover {
+.headerTitle > button:hover {
   background-color: #ccc;
 }
 
-.navbarLeft > .active {
+.headerTitle > .active {
   border-bottom: 1px solid #000;
 }
 
-.profileNavbar > .navbar > .navbarRight > button {
+.profileNavbar > .navbar > .navbarRight > .followButton {
   background-color: rgb(70, 70, 70);
+  padding: 5px 15px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.profileNavbar > .navbar > .navbarRight > .followingButton {
+  background-color: #6e6e6eb3;
   padding: 5px 15px;
   border-radius: 4px;
   color: #fff;
@@ -165,12 +164,27 @@
   cursor: pointer;
 }
 
-.post {
-  display: flex;
-  justify-content: center;
+.middle {
   width: 50%;
   margin-left: 20px;
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.middle > .headerTitle > button {
+  margin-right: 30px;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 5px 10px 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.post {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .postAndStory {
@@ -183,13 +197,20 @@
 .right {
   position: relative;
   width: 280px;
-  height: 360px;
+  height: 350px;
   margin-left: 25px;
   margin-top: 50px;
   border-radius: 10px;
   padding: 10px;
   background-color: #fff;
   box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+}
+
+.right > .loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .right > h2 {

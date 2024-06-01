@@ -1,0 +1,169 @@
+.followContainer {
+  display: flex;
+  gap: 40px;
+}
+
+.followButton {
+  font-size: 16px;
+  font-weight: 600;
+  color: #616161;
+}
+
+.followButton > span {
+  color: #000;
+}
+
+.modal {
+  position: relative;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 8px 9px 4px rgba(0, 0, 0, 0.25);
+  min-height: 600px;
+  max-height: 600px;
+  min-width: 400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #bdbdbd #f5f5f5;
+  border-radius: 10px;
+}
+
+.popup::-webkit-scrollbar {
+  width: 8px;
+}
+
+.popup::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+.popup::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 4px;
+}
+
+.popup::-webkit-scrollbar-thumb:hover {
+  background-color: #9e9e9e;
+}
+
+.followCard {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px 0 10px;
+  align-items: center;
+}
+
+.followCardHeader {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.followCardImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.followCardInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.followCardUsername {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+  max-width: 160px;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  scrollbar-width: none;
+  margin-top: 3px;
+}
+
+.followCardName {
+  font-size: 13px;
+  color: #616161;
+  margin-top: -3px;
+}
+
+.closeIcon {
+  font-size: 22px;
+  position: absolute;
+  font-weight: 900;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.followNavbar {
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.navbarHeader {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchIcons {
+  position: absolute;
+  left: 5px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #616161;
+}
+
+.searchBox > input {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  font-size: 16px;
+  padding-left: 40px;
+}
+
+.searchBox > input:focus {
+  outline: none;
+}
+
+.followButtonPopup {
+  background-color: rgb(70, 70, 70);
+  padding: 5px 15px;
+  border-radius: 4px;
+  color: #fff;
+  height: 40px;
+}
+
+.followingButtonPopup {
+  background-color: #6e6e6eb3;
+  padding: 5px 15px;
+  border-radius: 4px;
+  color: #fff;
+  height: 40px;
+}
+
+.popupLoading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
